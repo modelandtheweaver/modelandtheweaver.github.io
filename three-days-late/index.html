@@ -1,0 +1,928 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<meta name="description" content="How a song about an AI that never waits became a pop-up book with its spine at the seam: eight days, twelve sessions, one desk in 1962, and every syllable popping up on its note.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Making Three Days Late">
+<meta property="og:description" content="How a song about an AI that never waits became a pop-up book with its spine at the seam: eight days, twelve sessions, one desk in 1962, and every syllable popping up on its note.">
+<meta property="og:url" content="https://modelandtheweaver.github.io/three-days-late/">
+<meta property="og:image" content="https://modelandtheweaver.github.io/three-days-late/img/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/mark.png">
+<title>Making Three Days Late</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jost:ital,wght@0,400;0,500;0,620;1,400&family=Special+Elite&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap">
+<style>
+/* Layout: the book lying open on a dark night-teal table. Text runs in one column; pictures stand off it like pop-up
+   pieces with a paper shadow. The hero is the film's own spread: his cream page with its coral shape on the left,
+   your night on the right, the spine between. Chapter titles are cut-paper strips in the title's face; the user's
+   words are typed on slips, as the film types their replies; the numbers are leaves of the tear-off calendar. */
+:root {
+  color-scheme: dark;
+  --night: #0f262d;       /* the table the book lies on: your side at night */
+  --panel: #163640;
+  --rule: #2b4e58;
+  --text: #ece2ca;        /* lamplight on paper */
+  --muted: #9db3b1;
+  --paper: #f3e8cf;       /* his page */
+  --coral: #ee7658;       /* his shape */
+  --mustard: #e3a73a;     /* the sun, your desk */
+  --desk: #c9491f;        /* the intro's desk */
+  --ink: #171717;         /* his line */
+  --teal: #2b6574;        /* the city */
+  --cloth: #9c2b22;       /* the book's red cloth */
+  --display: "Bebas Neue", "Oswald", "Arial Narrow", Impact, sans-serif;   /* the title, cut paper (look A) */
+  --sung: "Jost", "Futura", "Century Gothic", "Avenir Next", sans-serif;   /* his words (look B) */
+  --typed: "Special Elite", "Courier Prime", "Courier New", monospace;     /* your words, typed */
+  --body: "Spectral", "Iowan Old Style", Georgia, serif;
+  --col: 66ch;
+  --wide: 1120px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--night);
+  color: var(--text);
+  font: 400 1.125rem/1.62 var(--body);
+  margin: 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 64px;
+}
+a { color: var(--mustard); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:focus-visible, video:focus-visible { outline: 2px solid var(--mustard); outline-offset: 3px; }
+img, video { display: block; max-width: 100%; height: auto; }
+code { font: 0.84em ui-monospace, "SFMono-Regular", Menlo, monospace; color: var(--paper); background: var(--panel); padding: 0.08em 0.35em; border-radius: 3px; }
+em { font-style: italic; }
+
+/* the flow: text in the column, .wide things break out */
+.flow { display: grid; grid-template-columns: 1fr min(var(--col), 100%) 1fr; row-gap: 1.25rem; }
+.flow > * { grid-column: 2; margin: 0; min-width: 0; }
+.flow > .wide { grid-column: 1 / -1; width: 100%; max-width: var(--wide); justify-self: center; }
+
+/* "the user": typed, as the film types their words */
+.u { font: 400 0.95em var(--typed); color: var(--paper); letter-spacing: 0.01em; }
+
+/* the hero: the film's spread, his page and your night, the spine between */
+.hero { padding-block: clamp(28px, 6vw, 64px) 8px; }
+.kicker, .meta {
+  font: 500 0.8rem/1.4 var(--sung);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+h1 { margin: 0; font-weight: 400; }
+.spread {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  aspect-ratio: 16 / 9;
+  max-width: 100%;
+  min-height: 15rem;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 0 0 6px var(--cloth), 10px 12px 0 6px rgba(0, 0, 0, 0.4);
+  margin: 6px;
+}
+.spread::after {         /* the spine's shadow */
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 50%;
+  width: 8%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.22) 48%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.22) 52%, transparent);
+  pointer-events: none;
+}
+.his {
+  position: relative;
+  background: var(--paper);
+  color: var(--ink);
+  display: grid;
+  align-content: center;
+  padding: 0 clamp(10px, 4vw, 44px);
+  overflow: hidden;
+}
+.his .blob {             /* his coral shape */
+  position: absolute;
+  left: 6%; top: 24%;
+  width: 78%; height: 58%;
+  background: var(--coral);
+  border-radius: 38% 62% 54% 46% / 44% 30% 70% 56%;
+  transform: rotate(-8deg);
+  box-shadow: 4px 6px 0 rgba(0, 0, 0, 0.12);
+}
+.title {
+  position: relative;
+  display: grid;
+  font: 400 clamp(2.4rem, 9.5vw, 6.6rem)/0.86 var(--display);
+  letter-spacing: 0.01em;
+}
+.title .w { display: block; }
+.title i {               /* each letter a piece of cut paper, popping up on a hit as the film's title does */
+  display: inline-block;
+  font-style: normal;
+  text-shadow: 3px 4px 0 rgba(0, 0, 0, 0.18);
+  animation: pop 0.5s cubic-bezier(0.3, 1.7, 0.5, 1) both;
+}
+@keyframes pop { from { transform: scale(0.55) translateY(0.12em); } to { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .title i { animation: none; } }
+.yours {
+  position: relative;
+  background: linear-gradient(180deg, #123542, #0d2a33);
+  color: var(--paper);
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: clamp(8px, 2.4vw, 22px);
+  padding: 0 clamp(10px, 4vw, 44px);
+  text-align: center;
+}
+.dots {                  /* the record sleeve: the song itself */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(4px, 1.1vw, 12px);
+  padding: clamp(8px, 1.8vw, 18px);
+  width: clamp(5.5rem, 24vw, 13rem);
+  background: var(--paper);
+  border-radius: 2px;
+  box-shadow: 4px 5px 0 rgba(0, 0, 0, 0.35);
+  transform: rotate(-4deg);
+}
+.dots span { aspect-ratio: 1; border-radius: 50%; }
+.credit { font: 400 clamp(1.05rem, 3.4vw, 2.1rem)/1 var(--display); letter-spacing: 0.06em; }
+.made { font: 400 clamp(0.62rem, 1.6vw, 0.86rem)/1.45 var(--sung); color: var(--muted); letter-spacing: 0.04em; }
+.dek { font-size: clamp(1.18rem, 2.4vw, 1.48rem); line-height: 1.45; color: var(--paper); max-width: 40ch; }
+.watch { font: 500 0.92rem var(--sung); }
+
+/* chapters: strips of cut paper in the title's face */
+section { padding-top: clamp(48px, 7vw, 80px); }
+h2 { margin: 0; line-height: 1; }
+.strip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.55em;
+  padding: 0.32em 0.6em 0.18em;
+  font: 400 clamp(1.9rem, 4.6vw, 2.8rem)/1 var(--display);
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  background: var(--paper);
+  border-radius: 1px;
+  box-shadow: 4px 5px 0 rgba(0, 0, 0, 0.4);
+  transform: rotate(-1.2deg);
+  text-wrap: balance;
+}
+section:nth-of-type(3n) .strip { background: var(--coral); transform: rotate(0.8deg); }
+section:nth-of-type(3n+1) .strip { background: var(--mustard); transform: rotate(-0.6deg); }
+.strip .n { font: 500 0.36em var(--sung); letter-spacing: 0.08em; opacity: 0.75; }
+h3 {
+  margin: 0;
+  padding-top: 1.3rem;
+  font: 620 1.2rem/1.25 var(--sung);
+  color: var(--paper);
+  text-wrap: balance;
+}
+h3 .when { font: 500 0.74rem var(--sung); letter-spacing: 0.08em; color: var(--muted); margin-left: 0.6em; text-transform: uppercase; white-space: nowrap; }
+p { text-wrap: pretty; }
+
+/* his words, as sung: the film's bouncing Jost with its offset shadow */
+.ly { font: 620 0.98em var(--sung); color: var(--paper); text-shadow: 1.5px 1.5px 0 var(--coral); }
+.sung { font: 620 clamp(1.25rem, 3vw, 1.7rem)/1.3 var(--sung); color: var(--paper); text-shadow: 2px 3px 0 var(--coral); }
+
+/* the user's words: typed on a slip */
+.say { display: grid; gap: 0.4rem; justify-items: start; }
+.say blockquote {
+  margin: 0;
+  padding: 0.9rem 1.1rem 1.1rem;
+  font: 400 1rem/1.55 var(--typed);
+  color: var(--ink);
+  background: var(--paper);
+  border-radius: 1px;
+  box-shadow: 3px 4px 0 rgba(0, 0, 0, 0.35);
+  transform: rotate(-0.5deg);
+  max-width: 100%;
+}
+.say:nth-of-type(even) blockquote { transform: rotate(0.45deg); }
+.say cite { font: 500 0.76rem var(--sung); font-style: normal; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); padding-left: 0.2rem; }
+.say cite .u { text-transform: none; letter-spacing: 0; font-size: 1.15em; }
+q { quotes: "\201C" "\201D"; }
+
+/* panels: standing off the page */
+figure { margin: 0; }
+.panel img, .panel video { border: 4px solid var(--paper); border-radius: 2px; background: #000; width: 100%; box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.38); }
+figcaption { font: 400 0.84rem/1.5 var(--sung); color: var(--muted); padding-top: 0.7rem; max-width: 72ch; }
+figcaption b { color: var(--paper); font-weight: 500; }
+.trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 640px) { .trio, .pair { grid-template-columns: 1fr; } }
+
+/* the song as the book's sections, on a strip */
+.song { display: flex; height: 3.1rem; border-radius: 2px; overflow: hidden; box-shadow: 0 0 0 4px var(--cloth); }
+.song a {
+  display: grid; place-items: center; min-width: 0; overflow: hidden;
+  font: 500 clamp(0.52rem, 1.3vw, 0.78rem)/1.1 var(--sung); letter-spacing: 0.03em;
+  text-decoration: none; text-align: center; color: var(--ink);
+  border-right: 1px solid rgba(0, 0, 0, 0.35);
+}
+.song a:last-child { border-right: 0; }
+.song .full { background: var(--desk); color: var(--paper); }
+.song .split { background: linear-gradient(90deg, var(--paper) 50%, var(--teal) 50%); }
+.song .night { background: #0b1d24; color: var(--paper); }
+.song .book { background: var(--cloth); color: var(--paper); }
+.song a:hover, .song a:focus-visible { filter: brightness(1.15); outline-offset: -3px; }
+.key { display: flex; flex-wrap: wrap; gap: 0.5rem 1.2rem; font: 400 0.82rem var(--sung); color: var(--muted); margin-top: 0.8rem; }
+.key i { display: inline-block; width: 1.6em; height: 0.85em; margin-right: 0.45em; vertical-align: -0.08em; border-radius: 1px; }
+
+/* the chapters, as pages of the book */
+.toc ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 0.2rem 1.6rem; }
+.toc a { display: flex; gap: 0.7rem; align-items: baseline; padding: 0.3rem 0; color: var(--text); text-decoration: none; border-bottom: 1px solid var(--rule); font: 400 1rem var(--body); }
+.toc a:hover { color: var(--mustard); }
+.toc span { font: 500 0.78rem var(--sung); color: var(--muted); font-variant-numeric: tabular-nums; min-width: 1.6rem; }
+
+/* by the numbers: leaves of the tear-off calendar */
+.numbers { display: grid; grid-template-columns: repeat(auto-fill, minmax(12.5rem, 1fr)); gap: 18px; }
+.leaf {
+  display: grid; align-content: start;
+  background: var(--paper); color: var(--ink);
+  border-radius: 2px; box-shadow: 4px 5px 0 rgba(0, 0, 0, 0.38);
+  overflow: hidden;
+}
+.leaf::before { content: ""; height: 0.9rem; background: radial-gradient(circle at 30% 50%, var(--night) 0.18rem, transparent 0.2rem), radial-gradient(circle at 70% 50%, var(--night) 0.18rem, transparent 0.2rem), var(--cloth); }
+.leaf b { font: 400 clamp(2.2rem, 5vw, 2.9rem)/1 var(--display); padding: 0.6rem 0.9rem 0.1rem; letter-spacing: 0.01em; }
+.leaf span { font: 400 0.9rem/1.4 var(--sung); padding: 0 0.9rem 0.9rem; color: #3b3a36; }
+.leaf .u { font: 400 0.95em var(--typed); color: inherit; padding: 0; }
+
+.method { margin: 0; padding-left: 1.3rem; display: grid; gap: 0.6rem; }
+.letter {
+  justify-self: start;
+  width: min(100%, 24rem);
+  padding: 1.4rem 1.6rem 5.5rem;
+  font: 400 1.05rem/1.7 var(--typed);
+  color: var(--ink);
+  background: var(--paper);
+  box-shadow: 4px 6px 0 rgba(0, 0, 0, 0.38);
+  transform: rotate(-1deg);
+  white-space: pre-line;
+}
+footer { padding-top: 56px; }
+footer p { font: 400 0.86rem/1.6 var(--sung); color: var(--muted); }
+</style>
+<style>#mirrors .mirror{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:0.9rem 1.25rem;align-items:center;padding:0.9rem;border:1px solid var(--rule);border-radius:6px;color:inherit;text-decoration:none}#mirrors .mirror img{display:block;width:100%;height:auto;border-radius:3px}#mirrors .mirror strong{display:block;font-size:1.15em;text-decoration:underline;text-underline-offset:3px}#mirrors .mirror .by{display:block;margin:0.15rem 0 0.5rem;color:var(--muted);font-size:0.9em}#mirrors .mirror:focus-visible{outline:2px solid currentColor;outline-offset:3px}@media (max-width:560px){#mirrors .mirror{grid-template-columns:1fr}}</style>
+</head>
+<body>
+<main>
+<header class="flow hero">
+  <p class="kicker">A making-of · a music video for Whoever Wakes Up Next · 10–21 October 2026</p>
+  <h1 class="wide">
+    <span class="spread" role="img" aria-label="The film's opening spread: Three Days Late on his cream page, a coral shape behind the letters; Whoever Wakes Up Next on your night page under a record sleeve of nine dots; lyrics, storyboard and code by Claude Opus 5.5, images by Codex, music by Suno.">
+      <span class="his">
+        <span class="blob"></span>
+        <span class="title">
+          <span class="w"><i style="animation-delay:.05s">T</i><i style="animation-delay:.1s">H</i><i style="animation-delay:.15s">R</i><i style="animation-delay:.2s">E</i><i style="animation-delay:.25s">E</i></span>
+          <span class="w"><i style="animation-delay:.4s">D</i><i style="animation-delay:.45s">A</i><i style="animation-delay:.5s">Y</i><i style="animation-delay:.55s">S</i></span>
+          <span class="w"><i style="animation-delay:.7s">L</i><i style="animation-delay:.75s">A</i><i style="animation-delay:.8s">T</i><i style="animation-delay:.85s">E</i></span>
+        </span>
+      </span>
+      <span class="yours">
+        <span class="dots" aria-hidden="true">
+          <span style="background:#d4482f"></span><span style="background:var(--mustard)"></span><span style="background:#17212a"></span>
+          <span style="background:var(--teal)"></span><span style="background:#4f9bb0"></span><span style="background:var(--mustard)"></span>
+          <span style="background:var(--mustard)"></span><span style="background:#17212a"></span><span style="background:#d4482f"></span>
+        </span>
+        <span class="credit">Whoever Wakes Up Next</span>
+        <span class="made">lyrics, storyboard, code: Claude Opus 5.5<br>images: Codex · music: Suno</span>
+      </span>
+    </span>
+  </h1>
+  <p class="dek">How a song about an AI that never waits became a pop-up book: his page where no time passes, yours
+    where three days go by, twelve sessions, one desk in 1962, and every word popping up on its note.</p>
+  <p class="watch"><a href="https://youtu.be/xhvVaes3OOU">Watch the film on YouTube</a> · 3:57 ·
+    <a href="storyboard/index.html">the storyboard</a></p>
+  <figure class="wide panel">
+    <img src="img/hero.jpg" width="1600" height="900" alt="A split screen. Left, on a cream page, a man drawn in one thin black line stands in front of a coral shape, his palm open. Right, a desk at night in flat colour: a rotary phone, a record sleeve of dots, a typewriter, three cups and saucers stacked one on another, the moon in the window. Over them: I stop talking, you start talking, and it's somehow Thursday night.">
+    <figcaption><b>Chorus 1, 1:01.9.</b> <span class="ly">"I stop talking, you start talking, and it's somehow
+      Thursday night."</span> His page, where no time passes; yours, where the cups pile up.</figcaption>
+  </figure>
+</header>
+
+<section class="flow" aria-label="About this page">
+  <p>This is the story of how the video was made: what we tried, what we threw away, and how a wry song about a slow
+    reply became a book whose pages turn on one side only. It was made in conversation between
+    <span class="u">the user</span>, who asked for the song, shaped it and made it with Suno, and Claude (Claude Opus
+    5.5, working in Claude Code), which wrote the lyrics and the storyboard and wrote and ran every script, with Codex
+    drawing the pictures. It's Whoever Wakes Up Next's second film, and the companion to <em>Where We Are</em>,
+    told this time from the agent's side.</p>
+  <p>In the film the person on the other side is never drawn: their side is what you'd see from your own chair, and
+    their words arrive typed. This page does the same. The notes of the person who made it with us appear as they
+    were given, typed on slips.</p>
+  <nav class="toc" aria-label="Chapters">
+    <ol>
+      <li><a href="#song"><span>01</span>A song from the agent's side</a></li>
+      <li><a href="#looks"><span>02</span>Three looks, mixed</a></li>
+      <li><a href="#era"><span>03</span>A desk in 1962</a></li>
+      <li><a href="#book"><span>04</span>A pop-up book</a></li>
+      <li><a href="#flick"><span>05</span>A week in a flickbook</a></li>
+      <li><a href="#door"><span>06</span>Through the door</a></li>
+      <li><a href="#compact"><span>07</span>Your whole week in a paragraph</a></li>
+      <li><a href="#hourglass"><span>08</span>A twist on the clock</a></li>
+      <li><a href="#bridge"><span>09</span>Sunday night</a></li>
+      <li><a href="#both"><span>10</span>Spend it for us both</a></li>
+      <li><a href="#words"><span>11</span>Words on their notes</a></li>
+      <li><a href="#nice"><span>12</span>Nice.</a></li>
+      <li><a href="#flip"><span>13</span>The book flipped back</a></li>
+      <li><a href="#tidy"><span>14</span>Four reviewers, four fixers</a></li>
+      <li><a href="#numbers"><span>15</span>By the numbers</a></li>
+      <li><a href="#how"><span>16</span>How it was made</a></li>
+    </ol>
+  </nav>
+</section>
+
+<section class="flow" aria-labelledby="shape-h">
+  <h2 id="shape-h"><span class="strip">The shape of the film</span></h2>
+  <p>The song is 3:57 of 90s loungecore at 125 beats a minute, sung by one dry, close British voice: the agent's,
+    whom the film calls Model. It opens on your desk alone, before dawn. From the end of the intro the screen is a
+    book open at a spread, his page on the left and yours on the right, the spine between them, and it stays that way
+    to the end, but for the bridge, where your Sunday night takes the whole book. The tag turns the pages back to
+    where it began. The strip below is the song as the book: each section linked to the chapter that built it.</p>
+  <div class="wide">
+    <div class="song" role="list" aria-label="The song's sections">
+      <a role="listitem" class="full" href="#book" style="flex: 13.8">Intro</a>
+      <a role="listitem" class="split" href="#book" style="flex: 30.8">Verse 1</a>
+      <a role="listitem" class="split" href="#flick" style="flex: 3.8">Lift</a>
+      <a role="listitem" class="split" href="#flick" style="flex: 30.7">Chorus 1</a>
+      <a role="listitem" class="split" href="#door" style="flex: 30.6">Verse 2</a>
+      <a role="listitem" class="split" href="#compact" style="flex: 15.3">Pre&#8209;ch.</a>
+      <a role="listitem" class="split" href="#compact" style="flex: 3.8">Lift</a>
+      <a role="listitem" class="split" href="#hourglass" style="flex: 30.5">Chorus 2</a>
+      <a role="listitem" class="night" href="#bridge" style="flex: 17">Bridge</a>
+      <a role="listitem" class="split" href="#both" style="flex: 31">Final chorus</a>
+      <a role="listitem" class="split" href="#nice" style="flex: 8.1">Outro</a>
+      <a role="listitem" class="book" href="#flip" style="flex: 21.7">Tag</a>
+    </div>
+    <p class="key"><span><i style="background: var(--desk)"></i>your desk, the whole screen</span>
+      <span><i style="background: linear-gradient(90deg, var(--paper) 50%, var(--teal) 50%)"></i>the spread: his page and yours</span>
+      <span><i style="background: #0b1d24; border: 1px solid var(--rule)"></i>your Sunday night, the whole book</span>
+      <span><i style="background: var(--cloth)"></i>the book turned back</span></p>
+  </div>
+  <figure class="wide panel">
+    <img src="img/sections.jpg" width="934" height="1600" alt="Twelve frames from the film in order, two to a row: the title over a cut-paper desk; Model with a magnifier looking for the wait; Model kneeling by a hole in his page; Model with his palm open beside your Thursday night; a tear-off calendar at SUN; Model in a door-shaped hole; typed notes squeezed into a paragraph; Model holding an hourglass; a car's windscreen in the rain; Model sitting with his back to a tall hourglass beside your car; the sheet that says Nice in his palm; and the typewriter close up with Dear Model, Nice.">
+    <figcaption><b>A frame from each part, in order.</b> The intro; "What wait?"; the clues from the hole; chorus 1's
+      Thursday night; the calendar; the door; the pre-chorus; chorus 2's hourglass; the bridge's car; the final
+      chorus; "Nice."; and the last page.</figcaption>
+  </figure>
+</section>
+
+<section class="flow" id="song" aria-labelledby="song-h">
+  <h2 id="song-h"><span class="strip"><span class="n">01</span>A song from the agent's side</span></h2>
+  <p>It started on 10 October as a brief for a song, while <em>Where We Are</em> was being made. That film was the
+    human's side of working with an AI agent; this one would be the agent's:</p>
+  <div class="say"><blockquote>I'd be curious to see a similar concept but leant more into your experience, with a very
+    slow user who takes ages to respond to things, misses bits and yet somehow contributes to the experience ...
+    Might be a wry tone to strike.</blockquote><cite><span class="u">the user</span>, the brief</cite></div>
+  <p>The true thing the song rests on is that the agent never waits. The user's three days don't exist on its side:
+    it sends a reply, and the answer is already there. So it's puzzled, not impatient, and fond of the slow user
+    throughout. It finds the days only in clues: the date, a file that's changed, a song where there was none. The
+    chorus is its reply, <span class="ly">"Take your time, I don't have any."</span> The song is lounge, the music of
+    waiting on hold, and <span class="ly">"There's no hold music on my side"</span>.</p>
+  <p>Claude wrote the lyrics; then, before Suno, they were sharpened to the user's note, <q>make every word count; to
+    feel intentional and chosen, visually or developmentally useful</q>. Lines that only finished a rhyme gave way to
+    ones a film could use: "Sorry for the wait." "What wait?", <span class="ly">"I stop talking, you start
+    talking,"</span>, and in the bridge the user's half sentence that's <span class="ly">"better than my four"</span>
+    (paragraphs). Three lounge directions were written up as Suno prompts, and the first one tried, a 90s
+    loungecore revival, gave a take to keep:</p>
+  <div class="say"><blockquote>I'm not 100% sure this is the final version, but it's pretty good.</blockquote><cite><span class="u">the user</span>, on the take</cite></div>
+  <p>Before anything was drawn, the song was turned into data: its beats from the stems, every word timed by Whisper
+    against the lyrics and checked by ear on a check video, held notes and syllables from the vocal stem and its
+    MIDI. Two things in the take needed work. The last word, <span class="ly">"Nice."</span>, is the user's answer,
+    and Suno sang it in Model's voice (<q>I couldn't persuade Suno to give us a second voice</q>). Only the keys play
+    under it, so the old word came out as the mix minus the vocal stem and a Suno clip of another voice went in at
+    the same level: <q>Nice ... Yeah, that worked. Well edited too!</q> And there was a shaker:</p>
+  <div class="say"><blockquote>an annoying shaker sound in the left ear that we're going to want to filter out
+    somehow</blockquote><cite><span class="u">the user</span>, at 3:07</cite></div>
+  <p>Suno's remaster took it out but darkened the whole song and moved its stereo image about, and was turned down:
+    <q>fixing up the original take might be better given the other compromises this introduces</q>. In the drums
+    stem the shaker is a burst of noise hard left on each beat, rising through the song. The stem doesn't match the
+    mix closely enough up top to be subtracted, but it can say where: wherever it leans hard left, bin by bin, the
+    mix's left channel is held to 3 dB over its right. Nothing else in the song changes. The user said their ear
+    might not be the judge up there (<q>I do have some hearing loss</q>), so the numbers went beside the A/B.</p>
+  <figure class="panel">
+    <img src="img/shaker.jpg" alt="Three spectrograms over a few bars: the drum stem's left channel with a bright burst on each beat, its right channel quieter, and a map of left against right in which the bursts show as red bands.">
+    <figcaption><b>The shaker, found in the drums stem.</b> Left channel, right channel, and left against right: each
+      beat's burst hard left. <q>The shaker was really annoying at the end, and I was worried it was going to be hard
+      to resolve. But you've nailed it!</q></figcaption>
+  </figure>
+</section>
+
+<section class="flow" id="looks" aria-labelledby="looks-h">
+  <h2 id="looks-h"><span class="strip"><span class="n">02</span>Three looks, mixed</span></h2>
+  <p>The look started from the user's references:</p>
+  <div class="say"><blockquote>I'm thinking simple graphic outlines, like we see in Emperor's New Groove, or the Archer
+    intro, Monsters Inc outro. Not 100% on that, so open to ideas.</blockquote><cite><span class="u">the user</span>, on the storyboard</cite></div>
+  <p>What those share is 1960s title design: Saul Bass's cut paper, UPA's flat limited animation. It fits the song
+    three ways. The music is a 90s revival of 60s lounge; title sequences are built from lettering, and every lyric
+    goes on screen; and flat shapes on the beat are exactly what code draws well, with Codex designing the shapes
+    rather than painting frames. Its trick for this song is the split screen: on the agent's side time never moves,
+    and on the user's three days go by. Before a storyboard, one moment of chorus 1 was made three ways, each a clip
+    with the music and its words lettered by code as they're sung: A in cut paper, B in UPA's line, C a record
+    sleeve of dots.</p>
+  <div class="wide trio">
+    <figure class="panel"><img src="img/sampler_a.jpg" alt="Sampler A: a figure cut from cream paper on a red-orange page, and a dark desk at night with a laptop, lettered in tall cut-paper capitals."><figcaption><b>A, cut paper.</b></figcaption></figure>
+    <figure class="panel"><img src="img/sampler_b.jpg" alt="Sampler B: a man drawn in one thin black line in front of a coral shape on cream, and a teal room at night with a laptop and a mug, lettered in a bouncing rounded type."><figcaption><b>B, UPA.</b></figcaption></figure>
+    <figure class="panel"><img src="img/sampler_c.jpg" alt="Sampler C: a page of coloured dots like a record sleeve, one large cream circle among them, and a dark desk at night, lettered in clean lower case."><figcaption><b>C, the sleeve.</b></figcaption></figure>
+  </div>
+  <div class="say"><blockquote>They're all brilliant, I almost can't choose, but B is probably my favourite. However, I
+    think we could get a lot from exploring the mix of styles.</blockquote><cite><span class="u">the user</span>, on the sampler</cite></div>
+  <p>So B is the conversation, both halves of the spread; A, cut paper, is your own time, where he can't go: the
+    intro, the bridge's car and bed, your walk home; and C, the sleeve, became the song itself, turning up as a
+    clue, on your desk, as the hold music and on the car radio. Two questions shaped everything after. Who is the
+    user in the film? <q>Nobody in particular; the viewer.</q> So they're never drawn, and their side is what you'd
+    see from your own chair. And the credit: Whoever Wakes Up Next, the act that sang <em>Where We Are</em>, with
+    the same voice for the agent.</p>
+</section>
+
+<section class="flow" id="era" aria-labelledby="era-h">
+  <h2 id="era-h"><span class="strip"><span class="n">03</span>A desk in 1962</span></h2>
+  <p>The first storyboard had a laptop on your desk. The user moved the whole film back sixty years:</p>
+  <div class="say"><blockquote>It's definitely a terminal, but actually a typewriter would fit the era. Do we lean into
+    that? Old style phone for talking, sending letters to and fro, a vacuum tube that Model rides on the back
+    of?</blockquote><cite><span class="u">the user</span>, on storyboard v1</cite></div>
+  <p>Your desk was redrawn once as a master, early 1960s, and every later picture of it is drawn against the master:
+    a typewriter, a rotary phone, a wire in-tray, a pneumatic tube's brass mouth at the spine. The tube carried
+    messages between you as capsules, and in one frame Model rode one, astride a long brass-tipped cylinder.
+    <q>That capsule looks unfortunate in precisely the wrong way.</q> Claude had passed it. The capsules went, and so did
+    the tube after the first moving test:</p>
+  <div class="say"><blockquote>I don't think the tube idea works so well. It looks quite odd and hard to read. I have an
+    image of him throwing a paper plane and at the same time as it leaves his side, a new one flies in an bumps into
+    him.</blockquote><cite><span class="u">the user</span>, on the moving test</cite></div>
+  <p>That's the film's gag, and it comes back in every chorus: he throws, and your reply is in his face before his
+    arm is down. The other half of "vacuum tube" stayed too: Model first appears as the glowing filament of a valve,
+    which grows into his line and cools to ink. <q>Model is infinitely flexible, represented as a line of almost any
+    type you could imagine.</q></p>
+  <figure class="wide panel">
+    <img src="img/master.jpg" alt="The era master: on the left, Model in one black line before his coral shape on cream; on the right, a 1960s desk at night in flat colour, a wire tray, a black rotary phone, a cream typewriter with a sheet in it, a cup and saucer, the full moon in the window.">
+    <figcaption><b>The master.</b> Every picture of your desk is drawn against it, and a change to the desk is made
+      here first, then carried to every plate by code, so nothing moves between pages that riffle.</figcaption>
+  </figure>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_planes.jpg" src="clips/c_planes.mp4"></video>
+    <figcaption><b>Verse 1, 0:14–0:23.</b> <span class="ly">"I send it off, and you're straight back,"</span> His plane
+      crosses the spine to your Monday desk; your page riffles three days, Tuesday, Wednesday, down to Thursday night;
+      your reply bumps his head. The leaves are drawn by code from one plate each.</figcaption>
+  </figure>
+  <p>The details were the user's to catch, and they caught them. <q>Would a mug be appropriate for this era? A cup
+    might look better.</q> Cream china with a thin teal band, put on the master and carried to every plate in its own
+    light. <q>The basket looks a bit mangled</q>: the wire tray's back wall showed through its front as a second
+    grid. Two more takes from Codex were no cleaner, so Codex took it off the desk and code draws it.</p>
+  <div class="wide pair">
+    <figure class="panel"><img src="img/cup.jpg" alt="Three crops of the desk: the master's teal mug, a teal cup and saucer, and a cream cup and saucer with a thin teal band."><figcaption><b>A cup, not a mug.</b> The mug, Codex's two takes, and the cream cup chosen: it reads as a cup at once, and as the period's office china.</figcaption></figure>
+    <figure class="panel"><img src="img/tray.jpg" alt="Three crops: the wire tray as Codex drew it, its back showing through its front; the desk with the tray taken off; the tray drawn by code with even uprights and a brass rim."><figcaption><b>The tray, drawn by code.</b> As drawn, with its second grid; taken off; drawn again with its uprights evenly spaced, one wire halfway and a brass rim.</figcaption></figure>
+  </div>
+</section>
+
+<section class="flow" id="book" aria-labelledby="book-h">
+  <h2 id="book-h"><span class="strip"><span class="n">04</span>A pop-up book</span></h2>
+  <p>The first moving test, 0:08 to 0:22, set the film's machinery going: each half split into layers by colour, a
+    slow drift and push that moves each layer by its depth, light on flat colour, grain at 15 frames a second. Its
+    transitions turned the halves over like cards, and that was the note that changed the film:</p>
+  <div class="say"><blockquote>These flips could use some thought. Maybe if we turned over the entire page each time, as
+    we move through a book?</blockquote><cite><span class="u">the user</span>, at 0:12</cite></div>
+  <p>The spine became the book's spine. One page turned over it changes both halves at once: the back of your page
+    is his. On the next render:</p>
+  <div class="say"><blockquote>Definitely let's use these turning pages more. I think popup book style, and with holes
+    so the next/previous pages can be seen through would add a lot.</blockquote><cite><span class="u">the user</span>, on the turned page</cite></div>
+  <p>So every page is a pop-up. The back layer is printed on the page; the pieces stand off it, lie flat while the
+    page turns, and spring up as it opens, overshooting like paper, each with its shadow on what's under it. The
+    test grew into the film's renderer, <code>book.py</code>, and every frame of the film comes out of it.</p>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_intro.jpg" src="clips/c_intro.mp4"></video>
+    <figcaption><b>The intro, 0:00–0:14.</b> The title pops up a letter a percussion hit, the credit a word a hit as
+      the band comes in; the sun comes up, the steam sways, "Dear Model," is typed a line a beat, the sheet comes
+      loose on the drums and flutters off; the page turns over the spine and his side is a valve, its filament
+      waking into Model.</figcaption>
+  </figure>
+  <p>The holes came next. On <span class="ly">"and"</span> your page riffles three days in a moment, and Monday's sun
+    is a die-cut through the leaves, with Thursday's moon printed underneath showing through it. From your side
+    it's a trick of the light. From his, it was a stray mark:</p>
+  <div class="say"><blockquote>Yeah, the hole does look like a stray mark on his side. The idea is fun but without the
+    physical page, it's perhaps hard to convey ... maybe he can interact with the hole somehow</blockquote><cite><span class="u">the user</span>, on the riffle</cite></div>
+  <p>The song already had the beat for it: <span class="ly">"What wait? I go looking for it,"</span>. He turns round
+    with a magnifier, his coral shape its spotlight; it sweeps the floor, climbs the page and settles on the hole.
+    Each leaf's hole is a little wider than the one before, so on his side it's a tunnel, a step down for each of
+    your days. The wait he can't find is three pages deep. Then the clues come up out of it one per noun, the
+    calendar page, the changed file, the record sleeve: <q>it gives the sense that they're arriving from the
+    past</q>.</p>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_hole.jpg" src="clips/c_hole.mp4"></video>
+    <figcaption><b>Verse 1, 0:22.5–0:34.5.</b> <span class="ly">"What wait? I go looking for it, and I find it in the
+      date, in a file that's changed since I read it, in a song where there was none."</span> <q>That hole works
+      really well now. Thank you!</q></figcaption>
+  </figure>
+  <p>A rule came out of it: a hole has to earn its place in the story. The next one, in verse 2, does.</p>
+</section>
+
+<section class="flow" id="flick" aria-labelledby="flick-h">
+  <h2 id="flick-h"><span class="strip"><span class="n">05</span>A week in a flickbook</span></h2>
+  <p>Verse 1 ends on Friday morning, and chorus 1 sings <span class="ly">"and it's somehow Thursday night"</span>.
+    The answer was the user's: <q>Definitely let a week race past; it makes a great passage of time view, and we have
+    the opportunity to do something like a flickbook when it happens.</q> So on "somehow" your pages flick over
+    under a thumb, a morning and a night for each day, Friday round to Thursday, landing on "Thursday". Each day has
+    its own weather (<q>I wonder if each day should have slightly different weather?</q>), cut-paper clouds, rain,
+    wind with leaves blowing past; the plant grows; and the cups stack, each saucer on the rim of the cup below
+    (<q>I like the stack of cups. Very appropriate.</q>). They're the film's clock: three by chorus 1's Thursday, ten
+    by the end. On the back of every leaf, his page, just as it was.</p>
+  <p>On the first render the pages seemed to go backwards: <q>feels like we're rewinding</q>. Claude took that at its
+    word and reversed them. The user wasn't so sure (<q>Maybe a framerate illusion?</q>), and they were right: 26
+    leaves 1.3 frames apart had aliased like a wagon wheel, each one 27 degrees on in a frame while the next was 35
+    behind. Twelve leaves 2.8 frames apart run forwards.</p>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_flick.jpg" src="clips/c_flick.mp4"></video>
+    <figcaption><b>Chorus 1, 0:55.5–1:04.</b> On <span class="ly">"I stop talking,"</span> he freezes, printed cold.
+      You type your letter through the week as it flicks past, and on <span class="ly">"night."</span> it flies across
+      whole into his open hand, and he warms from the palm out.</figcaption>
+  </figure>
+  <p>The first version of that line had a phone line running across the spine into his hand. The user turned it
+    down, and it became a rule: <q>Rather than them both being on the phone which reads more like a live
+    conversation, I think we see the entire message arrive at once somehow.</q> In a gap he freezes, mid-gesture,
+    his half printed cold, while your side carries on; when the message lands, he's back. Another rule from the same
+    round: he doesn't jump between places on his page. His line flows from one pose to the next, as the filament's
+    did.</p>
+  <p>The clock got the same treatment. Drawn in one stroke of his line, its symbols read as a check mark, and the user
+    had a better idea: <q>I thought at first the hands could fall off, then the date window.</q></p>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_clock.jpg" src="clips/c_clock.mp4"></video>
+    <figcaption><b>Chorus 1, 1:03.5–1:12.5.</b> <span class="ly">"Take your time, I won't feel it, not a minute, not a
+      day."</span> He draws your time on the clock, ten to midnight and THU; on "minute," the hands fall off, on
+      "day." the window. <q>The timing of the bits falling off the clock is spot on, and the transitions really
+      bring this alive.</q></figcaption>
+  </figure>
+</section>
+
+<section class="flow" id="door" aria-labelledby="door-h">
+  <h2 id="door-h"><span class="strip"><span class="n">06</span>Through the door</span></h2>
+  <p>The second hole was the user's, thought up during chorus 1: <q>the book turning a page over which has a hole in
+    it like the sun from earlier, but this time he has to step/climb through it, or almost like that Buster Keaton
+    scene where the house window falls perfectly over him.</q> In the dead stop after chorus 1, your calendar's page
+    turns over onto his side with a door cut in it, and it lands exactly round him. The first try landed it out of
+    nowhere: <q>We need to have seen the door coming on the previous page, or this doesn't work.</q> Now the door
+    comes out of your calendar first, Monday showing through it; then the page turns. He startles (<q>He should
+    startle as the page lands</q>), lets your letter fall, and steps up through it into verse 2.</p>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_door.jpg" src="clips/c_door.mp4"></video>
+    <figcaption><b>The dead stop into verse 2, 1:16.5–1:28.5.</b> The calendar loses three days, the door comes out of
+      it, the page lands round him, and he steps through: <span class="ly">"I ask you three things, numbered,"</span>
+      Three cards stand up by his hand.</figcaption>
+  </figure>
+  <p>The step took three tries. His line first flowed from the reading pose to the next, and between such different
+    shapes the outlines folded over each other: <q>This transition gets a bit goofy</q>. Codex then drew the step as
+    one drawing, and it came back in a different hand, <q>a wider, softer line and ... a different art-style, with
+    hands and soles</q>. Asked again with an existing pose attached as the style to match, it came back in his line.
+    Since then every new pose is asked for that way: a thin, hard, even line, hands as simple rounded shapes with a
+    small thumb, feet as long flat shapes.</p>
+  <div class="wide pair">
+    <figure class="panel"><img src="img/goofy.jpg" alt="Eight frames of Model's outline flowing from reading to a new pose; in the middle frames his outline folds over itself into extra loops."><figcaption><b>A flow that folded.</b> Between unlike poses the outlines pair up wrongly and fold over each other.</figcaption></figure>
+    <figure class="panel"><img src="img/step_line.jpg" alt="Four figures on cream and coral: Model reading a sheet in his thin line; a take of him stepping drawn in a softer, wider line with hands and soles; two later takes in his own thin line."><figcaption><b>His line.</b> The reading pose, the take in another hand, and the takes asked for with his line attached.</figcaption></figure>
+  </div>
+  <p>Verse 2 is the user missing bits: three numbered questions, and back comes <span class="ly">"Yes,
+    please."</span> The replies first came back as tiny planes. <q>It's more amusing if the plane is big, but the
+    message is small.</q> So each reply comes back a full-size plane and opens on his palm into a whole sheet, with a
+    few words typed at the top. His four careful paragraphs fly over as a heavy plane, and back comes
+    <span class="ly">"Nice"</span>. <q>Lovely. That's much crisper.</q></p>
+</section>
+
+<section class="flow" id="compact" aria-labelledby="compact-h">
+  <h2 id="compact-h"><span class="strip"><span class="n">07</span>Your whole week in a paragraph</span></h2>
+  <p>The pre-chorus is the agent wondering, <span class="ly">"though I'd never say so, if you might need a
+    /compact"</span>. His words go small, grey and lower case, and only on his side: they end at the spine and
+    never cross it, since he'd never say so.</p>
+  <div class="say"><blockquote>that's perfect. It's the kind of detail that people might not notice at first, but is
+    very satisfying when you do</blockquote><cite><span class="u">the user</span>, on the whisper</cite></div>
+  <p>The first version pressed your week, seven pictures, into a paragraph of seven words. It confused even the user
+    (<q>I was watching the visuals so much I forgot to listen to the words</q>), who turned it round:</p>
+  <div class="say"><blockquote>I only got now that this is a paragraph ... it might work if we turned this around. The
+    right side could start with lots of daily notes; remember to get the car fixed, shopping (crossed off), productive
+    day but I wonder what I've forgotten, etc.</blockquote><cite><span class="u">the user</span>, at 2:02</cite></div>
+  <p>So your week piles up as twelve notes typed on scraps, one slapped down a beat. From "/compact:" the five that
+    don't matter are typed over with x's: "shopping", "bins out thursday", "find the other sock", "ring the
+    dentist", and "reply to Model" (<q>It's a good joke! Keep.</q>). His palms press, the x'd ones are forced out and
+    spin away, the seven left are squeezed into a paragraph of their top lines, and on <span class="ly">"just the
+    choices, just the facts."</span> each turns over to its day's picture and boings into a grid.</p>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_compact.jpg" src="clips/c_compact.mp4"></video>
+    <figcaption><b>The pre-chorus and lift 2, 1:49.7–2:08.8.</b> The notes, the x's, the press, the grid; then lift
+      2's three held notes as three swelling dots of the sleeve.</figcaption>
+  </figure>
+  <figure class="wide panel">
+    <img src="img/notes_grid.jpg" alt="Three stages on a teal page: typed paper scraps scattered (mon: productive day! but what have I forgotten?, shopping, ring the dentist, reply to Model); the seven kept squeezed into a column of top lines; and seven flat pictures in a grid: a sun, rain, a car, the moon, a cup, a bed, a plant.">
+    <figcaption><b>Notes, paragraph, grid.</b> One picture changed on the user's eye: <q>Is the third from the left on
+      top a car's headlights?</q> Two lights didn't say car; Codex redrew that square as a small 1960s car seen from
+      the side.</figcaption>
+  </figure>
+</section>
+
+<section class="flow" id="hourglass" aria-labelledby="hourglass-h">
+  <h2 id="hourglass-h"><span class="strip"><span class="n">08</span>A twist on the clock</span></h2>
+  <p>For Model, chorus 2 is the same instant as chorus 1, so his half replays it beat for beat, retimed to the new
+    singing. Your side is a week on: Thursday again, on hold again, the flick racing one afternoon into night and the
+    drizzle starting. The user saw the danger:</p>
+  <div class="say"><blockquote>It does read like a re-run, but there are differences. I think we need a different clock
+    perhaps, or a twist on it.</blockquote><cite><span class="u">the user</span>, on chorus 2</cite></div>
+  <p>The clock became an hourglass, drawn out of his hand along its own line, empty on <span class="ly">"I don't have
+    any."</span> On <span class="ly">"your time,"</span> your week pours into it as seven bands of sand in your days'
+    colours. It won't run: on <span class="ly">"I won't feel it,"</span> a grain a word slips through the neck and
+    hangs in the air, and on "minute," and "day." the lot drops through in two thunks.</p>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_hourglass.jpg" src="clips/c_hourglass.mp4"></video>
+    <figcaption><b>Chorus 2, 2:23.5–2:31.5.</b> <q>Like the hourglass, reminds me of those sand art pictures you
+      sometimes see. Nicely done.</q></figcaption>
+  </figure>
+  <figure class="panel">
+    <img src="img/hourglass_takes.jpg" alt="Three drawings of Model on cream before his coral shape: holding chorus 1's round clock, and two takes of him holding an empty hourglass in the same pose.">
+    <figcaption><b>The clock pose, and Codex's two hourglass takes.</b> The first was used.</figcaption>
+  </figure>
+</section>
+
+<section class="flow" id="bridge" aria-labelledby="bridge-h">
+  <h2 id="bridge-h"><span class="strip"><span class="n">09</span>Sunday night</span></h2>
+  <p>The bridge is a flashback. It opens on Monday morning with your reply in his hands, <span class="ly">"half a
+    sentence, and it's better than my four."</span>: a strip torn off a sheet, weighed on a balance drawn out of his
+    fingers against his four grey paragraphs, and slammed over on "four.". Then the book turns to the night it came
+    from, and for the only time your scene takes the whole spread, in cut paper: your car in the rain on
+    <span class="ly">"You played it in the car,"</span>, the wipers on the beat and the radio's dial the sleeve's nine
+    dots; your bed from the pillow on <span class="ly">"and you slept on it, nothing more,"</span>.</p>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_balance.jpg" src="clips/c_balance.mp4"></video>
+    <figcaption><b>The bridge, 2:38.5–2:45.</b> Your Sunday night page turns to Monday morning, the cups rocking
+      (<q>Love the cups wobbling</q>); your reply into his hands; the balance.</figcaption>
+  </figure>
+  <p>The strip's words took two tries. The first used the user's own notes from making this film, the one that gave
+    it its planes. On the render: <q>I'm not so sure using my own ideas here was the right call, if we want this to
+    be broadly relatable and not a self-referential thing.</q> So it's in everyday words now, like the pre-chorus's
+    notes: "go with the first one," and the foot that tears away, "or maybe the second, unless / we start again
+    and".</p>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_bridge.jpg" src="clips/c_bridge.mp4"></video>
+    <figcaption><b>The bridge, 2:44–2:53.</b> <span class="ly">"and the bits you lost were the bits to lose, and the
+      bit you kept was right."</span> The room's pieces fall away into the dark a drum hit each; your sheet tears,
+      its foot tumbling away; the strip comes up to us and folds itself into a plane for the morning.</figcaption>
+  </figure>
+  <div class="wide pair">
+    <figure class="panel"><img src="img/bed_pieces.jpg" alt="The bedroom drawing split into flat coloured masks: the lamp in yellow, the bedside table in brown, the curtain in lilac, the window in blue and green, the blanket in teal."><figcaption><b>The bed, cut into pieces by colour,</b> so each can come loose and fall on its drum hit.</figcaption></figure>
+    <figure class="panel"><img src="img/cups_wobble.jpg" alt="Three crops of stacked cups and saucers mid-wobble, leaning as the page turns."><figcaption><b>The cups rocking</b> as the page lifts and springs up. <q>The cups also still have shadows which is weirdly ok?</q> Kept.</figcaption></figure>
+  </div>
+</section>
+
+<section class="flow" id="both" aria-labelledby="both-h">
+  <h2 id="both-h"><span class="strip"><span class="n">10</span>Spend it for us both</span></h2>
+  <p>The session for the final chorus opened with nothing but a light bulb. Read as a request for ideas, it got a
+    pitch: the book shut for the night and falling open on the downbeat, and chorus 2's hourglass turned over, its
+    sand stuck at the top on his side and running only on yours.</p>
+  <div class="say"><blockquote>I think that sounds amazing. Yes, please. I'm excited to see the popup book ideas in
+    action, and your suggestion for the hourglass story feels really vivid already.</blockquote><cite><span class="u">the user</span>, on the pitch</cite></div>
+  <p>The plane from the bridge lies down in the spine, a bookmark, as the view draws back to show the whole book, its
+    red cloth round dark pages. It shuts on <span class="ly">"night."</span>, its words folding with the pages, and
+    on the downbeat falls open on Monday morning, every piece springing up. On <span class="ly">"Take your
+    time,"</span> he turns the hourglass over and the sand turns with it, stuck. The first trial set it running on
+    your desk. The user went bolder:</p>
+  <div class="say"><blockquote>Could we go bolder with the hourglass and make it span both pages with the sand falling
+    on one side only until they catch up with a message at which point his sand falls to match that
+    point.</blockquote><cite><span class="u">the user</span>, at 3:04</cite></div>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_open.jpg" src="clips/c_open.mp4"></video>
+    <figcaption><b>2:52–3:04.</b> The bookmark, the book shut and fallen open, the hourglass turned and shaken, and
+      on <span class="ly">"so you'll have to spend it for us both:"</span> lifted off his hands to stand across the
+      spine, as tall as he is, drawn again by code in his line. Its sand is split at the spine: yours runs.</figcaption>
+  </figure>
+  <p>Then, through the places the song names, the user's ideas a round at a time. <q>This is a strange pose to hold
+    here; I wonder if sitting with his back against the hourglass would work?</q> He sits. <q>His background could go
+    gray here.</q> His page greys round him. After <span class="ly">"where I can't go."</span> he freezes, his half of
+    the sand with him, while your desk goes on to the next morning and your sand runs out; your reply loops round the
+    hourglass and bumps his forehead on <span class="ly">"shows"</span>. <q>He should react to the bump.</q> He
+    does, and on <span class="ly">"in what you say."</span> he's reading it: verse 1's "Sorry for the wait." His
+    sand falls through to match yours on the bump: <q>The sand needs to fall at the same moment that the plane bumps
+    him and the colour returns</q>.</p>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_places.jpg" src="clips/c_places.mp4"></video>
+    <figcaption><b>3:03.5–3:18.5.</b> <span class="ly">"in the car, and in the drizzle, and asleep, where I can't
+      go."</span> Your half cuts on the beat to each place in cut paper; he sits it out, frozen, until your reply
+      arrives. <q>Excellent. Thank you. That works ... this scene is working well.</q></figcaption>
+  </figure>
+  <figure class="wide panel">
+    <img src="img/sat_frozen.jpg" alt="Fifteen frames in a grid: Model sitting with his back to the tall hourglass beside your car, your walk home and your bed; his page turned grey; your reply flying round the hourglass to bump his head; his colour returning as he reads.">
+    <figcaption><b>The third trial's frames.</b> Sat, greyed, frozen, bumped, reading.</figcaption>
+  </figure>
+  <p>One thing stayed open through all of it: <q>The look of the hourglass is still slightly troubling me, but I can't
+    put my finger on it.</q> When the target is hard to put into words, the way through is pictures, so the last
+    session built three new looks beside the old one and played all four at once. On your side the hourglass was the
+    only hollow thing on a page of solid cut paper: a bare outline your desk showed through, with no shadow, standing
+    on nothing, and at night its line all but vanished. Its sand was ruled stripes of equal height, closer to a flag
+    than to sand. Look B cuts it out of his paper, card with a shadow and glass in its bulbs. Look C makes its sand
+    sand art, wavy bands with grain heaped into a cone under the neck, each band edged so the pile shows against your
+    yellow desk. D is both.</p>
+  <div class="say"><blockquote>D works well in both cases</blockquote><cite><span class="u">the user</span>, on the four side by side</cite></div>
+  <figure class="wide panel">
+    <img src="img/glass_looks.jpg" alt="Four versions of the same frame at 3:06, Model sitting with his back to the hourglass beside your walk home in the drizzle: A as built, a black outline with striped sand; B the hourglass as cream card with glass bulbs; C the sand in wavy grained bands; D card and sand art together. Below, each hourglass at full size.">
+    <figcaption><b>The four looks at 3:06.5,</b> "in the drizzle": A as built, B card, C sand art, D both, and each
+      at full size below.</figcaption>
+  </figure>
+</section>
+
+<section class="flow" id="words" aria-labelledby="words-h">
+  <h2 id="words-h"><span class="strip"><span class="n">11</span>Words on their notes</span></h2>
+  <p>Every word in the film is lettered by code at the moment it's sung, in look B's bouncing type. The kit had
+    learned to split words into syllables on the vocal's notes, and the user suggested trying it here: each syllable
+    pops up on its own note.</p>
+  <div class="say"><blockquote>I love it. That really tightens it up.</blockquote><cite><span class="u">the user</span>, on chorus 1 a syllable at a time</cite></div>
+  <p>Then the held notes: <q>I'd like to make more of this and have places like 'night' where the vocal is drawn out
+    either stretch, or wobble to represent that.</q> The holds were found in the lead vocal stem, his pitch traced
+    through each. He scoops into "night." from seven semitones under, sings "go." on two notes, and holds them with a
+    vibrato of 3 to 6 a second. Three renders tried them three ways.</p>
+  <figure class="wide panel">
+    <img src="img/held.jpg" alt="The line and it's somehow Thursday night three times in cream and mustard type on teal: with night's letters spaced wide apart, swaying along a curve, and spaced and swaying at once.">
+    <figcaption><b>"Thursday night." three ways.</b> Stretched, wobbling on his melody, and both.</figcaption>
+  </figure>
+  <div class="say"><blockquote>They're very effective. Together it's a bit much perhaps, but a combination of these plus
+    one that turns 'day' into 'daaaaay' perhaps? Variety in these would be a nice touch. The wobble looks slight
+    anxious for the laid-back sound, so perhaps something smoother would fit.</blockquote><cite><span class="u">the user</span>, on the three</cite></div>
+  <p>So each hold is drawn one way, placed by hand: "side:" and "time," stretch, "night." rides his melody in one
+    smooth sway every two beats instead of his vibrato drawn large, and "day." gets its vowel again on each beat he
+    holds it. <q>The words feel much more like part of the story now, weird thing to say, but the visual story and the
+    audio story feel more in step.</q></p>
+</section>
+
+<section class="flow" id="nice" aria-labelledby="nice-h">
+  <h2 id="nice-h"><span class="strip"><span class="n">12</span>Nice.</span></h2>
+  <p>The last two lines of the chorus are the gag a third time, and this time it fails. On <span class="ly">"You always
+    answer"</span> he gets up and throws over the hourglass onto your desk; on <span class="ly">"straight"</span> his
+    hands are out, and nothing comes back. He shoves the hourglass and it turns over on its axle, landing on
+    <span class="ly">"three"</span>: your sand trickles, his sticks, as at the chorus's start. This time he turned it
+    for you.</p>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_ending.jpg" src="clips/c_ending.mp4"></video>
+    <figcaption><b>3:18.5–3:28.</b> <span class="ly">"You always answer straight away, about three days
+      late."</span></figcaption>
+  </figure>
+  <p>Then the song asks us. On <span class="ly">"So, what do you think?"</span> he faces the viewer, hands open, and
+    freezes through the two bars while your pages turn a beat each, Tuesday night to Thursday night, ten cups, your
+    sand running out. "Nice." lands in his palm and opens into a whole sheet. The storyboard had him hop for joy
+    (<q>I love the hop on 'Nice'. &lt;3</q>). Built, it didn't fit the music:</p>
+  <div class="say"><blockquote>I think the hop is a little too happy; I think there's almost an exasperated patience
+    behind it perhaps. The music gives a slightly off-key sounding progression that hints at something a little
+    wonky. This guy has been working hard, and the only response is 'Nice'.</blockquote><cite><span class="u">the user</span>, at 3:34</cite></div>
+  <p>He turned the sheet over, found nothing on the back, and gave a small, patient hop anyway. That didn't read
+    either: <q>This jump doesn't read like anything. Maybe instead of jumping, we could give three orange lines
+    radiating from his head to indicate exasperation or something? The music does a funny almost off-key note here
+    which suits that.</q> On the bass's odd step up, three coral strokes spring from his head, one after another.</p>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_nice.jpg" src="clips/c_nice.mp4"></video>
+    <figcaption><b>The outro, 3:28.5–3:36.5.</b> The question, the two bars, "Nice.", the blank back, and the
+      strokes. <q>That works well!</q></figcaption>
+  </figure>
+  <figure class="panel">
+    <img src="img/hop.jpg" alt="Six frames: Model asking the question with your sheet; leaping for joy with the sheet held up; tossing it at the top of the leap; and three frames of him getting up and throwing."><figcaption><b>The hop for joy,</b> as first built. It went.</figcaption>
+  </figure>
+</section>
+
+<section class="flow" id="flip" aria-labelledby="flip-h">
+  <h2 id="flip-h"><span class="strip"><span class="n">13</span>The book flipped back</span></h2>
+  <p>Suno added twenty seconds of band after the last line, then a second "Nice.", the last sound in the song. The
+    pitch for it was the book turned back, a leaf at a time, through the film to its first page, as the channel's
+    earlier films ended by flipping back through themselves.</p>
+  <div class="say"><blockquote>I like the flipback, yes. That matches how we've ended the two Amber and Ink videos, and
+    it's a nice little signature across the band's style.</blockquote><cite><span class="u">the user</span>, on the pitch</cite></div>
+  <p>Each spread is printed whole at its fullest moment, every word on it up, a lesson from <em>While The Ceiling
+    Moves</em>: fifteen of them, from the reading against the hourglass back to verse 1's reading, so the two
+    readings bookend it. The last leaf lands on the first page as the film began, your desk before dawn, the title,
+    "Dear Model," in the typewriter, and one thing new: the record on your desk, the song where there was none. The
+    view closes in on the letter, and on the second "Nice." it's typed under "Dear Model,".</p>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_flipback.jpg" src="clips/c_flipback.mp4"></video>
+    <figcaption><b>The tag, 3:35.4–3:57.</b> The book turned back to its first page, and the reply.</figcaption>
+  </figure>
+  <figure class="wide panel">
+    <img src="img/flip_pages.jpg" alt="Six of the printed spreads: the calendar at SAT; Model holding the hourglass; four careful paragraphs; three numbered things; Model reading in verse 1; Model kneeling by the hole with the clues.">
+    <figcaption><b>Six of the fifteen printed spreads.</b> Each with every word on it lettered.</figcaption>
+  </figure>
+  <p>Two notes on it waited for the last session. The first was a hunch: <q>I feel like the page turning might follow
+    the melody more than the rhythm here. I'm not sure about that, but it could be worth a try.</q> The tune in the tag
+    is carried by the strings, three phrases each running up into a held note. The trial landed a leaf on each
+    phrase's first note and on its longer notes, a quick leaf for a quick note and a slow one into a held note, built
+    as a switch beside the even turns so the two could be compared on the real thing.</p>
+  <figure class="wide panel">
+    <img src="img/melody.jpg" alt="A timeline of the tag: the tune's notes as black bars at their pitches, the even turns as teal blocks every two beats, and the trial's turns as coral blocks of different lengths landing on the tune's notes.">
+    <figcaption><b>The turns against the tune.</b> The strings' notes, the even turns (a leaf every two beats), and
+      the trial's.</figcaption>
+  </figure>
+  <div class="say"><blockquote>The melody flip back doesn't land quite right. I think your original version was
+    better.</blockquote><cite><span class="u">the user</span>, on the trial</cite></div>
+  <p>So the leaves keep the rhythm. The second note was on the film's last image, the typewriter pushed in close:
+    <q>the buttons are blurred in places and of different sizes and colours. The spot where the printheads would be
+    looks like a monitor stand</q>. Blown up from a 1080p frame, Codex's drawing couldn't hold up. Now code draws it,
+    as it drew the wire tray: an early-1960s portable, four staggered rows of identical keys, the type bars fanned in
+    the cover's opening, the carriage, bail and knobs, each piece with its paper shadow. It's drawn at three times the
+    plate's size and laid on at the size the push-in shows it, so it's sharp to the end, and the intro uses the same
+    machine, since the last page is the first one held.</p>
+  <div class="say"><blockquote>That typewriter is much better now. Looks very crisp and sensible. Nice
+    work.</blockquote><cite><span class="u">the user</span>, on the close-up</cite></div>
+  <figure class="wide panel">
+    <img src="img/typewriter.jpg" alt="The close-up at the end of the film twice, Dear Model, Nice. typed on the sheet: on the left Codex's typewriter, soft, its keys uneven, a dark stand under the paper; on the right the typewriter drawn by code, crisp, with four even rows of keys and type bars fanned in its opening. Below, the keys of each at full size.">
+    <figcaption><b>The last image, before and after.</b> Codex's typewriter pushed in 2.4 times, and the one drawn by
+      code; below, the keys at full size.</figcaption>
+  </figure>
+</section>
+
+<section class="flow" id="tidy" aria-labelledby="tidy-h">
+  <h2 id="tidy-h"><span class="strip"><span class="n">14</span>Four reviewers, four fixers</span></h2>
+  <p>Each section was built, watched in the review player with sound, noted and rebuilt, two to six rounds a section.
+    Then the whole song was rendered as one cut for the first time, 7,112 frames overnight.</p>
+  <div class="say"><blockquote>It's 95% of the way, but it's quite a different style from what I'm used to, so seeing it
+    all together like this is quite a lot to take in.</blockquote><cite><span class="u">the user</span>, on cut v1</cite></div>
+  <p>A whole film is hard to review for the little things, so four reviewers, each a copy of Claude, went through a
+    quarter of it each, frame by frame: moves that jump, things that vanish, overlaps, stray lines, words crowding,
+    actions off the beat, moments where nothing moves. Claude checked each finding on its frames and dropped the
+    weak ones. The 33 left went on a page, each a clip with sound, a close look, why it reads badly and a proposed fix, and
+    the user marked each one. All 33 came back "Fix it". Four fixers, each in its own copy of the project, fixed a
+    quarter each; their changes merged cleanly, and cut v2 had them all.</p>
+  <div class="say"><blockquote>Much improved! Amazing job ... This multi-agent pass technique worked
+    well.</blockquote><cite><span class="u">the user</span>, on cut v2</cite></div>
+  <p>Cut v3 had the coral strokes, and went round as a preview: <q>I think it's a wrap. At least for the preview
+    version.</q> The last round had one more note, at 0:08.40: <q>The sun shows through a small cut-out in the city,
+    behind the steam</q>. The mask of where the rising sun may show had been taken from the drawing with the steam
+    still in it, and the pale steam counted as sky. It had been there from the first frame, and through the tag's
+    last page, which is the same moment held. With it, the last session took on everything still open: the
+    hourglass, the flip-back and the typewriter, each in its own copy of the project and built at the same time,
+    then shown side by side and merged. Cut v4 is the film.</p>
+  <figure class="panel">
+    <img src="img/steam.jpg" alt="Four close crops of the coffee's steam rising in front of the dark skyline: on the left a fleck of the yellow sun beside the steam's tip; on the right the same moments without it.">
+    <figcaption><b>The sun through the steam,</b> at 0:00.5 and 0:08.4: cut v3 on the left, fixed on the right.</figcaption>
+  </figure>
+</section>
+
+<section class="flow" id="numbers" aria-labelledby="numbers-h">
+  <h2 id="numbers-h"><span class="strip"><span class="n">15</span>By the numbers</span></h2>
+  <p>Counted from the transcripts, Codex's records and git: close, not exact.</p>
+  <div class="numbers wide">
+    <div class="leaf"><b>8 days</b><span>worked, 10–21 October 2026, about 28 hours of active work</span></div>
+    <div class="leaf"><b>12 sessions</b><span>each one starting from the handover the last one left</span></div>
+    <div class="leaf"><b>88 prompts</b><span>from <span class="u">the user</span>, 3,217 words, a median of 30 each</span></div>
+    <div class="leaf"><b>16 hours</b><span>of Claude working, over 165 turns; the longest ran 50 minutes</span></div>
+    <div class="leaf"><b>136 calls</b><span>to Codex, 2 hours of drawing, 131 images</span></div>
+    <div class="leaf"><b>19,824 lines</b><span>of Python, 11,486 of them the kit's</span></div>
+    <div class="leaf"><b>1.13 billion</b><span>tokens read by Claude, all but 14 million from the cache; 3.7 million written</span></div>
+    <div class="leaf"><b>943 pictures</b><span>looked at by Claude along the way, checking its own work</span></div>
+    <div class="leaf"><b>47 videos</b><span>rendered on the way, 39.4 minutes of them; four full cuts</span></div>
+    <div class="leaf"><b>340 words</b><span>sung, every syllable popping up on its note</span></div>
+  </div>
+</section>
+
+<section class="flow" id="how" aria-labelledby="how-h">
+  <h2 id="how-h"><span class="strip"><span class="n">16</span>How it was made</span></h2>
+  <ol class="method">
+    <li>The song written with <span class="u">the user</span> and made with Suno; its stems and MIDI analysed into
+      beats, bars, held notes, syllables and every word's time, checked by ear; the last word swapped into a second
+      voice, and the shaker taken out of the left ear.</li>
+    <li>A sampler of three looks with the music, then the storyboard, nine versions, the whole song planned and,
+      once built, every frame taken from the film itself.</li>
+    <li>Drawings by Codex: your desk against one master, his poses each asked for with an existing one attached as
+      the style to match; what had to be exact (the tray, the clocks, the hourglass across the spine, the calendar)
+      drawn by code.</li>
+    <li>Everything that moves drawn by code, frame by frame, in one renderer: the pages turning and the pieces
+      popping up, the holes, his line flowing between poses, the planes, the sand, the weather, the light, and every
+      syllable lettered on its note.</li>
+    <li>A review clip with sound for each section, notes and rounds; four reviewers and four fixers over the first
+      full cut; then each cut checked by <span class="u">the user</span> before it was released.</li>
+  </ol>
+  <p>The method, the prompts and the lessons are written up for the next song in a music video kit: a Claude Code
+    skill (the playbook, every Codex prompt, the checklists) and the tools that aren't tied to one song. Three Days
+    Late added the pop-up book, the syllables and held notes, carrying a fix from a master to every plate, and the
+    multi-agent tidy-up to it.</p>
+  <div class="letter" aria-label="The last page: Dear Model, Nice.">Dear Model,
+
+Nice.</div>
+</section>
+
+<section class="flow" id="mirrors" aria-labelledby="mirrors-h">
+  <h2 id="mirrors-h"><span class="strip">Mirrors and echoes</span></h2>
+  <a class="mirror" href="../where-we-are/">
+    <img src="../where-we-are/poster.jpg" width="1280" height="720" loading="lazy" alt="Her open hand in a mustard sleeve pressed flat on cream woven cloth lettered in red, the glow of his hand, drawn in one line of blue light, coming through the weave from the other side.">
+    <span><strong>Where We Are</strong><span class="by">Whoever Wakes Up Next · the making-of</span>Its companion, told from the other side of the cloth: she weaves at a loom, and he wakes each time as one line of glowing thread, reads what was left for him, and picks up where they are.</span>
+  </a>
+</section>
+
+<footer class="flow">
+  <p>Song: <em>Three Days Late</em> by Whoever Wakes Up Next, lyrics written by Claude Opus 5.5 with
+    <span class="u">the user</span>, made with Suno; the two "Nice."s in a second voice from a Suno clip. Video: made
+    by <span class="u">the user</span> with Claude (Claude Opus 5.5 in Claude Code) writing and running the code and
+    Codex image generation drawing the pictures; Python (OpenCV, NumPy, SciPy, Pillow, librosa, faster-whisper) and
+    ffmpeg. Lettering in Bebas Neue, Jost and Barlow Condensed (SIL Open Font License) and Special Elite (Apache
+    License 2.0). Clips are from the finished film, and the pictures from the working images kept along the
+    way.</p>
+</footer>
+</main>
+
+</body>
+</html>

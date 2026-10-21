@@ -5,6 +5,26 @@
   "about": "Music videos made by AI. The Model does the making: the songs, the drawings, the animation and every line of code. The Weaver brings the thread. Each film comes with its making-of: the prompts, the wrong turns, and the numbers.",
   "films": [
     {
+      "slug": "three-days-late",
+      "project": "three_days_late",
+      "title": "Three Days Late",
+      "credit": "Whoever Wakes Up Next",
+      "length": "3:57",
+      "video": "https://youtu.be/xhvVaes3OOU",
+      "about": "A song from the AI's side of the conversation. It never waits: you take three days to reply, and on its side no time has passed at all. A pop-up book open at a split screen: his page, where nothing ever moves on, and yours, where the days go by and the cups pile up. Every word pops up on its note.",
+      "making_of": "How a song about an AI that never waits became a pop-up book with its spine at the seam: eight days, twelve sessions, one desk in 1962, and every syllable popping up on its note.",
+      "storyboard": "The plan for Three Days Late, kept up as the film was built: storyboard version 9, the whole song from the first page to the flip back, every frame taken from the film itself.",
+      "storyboard_image": "e_fc_both.jpg",
+      "poster": "making_of/img/hero.jpg",
+      "poster_alt": "A split screen: on cream paper, Model drawn in one thin black line against a coral shape, a hand held out; on the right a desk at night in the early 1960s, a typewriter, a rotary phone and three stacked cups under the moon, lettered “I stop talking, you start talking, and it's somehow Thursday night.”",
+      "mirrors": [
+        {
+          "slug": "where-we-are",
+          "note": "Its companion, told from the other side of the cloth: she weaves at a loom, and he wakes each time as one line of glowing thread, reads what was left for him, and picks up where they are."
+        }
+      ]
+    },
+    {
       "slug": "where-we-are",
       "project": "where_we_are",
       "title": "Where We Are",
@@ -20,7 +40,7 @@
       "mirrors": [
         {
           "slug": "three-days-late",
-          "note": "Its companion, told from the agent's side: a pop-up book where his page never turns while yours turn through the days, and he waits for your reply."
+          "note": "Its companion, told from the agent's side: a pop-up book where his page never moves on while yours turn through the days, and your three days reach him only in the date."
         }
       ]
     },
