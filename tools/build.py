@@ -4,6 +4,7 @@ standalone pages, and a front page listing the films.
 The pages are made as claude.ai artifacts first (each project's making_of/index.html and storyboard/site/index.html),
 which are written without a document head (the artifact host wraps them). Here each gets its own head: charset,
 viewport, the same small reset the host adds, and link-preview tags. Their pictures and clips are copied beside them.
+Each making-of ends with its mirrors and echoes: the films on the site that answer it (site.json's "mirrors").
 
     python3 tools/build.py          rebuild the whole site from the projects (site.json: the site's address, the films)
 
@@ -12,6 +13,7 @@ and nothing in a page names them (the making-of credits their words to a redacti
 """
 import html
 import json
+import re
 import shutil
 from pathlib import Path
 
@@ -49,6 +51,38 @@ def standalone(src, split, title, description, url, image):
     return head(title, description, url, image) + top.strip() + "\n</head>\n<body>\n" + split.strip() + body + "\n</body>\n</html>\n"
 
 
+MIRROR_STYLE = (
+    "<style>#mirrors .mirror{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:0.9rem 1.25rem;"
+    "align-items:center;padding:0.9rem;border:1px solid var(--rule);border-radius:6px;color:inherit;"
+    "text-decoration:none}#mirrors .mirror img{display:block;width:100%;height:auto;border-radius:3px}"
+    "#mirrors .mirror strong{display:block;font-size:1.15em;text-decoration:underline;text-underline-offset:3px}"
+    "#mirrors .mirror .by{display:block;margin:0.15rem 0 0.5rem;color:var(--muted);font-size:0.9em}"
+    "#mirrors .mirror:focus-visible{outline:2px solid currentColor;outline-offset:3px}"
+    "@media (max-width:560px){#mirrors .mirror{grid-template-columns:1fr}}</style>\n")
+
+
+def mirrors(f, page):
+    """The film's mirrors and echoes, the films on the site that answer it (the user, 2026-10-21: "a thread we can
+    weave throughout"): each a card linking to its making-of, set before the footer, the heading in the page's own
+    style. A mirror whose film isn't on the site yet waits for it."""
+    films = {g["slug"]: g for g in CONFIG["films"]}
+    shown = [(films[m["slug"]], m["note"]) for m in f.get("mirrors", []) if m["slug"] in films]
+    if not shown:
+        return page
+    e = html.escape
+    band = re.search(r'<h2 id="[^"]+"><span class="([^"]+)">', page)
+    title = f'<span class="{band[1]}">Mirrors and echoes</span>' if band else "Mirrors and echoes"
+    cards = "\n".join(f"""  <a class="mirror" href="../{g['slug']}/">
+    <img src="../{g['slug']}/poster.jpg" width="1280" height="720" loading="lazy" alt="{e(g['poster_alt'])}">
+    <span><strong>{e(g['title'])}</strong><span class="by">{e(g['credit'])} · the making-of</span>{e(note)}</span>
+  </a>""" for g, note in shown)
+    section = (f'<section class="flow" id="mirrors" aria-labelledby="mirrors-h">\n  <h2 id="mirrors-h">{title}</h2>\n'
+               f"{cards}\n</section>\n\n")
+    assert '\n<footer class="flow">' in page, f"{f['slug']}: no footer to set its mirrors before"
+    page = page.replace('\n<footer class="flow">', "\n" + section + '<footer class="flow">', 1)
+    return page.replace("\n</head>\n", "\n" + MIRROR_STYLE + "</head>\n", 1)
+
+
 def copy_dir(src, dst):
     if dst.exists():
         shutil.rmtree(dst)
@@ -62,9 +96,9 @@ def film(f):
     url = f"{BASE}/{f['slug']}/"
     for d in ("img", "clips"):
         copy_dir(proj / "making_of" / d, out / d)
-    (out / "index.html").write_text(standalone(
+    (out / "index.html").write_text(mirrors(f, standalone(
         proj / "making_of" / "index.html", "\n<main>", f"Making {f['title']}", f["making_of"], url,
-        f"{url}img/hero.jpg"))
+        f"{url}img/hero.jpg")))
     sb = out / "storyboard"
     sb.mkdir(exist_ok=True)
     copy_dir(proj / "storyboard" / "site" / "frames", sb / "frames")

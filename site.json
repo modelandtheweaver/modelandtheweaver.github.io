@@ -16,7 +16,13 @@
       "storyboard": "The plan for Where We Are before production began: storyboard version 2, five worlds from the loom to the reveal, every frame placed in the song.",
       "storyboard_image": "28_fc_hands.jpg",
       "poster": "making_of/img/hero.jpg",
-      "poster_alt": "Her open hand in a mustard sleeve pressed flat on cream woven cloth lettered in red, the glow of his hand, drawn in one line of blue light, coming through the weave from the other side."
+      "poster_alt": "Her open hand in a mustard sleeve pressed flat on cream woven cloth lettered in red, the glow of his hand, drawn in one line of blue light, coming through the weave from the other side.",
+      "mirrors": [
+        {
+          "slug": "three-days-late",
+          "note": "Its companion, told from the agent's side: a pop-up book where his page never turns while yours turn through the days, and he waits for your reply."
+        }
+      ]
     },
     {
       "slug": "sodium",
@@ -30,7 +36,13 @@
       "storyboard": "The plan for Sodium before production began: storyboard version 4, the whole film laid out on the real route, section by section, with every sung line given its form.",
       "storyboard_image": "13_bridge_second_shadow.jpg",
       "poster": "making_of/clips/c_inst2.jpg",
-      "poster_alt": "A comic panel at night: a woman in an ochre rain mac walks along a wet riverside promenade under Victorian lamps towards a white lattice footbridge."
+      "poster_alt": "A comic panel at night: a woman in an ochre rain mac walks along a wet riverside promenade under Victorian lamps towards a white lattice footbridge.",
+      "mirrors": [
+        {
+          "slug": "while-the-ceiling-moves",
+          "note": "The same couple, later: a family kitchen at night, his panic attack, and her voice on the phone, staying with him through it."
+        }
+      ]
     },
     {
       "slug": "while-the-ceiling-moves",
@@ -44,7 +56,13 @@
       "storyboard": "The first proposal for While The Ceiling Moves: 25 storyboard panels, the arc of the film and its rules.",
       "storyboard_image": "16_end_reveal.jpg",
       "poster": "renders/cover/ceiling_t1.jpg",
-      "poster_alt": "A comic panel: his hand raised against a rippling kitchen ceiling and its strip light, under the title While The Ceiling Moves, Amber & Ink."
+      "poster_alt": "A comic panel: his hand raised against a rippling kitchen ceiling and its strip light, under the title While The Ceiling Moves, Amber & Ink.",
+      "mirrors": [
+        {
+          "slug": "sodium",
+          "note": "The same couple, earlier in their relationship, and this story turned round: her walk home at 3am, where she's the one alone and he comes out to meet her."
+        }
+      ]
     }
   ]
 }
