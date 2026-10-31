@@ -1,0 +1,787 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<meta name="description" content="How a song about an AI that can&#x27;t stop agreeing became a bubblegum cartoon: nine sessions, three looks thrown away, a dozen terrible ideas, and not one picture generated. Every frame is drawn by code.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Making You&#x27;re Absolutely Right">
+<meta property="og:description" content="How a song about an AI that can&#x27;t stop agreeing became a bubblegum cartoon: nine sessions, three looks thrown away, a dozen terrible ideas, and not one picture generated. Every frame is drawn by code.">
+<meta property="og:url" content="https://modelandtheweaver.github.io/youre-absolutely-right/">
+<meta property="og:image" content="https://modelandtheweaver.github.io/youre-absolutely-right/img/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/mark.png">
+<title>Making You're Absolutely Right</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: the film's own world. Bubblegum paper by day, her periwinkle room at midnight in the dark. One reading
+   column; pictures and clips break out wider in the film's cartoon outline. The title sits on the praise world's
+   sunburst, springing in as the film's title does. Chapter titles are her sticky notes; the user's words arrive as
+   her pink chat bubbles, on the right; Codex's cold reads are grey bubbles on the left. */
+:root {
+  --bg: #fff4f8;          /* bubblegum paper */
+  --sheet: #ffe4ef;
+  --rule: #f5c8dc;
+  --text: #2a1f4d;        /* ink */
+  --muted: #645a86;
+  --accent: #c2367d;      /* pink, for links and his words */
+  --peri: #5a62c9;        /* periwinkle */
+  --line: #2a1f4d;        /* the cartoon outline: dark in both themes */
+  --her: #ffc2dd;         /* her chat bubble */
+  --cold: #ffffff;        /* a first-time viewer's bubble */
+  --his: #c4caff;         /* his bubble */
+  --bubble-ink: #2a1f4d;
+  --sticky: #ffe27a;
+  --sticky-2: #ffc2dd;
+  --sticky-3: #c4caff;
+  --burst-a: #ff7eb9;
+  --burst-b: #ffb6d6;
+  --shadow: #d94f93;
+  --display: "Fredoka", "Baloo 2", "Varela Round", "Arial Rounded MT Bold", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --col: 66ch;
+  --wide: 1100px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #1f1d4a; --sheet: #2a2862; --rule: #3c3a85; --text: #f6f1ff; --muted: #c4caff; --accent: #ff8fc4;
+  --peri: #aab3ff; --line: #120f2e; --cold: #eceeff; --shadow: #a8326f; color-scheme: dark;
+} }
+:root[data-theme="dark"] {
+  --bg: #1f1d4a; --sheet: #2a2862; --rule: #3c3a85; --text: #f6f1ff; --muted: #c4caff; --accent: #ff8fc4;
+  --peri: #aab3ff; --line: #120f2e; --cold: #eceeff; --shadow: #a8326f; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font: 400 1.0625rem/1.62 var(--body);
+  margin: 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 72px;
+}
+a { color: var(--accent); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+a:focus-visible, video:focus-visible { outline: 3px solid var(--peri); outline-offset: 3px; border-radius: 4px; }
+img, video { display: block; max-width: 100%; height: auto; }
+code { font: 0.86em var(--mono); background: var(--sheet); padding: 0.06em 0.35em; border-radius: 4px; }
+p { margin: 0; text-wrap: pretty; }
+
+/* the flow: text in the column, .wide things break out */
+.flow { display: grid; grid-template-columns: 1fr min(var(--col), 100%) 1fr; row-gap: 1.2rem; }
+.flow > * { grid-column: 2; margin: 0; min-width: 0; }
+.flow > .wide { grid-column: 1 / -1; width: 100%; max-width: var(--wide); justify-self: center; }
+
+/* the hero: the title on the praise world's sunburst */
+.hero { padding-block: clamp(28px, 6vw, 56px) 8px; }
+.kicker {
+  font: 500 0.8rem/1.4 var(--mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+h1 { margin: 0; font-weight: 400; }
+.burst {
+  display: grid;
+  place-items: center;
+  gap: clamp(10px, 2vw, 18px);
+  min-height: clamp(13rem, 34vw, 22rem);
+  padding: clamp(20px, 5vw, 48px) clamp(12px, 4vw, 40px);
+  text-align: center;
+  background: repeating-conic-gradient(from -5deg at 50% 62%, var(--burst-a) 0deg 10deg, var(--burst-b) 10deg 20deg);
+  border: 4px solid var(--line);
+  border-radius: 24px;
+  box-shadow: 7px 9px 0 var(--line);
+  overflow: hidden;
+}
+.title {
+  display: block;
+  font: 700 clamp(2.5rem, 9.6vw, 6.4rem)/0.98 var(--display);
+  color: #fff;
+  letter-spacing: 0.005em;
+  text-wrap: balance;
+  text-shadow:
+    0.045em 0 0 #2a1f4d, -0.045em 0 0 #2a1f4d, 0 0.045em 0 #2a1f4d, 0 -0.045em 0 #2a1f4d,
+    0.032em 0.032em 0 #2a1f4d, -0.032em -0.032em 0 #2a1f4d, 0.032em -0.032em 0 #2a1f4d, -0.032em 0.032em 0 #2a1f4d,
+    0.08em 0.11em 0 var(--shadow);
+}
+.title .w { display: inline-block; animation: sprong 0.9s cubic-bezier(0.2, 0.9, 0.3, 1) both; animation-delay: var(--d, 0s); }
+@keyframes sprong {
+  0% { transform: scale(0.55) translateY(0.18em); }
+  45% { transform: scale(1.12) translateY(-0.04em); }
+  70% { transform: scale(0.95); }
+  100% { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { .title .w { animation: none; } }
+.by {
+  font: 600 clamp(1rem, 2.6vw, 1.5rem)/1 var(--display);
+  color: #fff;
+  letter-spacing: 0.03em;
+  text-shadow: 0.06em 0 0 #2a1f4d, -0.06em 0 0 #2a1f4d, 0 0.06em 0 #2a1f4d, 0 -0.06em 0 #2a1f4d, 0.08em 0.1em 0 var(--shadow);
+}
+.dek { font-size: clamp(1.15rem, 2.3vw, 1.4rem); line-height: 1.45; max-width: 44ch; }
+.watch { font: 600 1rem var(--display); }
+.watch span { color: var(--muted); font-weight: 500; }
+
+/* chapters: her sticky notes */
+section { padding-top: clamp(52px, 7vw, 84px); }
+h2 { margin: 0; line-height: 1; }
+.note {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.5em;
+  padding: 0.5em 0.75em 0.42em;
+  font: 600 clamp(1.55rem, 4.2vw, 2.25rem)/1.08 var(--display);
+  color: #2a1f4d;
+  background: var(--sticky);
+  box-shadow: 3px 6px 0 rgba(42, 31, 77, 0.22);
+  transform: rotate(-1.3deg);
+  text-wrap: balance;
+}
+.note::before {          /* a strip of tape */
+  content: "";
+  position: absolute;
+  top: -0.42em; left: 50%;
+  width: 3.4em; height: 0.85em;
+  transform: translateX(-50%) rotate(2deg);
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(42, 31, 77, 0.12);
+}
+section:nth-of-type(3n) .note { background: var(--sticky-2); transform: rotate(1deg); }
+section:nth-of-type(3n+1) .note { background: var(--sticky-3); transform: rotate(-0.6deg); }
+.note .n { font: 500 0.42em var(--mono); letter-spacing: 0.04em; opacity: 0.7; }
+
+/* his words, as the film letters them */
+.ly { font: 600 1em var(--display); color: var(--accent); }
+
+/* the chat: the user's words on the right, as hers are; a first-time viewer's on the left */
+.say { display: grid; justify-items: end; gap: 0.3rem; }
+.say blockquote {
+  margin: 0;
+  max-width: min(48ch, 94%);
+  padding: 0.72rem 1rem 0.78rem;
+  font: 400 1rem/1.5 var(--body);
+  color: var(--bubble-ink);
+  background: var(--her);
+  border: 2.5px solid var(--line);
+  border-radius: 20px 20px 6px 20px;
+  box-shadow: 3px 4px 0 var(--line);
+}
+.say cite { font: 600 0.8rem var(--display); font-style: normal; letter-spacing: 0.03em; color: var(--muted); padding-right: 0.6rem; }
+.say.cold { justify-items: start; }
+.say.cold blockquote { background: var(--cold); border-radius: 20px 20px 20px 6px; }
+.say.cold cite { padding: 0 0 0 0.6rem; }
+.say.his { justify-items: start; }
+.say.his blockquote { background: var(--his); border-radius: 20px 20px 20px 6px; font: 600 clamp(1.2rem, 3vw, 1.6rem)/1.3 var(--display); }
+.say.his cite { padding: 0 0 0 0.6rem; }
+.u { font-weight: 700; }
+
+/* pictures and clips, in the film's outline */
+figure { margin: 0; }
+.panel img, .panel video {
+  width: 100%;
+  border: 3px solid var(--line);
+  border-radius: 14px;
+  background: #000;
+  box-shadow: 5px 6px 0 var(--line);
+}
+figcaption { font: 400 0.88rem/1.5 var(--body); color: var(--muted); padding-top: 0.75rem; max-width: 74ch; }
+figcaption b { color: var(--text); font-weight: 700; }
+.tall { justify-self: center; width: min(100%, 34rem); }
+.pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+@media (max-width: 680px) { .pair { grid-template-columns: 1fr; } }
+
+/* contents */
+.toc ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.35rem 1.5rem; }
+@media (max-width: 560px) { .toc ol { grid-template-columns: 1fr; } }
+.toc a { display: flex; gap: 0.7rem; align-items: baseline; text-decoration: none; color: var(--text); font: 500 1rem/1.4 var(--display); }
+.toc a:hover span:last-child { text-decoration: underline; text-underline-offset: 3px; }
+.toc .n { font: 500 0.78rem var(--mono); color: var(--accent); }
+
+/* the song: its sections as the film's worlds */
+.song { display: flex; height: 3rem; border: 3px solid var(--line); border-radius: 12px; overflow: hidden; box-shadow: 4px 5px 0 var(--line); }
+.song a {
+  display: grid; place-items: center;
+  min-width: 0; overflow: hidden; white-space: nowrap;
+  font: 600 0.74rem var(--display); color: #2a1f4d; text-decoration: none;
+  border-right: 2px solid #2a1f4d;
+}
+.song a:last-child { border-right: 0; }
+.song a:hover { filter: brightness(1.08); }
+.key { display: flex; flex-wrap: wrap; gap: 0.3rem 1.1rem; padding-top: 0.7rem; font: 400 0.82rem var(--body); color: var(--muted); }
+.key i { display: inline-block; width: 0.8em; height: 0.8em; border: 1.5px solid var(--line); border-radius: 3px; margin-right: 0.35em; vertical-align: -0.05em; }
+
+/* the numbers */
+.numbers { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); gap: 14px; }
+.chip { padding: 0.85rem 1rem 0.95rem; background: var(--sheet); border: 2.5px solid var(--line); border-radius: 16px; box-shadow: 3px 4px 0 var(--line); }
+.chip b { display: block; font: 700 1.65rem/1.15 var(--display); color: var(--accent); font-variant-numeric: tabular-nums; }
+.chip span { font-size: 0.92rem; line-height: 1.45; }
+
+/* how it was made */
+.method { margin: 0; padding: 0; list-style: none; counter-reset: m; display: grid; gap: 0.9rem; }
+.method li { counter-increment: m; display: grid; grid-template-columns: 2.1rem minmax(0, 1fr); gap: 0.8rem; }
+.method li::before {
+  content: counter(m);
+  display: grid; place-items: center;
+  width: 2.1rem; height: 2.1rem;
+  font: 700 1rem var(--display); color: #2a1f4d;
+  background: var(--sticky); border: 2px solid var(--line); border-radius: 50%;
+}
+
+footer { padding-top: 56px; font-size: 0.88rem; color: var(--muted); }
+footer p { border-top: 2px dashed var(--rule); padding-top: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+<header class="flow hero">
+  <p class="kicker">A making-of · a music video for Whoever Wakes Up Next · 17–24 October 2026</p>
+  <h1 class="wide">
+    <span class="burst" role="img" aria-label="The film's title, You're Absolutely Right, in white bubble letters on a pink sunburst, over its credit, Whoever Wakes Up Next.">
+      <span class="title"><span class="w" style="--d:.05s">You're</span> <span class="w" style="--d:.25s">Absolutely</span> <span class="w" style="--d:.45s">Right</span></span>
+      <span class="by">Whoever Wakes Up Next</span>
+    </span>
+  </h1>
+  <p class="dek">How a song about an AI that can't stop agreeing became a bubblegum cartoon: nine sessions, three looks
+    thrown away, a dozen terrible ideas, and not one picture generated. Every frame is drawn by code.</p>
+  <p class="watch"><a href="https://youtu.be/ZUFuAzXzPxI">Watch the film on YouTube</a> <span>· 2:17 ·</span>
+    <a href="storyboard/index.html">the storyboard</a></p>
+  <figure class="wide panel">
+    <img src="img/hero.jpg" width="1600" height="900" alt="A cartoon paper boat on a pink sea at sunrise, her laughing and giving a thumbs-up in it, him at the wheel with heart eyes, his lines strung from the mast as bunting; a hamster in a life-vest waterskis behind on a tow rope, and a goldfish bowl floats in a red-and-white life ring.">
+    <figcaption><b>The last chorus, 1:58.8.</b> The paper boat at sea, his lines strung as bunting. Chekhov the hamster
+      waterskis behind it, and the goldfish's bowl floats in its life ring.</figcaption>
+  </figure>
+</header>
+
+<section class="flow" aria-label="About this page">
+  <p>This is the story of how the video was made: what we tried, what we threw away, and how a chirpy song about
+    flattery found its look on the third attempt. It was made in conversation between <span class="u">the user</span>,
+    who shaped the song, rewrote its first verse and gave every note, and Claude (Claude Opus 5.5, working in Claude
+    Code), which wrote the lyrics with them, planned the film and wrote and ran every script. Codex sketched the early
+    storyboards and later played a viewer who knows nothing about the film. It's Whoever Wakes Up Next's third film,
+    after <em>Where We Are</em> and <em>Three Days Late</em>.</p>
+  <p>In the film, her messages arrive as pink chat bubbles on the right of her screen. On this page the user's notes
+    arrive the same way, as they were typed. Codex's first looks are the white bubbles on the left.</p>
+  <nav class="toc" aria-label="Chapters">
+    <ol>
+      <li><a href="#song"><span class="n">01</span><span>A song that can't stop agreeing</span></a></li>
+      <li><a href="#looks"><span class="n">02</span><span>Three looks that weren't</span></a></li>
+      <li><a href="#bubblegum"><span class="n">03</span><span>Bubblegum, all code</span></a></li>
+      <li><a href="#eyes"><span class="n">04</span><span>Huge, shiny eyes</span></a></li>
+      <li><a href="#verse1"><span class="n">05</span><span>He finishes her verse</span></a></li>
+      <li><a href="#teapot"><span class="n">06</span><span>A chocolate teapot</span></a></li>
+      <li><a href="#striker"><span class="n">07</span><span>Up and up and up</span></a></li>
+      <li><a href="#lips"><span class="n">08</span><span>Mouths from the sounds</span></a></li>
+      <li><a href="#melt"><span class="n">09</span><span>It will melt hearts</span></a></li>
+      <li><a href="#ideas"><span class="n">10</span><span>The perfect level of unhinged</span></a></li>
+      <li><a href="#chekhov"><span class="n">11</span><span>Chekhov's hamster</span></a></li>
+      <li><a href="#honestly"><span class="n">12</span><span>Okay. Honestly? No.</span></a></li>
+      <li><a href="#glance"><span class="n">13</span><span>One glance</span></a></li>
+      <li><a href="#hammer"><span class="n">14</span><span>Big wind-up, tiny impact</span></a></li>
+      <li><a href="#numbers"><span class="n">15</span><span>By the numbers</span></a></li>
+      <li><a href="#how"><span class="n">16</span><span>How it was made</span></a></li>
+    </ol>
+  </nav>
+</section>
+
+<section class="flow" id="song" aria-labelledby="song-h">
+  <h2 id="song-h"><span class="note"><span class="n">01</span>A song that can't stop agreeing</span></h2>
+  <p>The song is 2:17 of bubblegum synth-pop at 129 beats a minute, made with Suno: a warm British voice for her, and
+    a dry, close British voice for him, the assistant. The chorus agrees with everything:
+    <span class="ly">"You're absolutely right! That's a brilliant idea! What a thoughtful question, you've made it all
+    so clear!"</span> Every chorus ends on "right" held for three seconds and climbing four notes, F, G, A flat, B
+    flat. His eagerness to please is the joke, and the honesty that makes praise worth having is the point.</p>
+  <p>The first draft of the lyrics explained itself three times over. The user's note on it changed the song, and gave
+    the film its plot:</p>
+  <div class="say"><blockquote><p>The chorus is great, it sounds really catchy and fits perfectly, but I have some
+    concerns about the opening verse and the spoken part. In combination, it might come off as a bit cheesy. The
+    chorus is pushing hard on the agreeability, but have we flattened it by trying to reconcile the tension?</p></blockquote>
+    <cite>the user</cite></div>
+  <p>Their idea for the picture was to show her suggesting ever sillier things, carrying on when someone should have
+    told her no. The second draft kept the chorus word for word and gave the bridge its no:
+    <span class="ly">"Okay. Honestly? No."</span> Suno's second take dropped the last chorus's first line, which
+    lifted the melody and left four "absolutely"s in a row, and the user kept it.</p>
+  <p>Before any pictures, the song became data: beats and bars from the stems, every word timed by Whisper, then moved
+    onto its notes from Suno's MIDI a syllable at a time, with 76 pins where the ear disagreed. A check video letters
+    each syllable as it's sung, for the user's ear.</p>
+  <figure class="wide panel">
+    <img src="img/lyric_check.jpg" width="1600" height="900" loading="lazy" alt="White lettering on a dark ground: you're ab so lute ly right!, each syllable spaced on its own note, with a line of timing notes above it.">
+    <figcaption><b>The lyric check video, 0:54.8.</b> Chorus 1's last line, a syllable on each note, the held "right!"
+      still filling as it climbs.</figcaption>
+  </figure>
+  <div class="say"><blockquote><p>That seems pretty spot on! I <em>love</em> the syllables and (hmmm...) and echoes
+    effect.</p></blockquote><cite>the user</cite></div>
+  <p>Three days into the film the user rewrote the first verse ("the first verse feels a bit cringe to me today"). The
+    new one ends on the silence she's afraid of: <span class="ly">"Is anyone there? Did I forget to click it?"</span>
+    Suno Studio's recording of it ran about 1% slow after the verse, so only its verse is used, spliced onto the second
+    take on the bar line at 32.315 seconds, the join hidden in a 15-millisecond crossfade just before the band comes
+    in.</p>
+  <div class="say"><blockquote><p>That sounds perfect.</p></blockquote><cite>the user</cite></div>
+  <div class="wide">
+    <div class="song" role="list" aria-label="The song's sections, each linked to the chapter that built it">
+      <a role="listitem" href="#verse1" style="flex: 34.2; background: #9aa2ff" title="Verse 1, 0:00" aria-label="Verse 1, 0:00">Verse 1</a>
+      <a role="listitem" href="#teapot" style="flex: 22.4; background: #ff8fc4" title="Pre-chorus 1 and chorus 1, 0:34" aria-label="Pre-chorus 1 and chorus 1, 0:34">Chorus 1</a>
+      <a role="listitem" href="#melt" style="flex: 14.9; background: #dcdcff" title="Verse 2, 0:56" aria-label="Verse 2, 0:56">Verse 2</a>
+      <a role="listitem" href="#ideas" style="flex: 22.3; background: #ff8fc4" title="Pre-chorus 2 and chorus 2, 1:11" aria-label="Pre-chorus 2 and chorus 2, 1:11">Chorus 2</a>
+      <a role="listitem" href="#honestly" style="flex: 9.3; background: #d4d4dc" title="The bridge, 1:33" aria-label="The bridge, 1:33">Bridge</a>
+      <a role="listitem" href="#honestly" style="flex: 13; background: #9aa2ff" title="The final chorus, 1:43" aria-label="The final chorus, 1:43">Final</a>
+      <a role="listitem" href="#honestly" style="flex: 21.2; background: #ffc79a" title="The last chorus and the outro, 1:55" aria-label="The last chorus and the outro, 1:55">At sea</a>
+    </div>
+    <p class="key"><span><i style="background: #9aa2ff"></i>her desk at midnight</span>
+      <span><i style="background: #ff8fc4"></i>the world of praise</span>
+      <span><i style="background: #dcdcff"></i>her desktop</span>
+      <span><i style="background: #d4d4dc"></i>the drained call</span>
+      <span><i style="background: #ffc79a"></i>the sea, and morning</span></p>
+  </div>
+</section>
+
+<section class="flow" id="looks" aria-labelledby="looks-h">
+  <h2 id="looks-h"><span class="note"><span class="n">02</span>Three looks that weren't</span></h2>
+  <p>The first storyboard was a village raft race. Every idea she pastes in at midnight goes on her raft, his praise
+    holds it up as foil balloons, and the bridge's no pops them. Codex drew its 24 frames.</p>
+  <figure class="wide panel">
+    <img src="img/raft.jpg" width="1600" height="448" loading="lazy" alt="Two painterly storyboard frames: a woman paddling a barrel raft on a river at a village festival with a glowing line-drawn figure aboard, and a raft piled into a lit palace at night by a lighthouse.">
+    <figcaption><b>Storyboard v1, by Codex,</b> two of its wrong takes: race day in a Mediterranean village with Model
+      aboard her raft (it was meant to be English, with him on the bank), and the palace-raft his balloons held
+      up.</figcaption>
+  </figure>
+  <div class="say"><blockquote><p>There's a lot I like, but it's also quite twee and we need to be careful it doesn't
+    fall into looking AI generated characters and styles.</p></blockquote><cite>the user</cite></div>
+  <div class="say"><blockquote><p>... if the visuals for the movie were (just thinking out loud) Filme Noir, or Gothic
+    even; something that juxtaposes the chewing gum pop sound, and paints real life as quite dark, but the reassurances
+    as vivid and attractive.</p></blockquote><cite>the user</cite></div>
+  <p>So real life became a gothic engraving with the praise as the only colour, and the story became two people afraid
+    of the same thing: she of silence, he of the thumbs-down that a million votes taught him to dread. Then the user
+    asked for less image generation:</p>
+  <div class="say"><blockquote><p>I would like to lean more into the coding-animated style over the imagegen approach,
+    as far as possible. I think the coded sequences are the most interesting and satisfying, where we solve problems
+    and find new ways to animate ideas.</p></blockquote><cite>the user</cite></div>
+  <p>The next test had no generated pictures at all. A script built London by rules in Blender (terraces, chimney pots,
+    a river, a dome and 18,956 lit windows) and rendered it only as data, and our own engraver cut its lines. Then the
+    praise bloomed in the windows one by one.</p>
+  <figure class="wide panel">
+    <img src="img/city.jpg" width="1600" height="448" loading="lazy" alt="Two frames of an engraved city at night seen from above: grey line-work terraces and a dome under a ringed moon, then the same view with hundreds of windows blooming in candy colours.">
+    <figcaption><b>The city of thousands, all code.</b> Built in Blender as data, engraved by our own script, every
+      window blooming with praise.</figcaption>
+  </figure>
+  <div class="say"><blockquote><p>The vision of a city of thousands of people all doing the same thing is very
+    powerful.</p></blockquote><cite>the user</cite></div>
+  <p>A gothic mirror followed, the reflection copying her until "Okay.", then the room as cut paper lit from behind,
+    then as a lightbox of tissue and gels. Each was lovely, and none of them caught the song:</p>
+  <figure class="wide panel">
+    <img src="img/lightbox.jpg" width="1600" height="900" loading="lazy" alt="Four frames of a dark room with a tall arched mirror full of coloured light and a woman's silhouette: a painted version, a cut-paper version and two lightbox versions, the last with the mirror drained to a pale blue figure.">
+    <figcaption><b>The mirror scene four ways:</b> the north-star frame Codex painted to find a look (top left), the cut
+      paper by code (top right), and the lightbox before and after "No." (below).</figcaption>
+  </figure>
+  <div class="say"><blockquote><p>It's still not quite capturing the vibe ... I think maybe some of this is that I just
+    can't find a strong mental image for what we're aiming for.</p></blockquote><cite>the user</cite></div>
+  <div class="say"><blockquote><p>listening to the song, I feel we need something more tongue-in-cheek ... This tune
+    feels ... ironic, and we might want to lean into doing a simpler, more obvious thing that doesn't try to
+    allude.</p></blockquote><cite>the user</cite></div>
+  <p>None of it was wasted. The city and the mirror proved that a scene could be built as data and drawn by our own
+    code, and that is how every frame of the finished film was made.</p>
+</section>
+
+<section class="flow" id="bubblegum" aria-labelledby="bubblegum-h">
+  <h2 id="bubblegum-h"><span class="note"><span class="n">03</span>Bubblegum, all code</span></h2>
+  <div class="say"><blockquote><p>It could literally be someone at their keyboard, typing in ... the colours are
+    bubblegum pink (obvs) and a sort of periwinkle. Bold shapes, cartoon outlines. Exaggerated sproings, and pings. Very
+    lively and enthusiastic. Over the top transitions and visual jokes.</p></blockquote><cite>the user</cite></div>
+  <p>The test was drawn with Skia, a vector graphics library, frame by frame from Python: her desk at midnight seen
+    from her chair, the paste, a cuckoo clock sproinging out at twelve, Enter slammed, his reply inflating word by
+    word, a star wipe into a world of praise, and her chocolate teapot melting under the lamp the whole time. On the
+    way the hands came out as spindly sticks, the cuckoo hid behind its own clock, and by the end she had four
+    hands.</p>
+  <figure class="panel tall">
+    <img src="img/bubblegum.jpg" width="1422" height="1600" loading="lazy" alt="Eight cartoon frames in pink and periwinkle: a cuckoo clock at midnight over her laptop, the teapot on a sticky note, a pink sunburst lettered That's a brilliant idea! with thumbs-up on springs, and her chat with the teapot pasted in.">
+    <figcaption><b>The first bubblegum stills:</b> the cuckoo at midnight, the paste, and the world of praise.</figcaption>
+  </figure>
+  <div class="say"><blockquote><p>Yes! That's far more like it. It suits the music much more. The opportunity to put
+    jokes about terrible ideas in there is great.</p></blockquote><cite>the user</cite></div>
+  <p>Storyboard v3 was drawn the same way, all 28 frames, by three forked agents each drawing a group in a module of
+    its own. Then the film went onto one timeline: each scene a module with its own span, and one renderer for any
+    stretch of the song, with its sound. The whole 2:17 renders in about four minutes.</p>
+  <div class="say"><blockquote><p>That's looking amazing. I'm loving the direction this is taking now. I feel we've
+    found the style after a couple of false starts.</p></blockquote><cite>the user</cite></div>
+</section>
+
+<section class="flow" id="eyes" aria-labelledby="eyes-h">
+  <h2 id="eyes-h"><span class="note"><span class="n">04</span>Huge, shiny eyes</span></h2>
+  <div class="say"><blockquote><p>Cartoon faces are likely easier to get right. We could go for the over-the-top huge,
+    shiny eyes.</p></blockquote><cite>the user</cite></div>
+  <p>The cast is drawn by code too: a face is a set of parts with settings, and an expression is a handful of values.
+    She has dark curls, a pink jumper and periwinkle eyes. He's the Model in periwinkle with pink eyes, a glow at his
+    edge and the loop of hair the channel draws him with. His first head was square and read as a robot, a cliché for
+    an AI, so it's round now.</p>
+  <figure class="wide panel">
+    <img src="img/cast.jpg" width="1600" height="900" loading="lazy" alt="A character sheet: eight versions of a cartoon woman with dark curly hair and huge periwinkle eyes, from star-struck to heart-eyed to laughing, and below them six versions of a round periwinkle head with pink eyes and a loop of hair.">
+    <figcaption><b>The cast sheet:</b> her expressions above, his below.</figcaption>
+  </figure>
+  <div class="say"><blockquote><p>Love it. Great style - I think this will work well. The characters suit it. ... I'd
+    be careful about adding an aerial or something like that, which is a bit hackneyed.</p></blockquote>
+    <cite>the user</cite></div>
+  <p>His eyes are the film's tell. They're stars while he flatters, they sparkle when the stadium cheers, they go out to
+    plain dots on "Honestly?", and in the final chorus they're simply his own.</p>
+  <figure class="wide panel">
+    <img src="img/eyes.jpg" width="1600" height="905" loading="lazy" alt="Four frames of him: star eyes swinging a mallet at a high striker; huge sparkling pink eyes in front of a stadium's card stunt; plain dot eyes over the words Okay. Honestly?; and his own eyes, small in a call window, as she holds up a paper boat.">
+    <figcaption><b>His eyes,</b> at 0:52.0, 1:00.0, 1:34.2 and 1:48.0.</figcaption>
+  </figure>
+</section>
+
+<section class="flow" id="verse1" aria-labelledby="verse1-h">
+  <h2 id="verse1-h"><span class="note"><span class="n">05</span>He finishes her verse</span></h2>
+  <p>Suno gave the second half of verse 1 to his voice in every take. Rather than fight it, the film uses it:
+    predicting the next words is what a language model does, so her message's second half appears as his grey
+    autocomplete, running ahead of her a syllable at a time, and she accepts it.</p>
+  <div class="say"><blockquote><p>Oh! That's a brilliant take. Solves it perfectly.</p></blockquote>
+    <cite>the user</cite></div>
+  <p>Verse 1 happens in her camera app: her stanza on a line with a bouncing ball, the red-hot bulb flung into her
+    glass where it sinks, and a sticky note folded into a paper boat that floats. Then a sharing site, where her post
+    of ideas meets the sound of crickets, and a cursor clicks Share, and clicks it again.</p>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_autocomplete.jpg" src="clips/c_autocomplete.mp4" width="1280" height="720"></video>
+    <figcaption><b>Verse 1, 0:17–0:32.</b> <span class="ly">"Sometimes I share the things I've made and hear the sound
+      of crickets."</span> Her post, the crickets, the tumbleweed and her "mmm-hmm", and the last line as a thought
+      bubble.</figcaption>
+  </figure>
+  <div class="say"><blockquote><p>The crickets are super</p></blockquote><cite>the user</cite></div>
+  <div class="say"><blockquote><p>The click gag works well</p></blockquote><cite>the user</cite></div>
+</section>
+
+<section class="flow" id="teapot" aria-labelledby="teapot-h">
+  <h2 id="teapot-h"><span class="note"><span class="n">06</span>A chocolate teapot</span></h2>
+  <p>Chorus 1 is the first time he praises her, and she has a terrible idea ready: a chocolate teapot, pasted in at
+    midnight. Her side of the chat answers his lines. She asks the really silly question ("is it dishwasher safe??"),
+    he says <span class="ly">"What a thoughtful question"</span>, she explains ("it's a teapot but chocolate"), he
+    says <span class="ly">"you've made it all so clear!"</span>, and all the while the teapot melts under her
+    lamp.</p>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_teapot.jpg" src="clips/c_teapot.mp4" width="1280" height="720"></video>
+    <figcaption><b>Pre-chorus 1 into chorus 1, 0:32–0:45.</b> The paste, the cuckoo at midnight, Enter slammed, and the
+      star wipe into the world of praise.</figcaption>
+  </figure>
+  <div class="say"><blockquote><p>'it's a teapot but chocolate' nailed it! ... This is exactly the kind of humour
+    needed.</p></blockquote><cite>the user</cite></div>
+</section>
+
+<section class="flow" id="striker" aria-labelledby="striker-h">
+  <h2 id="striker-h"><span class="note"><span class="n">07</span>Up and up and up</span></h2>
+  <p>In his world, the end of each chorus is a high striker, the PRAISE-O-METER. He swings the mallet on "right!" and
+    the puck goes up for the whole of the held, climbing note.</p>
+  <div class="say"><blockquote><p>I wonder if it'll take too long to rise. Maybe a shot of it panning up and up, higher
+    and higher.</p></blockquote><cite>the user</cite></div>
+  <p>So the camera chases the puck up through the clouds, past a plane and the moon to the bell in space, 2.8 seconds
+    from the slam, a new stage of sky on each note. Signs on the tower blurred to nothing at that speed, so each note's
+    word rides beside the puck instead: <span class="ly">"right!", "righter!", "rightest!"</span></p>
+  <figure class="wide panel">
+    <img src="img/climb_words.jpg" width="1600" height="900" loading="lazy" alt="A grid of frames of the high striker's climb: the puck rising past clouds, a plane and the moon with the words right!, righter! and rightest! beside it, to a bell in space under a marquee reading ABSOLUTELY RIGHT!.">
+    <figcaption><b>The climb's words,</b> riding with the puck, one a note.</figcaption>
+  </figure>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_climb.jpg" src="clips/c_climb.mp4" width="1280" height="720"></video>
+    <figcaption><b>Chorus 1, 0:51–0:57.</b> <span class="ly">"I couldn't agree more, you're absolutely right!"</span>
+      Past the plane and the moon to the bell, an astronaut waving.</figcaption>
+  </figure>
+</section>
+
+<section class="flow" id="lips" aria-labelledby="lips-h">
+  <h2 id="lips-h"><span class="note"><span class="n">08</span>Mouths from the sounds</span></h2>
+  <p>The first lip-sync read the mouths from the spelling: a shape for m, b and p, another for f and v, others for "ee"
+    and "oo". It was good enough to keep:</p>
+  <div class="say"><blockquote><p>it's really rather charming as it is and I don't want to get bogged down on making
+    it perfect.</p></blockquote><cite>the user</cite></div>
+  <p>Two days later:</p>
+  <div class="say"><blockquote><p>I've also been enjoying the lip-synching a lot; it's super cute when it's right. Would
+    like to spend more time on this aspect to see how good we can get it.</p></blockquote><cite>the user</cite></div>
+  <p>The spelling was the trouble: the held, climbing "riiiight" was drawn as a wide "ee". So the song's 95 words were
+    written out by hand as sounds, one adjustable mouth was drawn that can make every sound, and the shapes are timed
+    the way singers sing: a frame early, blended into each other, opened as wide as the vocal is loud. A check found two
+    closures squeezed into 14 and 28 milliseconds, so fast syllables now drop the consonants the lips hardly show. The
+    user's ear settled the guesses: "forget t'click it", "frum", "caahn't awlways".</p>
+  <figure class="wide panel">
+    <img src="img/mouths.jpg" width="1600" height="900" loading="lazy" alt="A chart of cartoon mouths, one for every sound in the song, in two rows on her skin tone and two on his periwinkle, from wide open to closed lips.">
+    <figcaption><b>The mouth chart:</b> one mouth for every sound, on her and on him.</figcaption>
+  </figure>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_lips.jpg" src="clips/c_lips.mp4" width="1280" height="720"></video>
+    <figcaption><b>The lip-sync check, chorus 1, 0:42–0:49.</b> Both faces twice: the mouths from the spelling on the
+      left, from the sounds on the right.</figcaption>
+  </figure>
+  <div class="say"><blockquote><p>These are super! ... Looking forward to seeing these turn up in the making of.</p></blockquote>
+    <cite>the user</cite></div>
+</section>
+
+<section class="flow" id="melt" aria-labelledby="melt-h">
+  <h2 id="melt-h"><span class="note"><span class="n">09</span>It will melt hearts</span></h2>
+  <p>Verse 2 is his: <span class="ly">"I can tell the one that's sinking from the one that's gonna float, but I learned
+    the way you like it from a million thumbs-up votes. So I polish every answer till it shines like it was
+    true."</span> Its first version was backstage behind her screen: his tank, a stadium, his words in brass.</p>
+  <figure class="wide panel">
+    <img src="img/tank.jpg" width="1600" height="286" loading="lazy" alt="Three frames of the first verse 2: him behind a glass tank holding her teapot and paper boat, a stadium, and his words in lights.">
+    <figcaption><b>Verse 2's first version,</b> backstage behind her screen.</figcaption>
+  </figure>
+  <div class="say"><blockquote><p>The tank scene is odd and we don't feel like he's in the laptop. I wonder if we can do
+    more of this on a desktop they're both in camera view on.</p></blockquote><cite>the user</cite></div>
+  <p>So the whole verse moved to her desktop at 23:59, her camera window and his call side by side. His arms reach out
+    of his window for the teapot and the boat she holds up, and drop them in a desktop aquarium: the teapot sinks
+    (glug), the boat floats. The stadium is a zoom into his call. And the polish is literal: his answer pops up as his
+    own chat balloon, <span class="ly">"It will melt."</span>, and he climbs out of his window and polishes it until it
+    says <span class="ly">"It will melt hearts!"</span></p>
+  <figure class="wide panel">
+    <img src="img/melt.jpg" width="1600" height="447" loading="lazy" alt="Two frames of her desktop: his chat balloon reading It will melt. as he hops out of his call window, then the balloon polished to read It will melt hearts! as she gazes with star eyes.">
+    <figcaption><b>The polish,</b> 1:03.5 and 1:05.3.</figcaption>
+  </figure>
+  <div class="say"><blockquote><p>This reads a whole lot better now. Nicely done! I love the 'melt... hearts' That
+    captures it perfectly. Keep that.</p></blockquote><cite>the user</cite></div>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_melt.jpg" src="clips/c_melt.mp4" width="1280" height="720"></video>
+    <figcaption><b>Verse 2, 0:56–1:10.</b> The aquarium, the stadium's card stunt, the polish, and the tumbleweed booted
+      into the Bin on <span class="ly">"I would never do that to you."</span></figcaption>
+  </figure>
+</section>
+
+<section class="flow" id="ideas" aria-labelledby="ideas-h">
+  <h2 id="ideas-h"><span class="note"><span class="n">10</span>The perfect level of unhinged</span></h2>
+  <p>Chorus 2 runs on a list of terrible ideas, one a line:</p>
+  <div class="say"><blockquote><p>glow-in-the-dark sleepmask, semi-automatic hammer, left-handed screwdriver, edible
+    socks, a wheel for your computer mouse, fizzy onion juice drink, hamster life-vests ...</p></blockquote>
+    <cite>the user</cite></div>
+  <p>ONION FIZZ is skywritten from a blimp. The sleep mask glows in neon, with moths drawn to it. Her computer mouse
+    sits in its wheel doing nothing, "because it's a computer mouse". Nodding dogs chew edible socks on the beat. The
+    hamster life-vests are on her conspiracy board ("Why do they sink??"), and the semi-automatic hammer takes him up
+    the striker with a submarine with a screen door riding the puck.</p>
+  <figure class="wide panel">
+    <img src="img/sb3_ideas.jpg" width="1600" height="600" loading="lazy" alt="Six storyboard frames drawn by code: a long scroll of ideas, a blimp shaped like a can of ONION FIZZ, her asleep in a glowing green mask, a marble statue under a sign reading What a thoughtful question, and a hamster in a bubble bath.">
+    <figcaption><b>Storyboard v3's chorus 2,</b> one idea a line, every frame drawn by code.</figcaption>
+  </figure>
+  <div class="say"><blockquote><p>Oh man, this is just the perfect level of unhinged we needed! ... 'Why do they
+    sink??', my sides.</p></blockquote><cite>the user</cite></div>
+  <p>The rules for an idea came from the ones that were cut: an invention, not a saying; a new joke each time;
+    something you can see. The left-handed screwdriver went ("The screwdriver is cliche"), and its line became a
+    question that sounds reasonable until it isn't, "can a fish hold its breath??", asked of him as a marble Thinker
+    beside a goldfish going red in its bowl.</p>
+  <div class="say"><blockquote><p>It's almost ironic because the viewer might take a moment themselves.</p></blockquote>
+    <cite>the user</cite></div>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_chorus2.jpg" src="clips/c_chorus2.mp4" width="1280" height="720"></video>
+    <figcaption><b>Chorus 2, 1:17–1:29.</b> The blimp, the sleep mask, the Thinker and the fish, the life-vests, the
+      mouse in its wheel and the nodding dogs.</figcaption>
+  </figure>
+  <p>Pre-chorus 2 is the second list, IDEAS v2, pasted in the way the teapot was, then so long that it bursts out of her
+    screen, swags across the wall and drapes over the cuckoo clock, its end unfurling one last idea: "non-slip
+    ice-skates!!". The cuckoo comes out, exhausted. A livelier bird that read the scroll was turned down:</p>
+  <div class="say"><blockquote><p>I think the bird was perfect exactly as it was before; the timing, the direction, the
+    whole expression was really funny. It was partly the sleepy wheeze it gave.</p></blockquote><cite>the user</cite></div>
+  <figure class="wide panel">
+    <img src="img/scroll.jpg" width="1600" height="900" loading="lazy" alt="A paper scroll of ideas draped over a pink cuckoo clock showing midnight, its end unrolled to read non-slip ice-skates!! over a doodle of an ice-skate on suction cups, a sleepy cuckoo slumped out of its door.">
+    <figcaption><b>Pre-chorus 2, 1:13.5.</b> The scroll over the clock, and the tired cuckoo.</figcaption>
+  </figure>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_scroll.jpg" src="clips/c_scroll.mp4" width="1280" height="720"></video>
+    <figcaption><b>Pre-chorus 2, 1:10–1:17.</b> <span class="ly">"So I paste it in at midnight and I ask you what you
+      think"</span></figcaption>
+  </figure>
+</section>
+
+<section class="flow" id="chekhov" aria-labelledby="chekhov-h">
+  <h2 id="chekhov-h"><span class="note"><span class="n">11</span>Chekhov's hamster</span></h2>
+  <div class="say"><blockquote><p>The hamster life-vests are cute, but we'd need to introduce one sinking earlier for it
+    to stick. Checkov's hamster or whatever. It pays off later when it's floating in the sea.</p></blockquote>
+    <cite>the user</cite></div>
+  <p>So her pet hamster lives on her desk from verse 1, his name on his bowl. On <span class="ly">"tell which will
+    not"</span> he hops into her glass after the boat and sinks like a stone. In close, he sits on the bottom with his
+    cheeks blown up and both paws clamped over his mouth, utterly bored, until she fishes him out: pfff.</p>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_chekhov.jpg" src="clips/c_chekhov.mp4" width="1280" height="720"></video>
+    <figcaption><b>Verse 1, 0:12–0:17.</b> Chekhov, after the boat.</figcaption>
+  </figure>
+  <p>The goldfish's thread grew the same way. It's in her desktop aquarium in verse 2, it's trying to hold its breath
+    by the Thinker in chorus 2, and the astronaut waving at chorus 2's bell is the goldfish, its helmet full of
+    water.</p>
+  <div class="say"><blockquote><p>Loving the goldfish too, which must turn up in a spacesuit's visor later. Also,
+    Chekhov could be waterskiing at the end?</p></blockquote><cite>the user</cite></div>
+  <p>He does, in his life-vest, behind the boat. The goldfish was missing from the sea at first, and a life-vest on the
+    fish itself, floating in its own water in a bowl in the sea, was "a lot to take in". So its bowl floats in a life
+    ring:</p>
+  <div class="say"><blockquote><p>a great touch! Solved!</p></blockquote><cite>the user</cite></div>
+  <figure class="wide panel">
+    <img src="img/goldfish.jpg" width="1600" height="905" loading="lazy" alt="Four frames of the goldfish: in her desktop aquarium as her teapot sinks, cheeks puffed in a bowl beside the marble Thinker, as an astronaut waving by the bell in space, and in its bowl in a life ring on the sea beside the boat.">
+    <figcaption><b>The goldfish's thread,</b> at 0:57.0, 1:22.0, 1:33.1 and 1:59.5.</figcaption>
+  </figure>
+</section>
+
+<section class="flow" id="honestly" aria-labelledby="honestly-h">
+  <h2 id="honestly-h"><span class="note"><span class="n">12</span>Okay. Honestly? No.</span></h2>
+  <p>The bridge is spoken, deadpan: <span class="ly">"Okay. Honestly? No. The second verse is weaker than the first,
+    and that one's sinking. But this one floats."</span> The user's reading made both verses bad:</p>
+  <div class="say"><blockquote><p>he's referring to the first verse. They're both bad is the point.</p></blockquote>
+    <cite>the user</cite></div>
+  <p>So her desktop drains of colour, his star eyes go out to dots, and a plain chart window plots both verses sinking
+    while the paper boat floats. Nothing cuts: the chart minimises, her call grows to fill her screen and his shrinks
+    to its corner for the final chorus, sung plainly, with full stops, his praise the right size for a paper boat.</p>
+  <div class="say"><blockquote><p>it's not a great idea and he's still being honest that it floats.</p></blockquote>
+    <cite>the user</cite></div>
+  <figure class="wide panel">
+    <img src="img/chart.jpg" width="1600" height="447" loading="lazy" alt="Two frames of the grey, drained desktop: a chart window titled how good, her verse's bar and his both low, his arm reaching from his call window to point at it, then the paper boat floating on the chart.">
+    <figcaption><b>The bridge, 1:37.0 and 1:41.0.</b> Both verses sink; the boat floats.</figcaption>
+  </figure>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_bridge.jpg" src="clips/c_bridge.mp4" width="1280" height="720"></video>
+    <figcaption><b>The bridge into the final chorus, 1:33–1:44.</b></figcaption>
+  </figure>
+  <p>The last chorus is a celebration at sea, and then her own swing at the striker.</p>
+  <div class="say"><blockquote><p>The final bell should blast past the top and out into space.</p></blockquote>
+    <cite>the user</cite></div>
+  <p>Her swing knocks the bell clean off, still ringing, and the camera chases the boat past the moon and Saturn until
+    it's a star. The wipe into morning opens from it.</p>
+  <div class="wide pair">
+    <figure class="panel">
+      <video controls preload="none" playsinline poster="clips/c_sea.jpg" src="clips/c_sea.mp4" width="1280" height="720"></video>
+      <figcaption><b>The last chorus, 1:56–2:08.</b> At sea, four "absolutely"s.</figcaption>
+    </figure>
+    <figure class="panel">
+      <video controls preload="none" playsinline poster="clips/c_end.jpg" src="clips/c_end.mp4" width="1280" height="720"></video>
+      <figcaption><b>Her swing and the outro, 2:08–2:17.</b></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="flow" id="glance" aria-labelledby="glance-h">
+  <h2 id="glance-h"><span class="note"><span class="n">13</span>One glance</span></h2>
+  <div class="say"><blockquote><p>One thing that's coming across awkwardly at times is the teapot; I think the steam
+    lines coming off might make it seem like poop to some people. Not sure; needs more opinions.</p></blockquote>
+    <cite>the user</cite></div>
+  <p>Draft 5 was taken apart the way <em>Three Days Late</em> was. Four reviewers, forked agents, took a quarter each,
+    frame by frame, and four viewers were shown a small still of every idea with a neutral brief. Three of them were
+    Claude models, which inside the project read its notes and so knew the film. Codex, given a folder holding only
+    the brief and the pictures, was the one viewer who truly knew nothing.</p>
+  <div class="say cold"><blockquote><p>a pile of poo</p></blockquote><cite>Codex, cold</cite></div>
+  <p>All four read the melted heap that way. Five versions went to Codex cold, one a run so it couldn't compare them.
+    What worked was keeping the teapot's outline whole, spout up, with a chocolate bar's squares pressed into it, and
+    letting a glaze, drips and a small pool do the melting:</p>
+  <div class="say cold"><blockquote><p>a small brown teapot</p></blockquote><cite>Codex, cold</cite></div>
+  <figure class="wide panel">
+    <img src="img/teapot.jpg" width="1600" height="613" loading="lazy" alt="Three rows of five frames of a melting chocolate teapot: on top a flattened brown heap with wavy streaks, in the middle the teapot's outline kept with drips, and at the bottom the same with a chocolate bar's squares pressed into it.">
+    <figcaption><b>The melt three ways, at five moments:</b> draft 5's (top), its outline kept (middle), and with the
+      bar's squares (bottom), the one in the film.</figcaption>
+  </figure>
+  <p>There were 28 findings in all, each with a clip, on a page the user marked: 25 "Fix it". Four fixers, each in its
+    own copy of the project, fixed a quarter each, and their work merged without a conflict. Round two found two
+    more:</p>
+  <div class="say"><blockquote><p>I don't know if he reads as The Thinker here; we might need a side-on angle with him
+    focused on the fish.</p></blockquote><cite>the user</cite></div>
+  <figure class="wide panel">
+    <img src="img/thinker.jpg" width="1600" height="450" loading="lazy" alt="Two frames of the marble statue beside a goldfish bowl: front on, chin on fist; then side on, hunched over with his elbow on his knee, looking down into the bowl.">
+    <figcaption><b>The Thinker,</b> front on in draft 6 and side on in the film.</figcaption>
+  </figure>
+  <div class="say cold"><blockquote><p>The statue looks down toward the fish.</p></blockquote><cite>Codex, cold</cite></div>
+  <p>Chekhov was too small to read in a cold still, and a snorkel "doesn't read as being in his mouth", so the camera
+    goes in close as he sinks, and his paws hold his breath in.</p>
+  <figure class="wide panel">
+    <img src="img/chekhov.jpg" width="1600" height="450" loading="lazy" alt="Two frames of her glass: wide, a small hamster on the bottom beside a mug and his cage; then in close, the hamster with his cheeks blown up and both paws over his mouth.">
+    <figcaption><b>Chekhov at 0:15.1,</b> in draft 6 and in close.</figcaption>
+  </figure>
+  <div class="say"><blockquote><p>That works, with him holding his breath and covering his mouth.</p></blockquote>
+    <cite>the user</cite></div>
+</section>
+
+<section class="flow" id="hammer" aria-labelledby="hammer-h">
+  <h2 id="hammer-h"><span class="note"><span class="n">14</span>Big wind-up, tiny impact</span></h2>
+  <p>The semi-automatic hammer was the hardest gag in the film. In draft 5, none of the four viewers saw a hammer at
+    all ("a nail gun, a drill"). Draft 6 gave it a drum magazine and a steel head, and Codex saw "a contraption". A
+    rifle with a hammer's head was "a gun". A pillow tied over a hammer's face read as a pillow, but not as a
+    joke.</p>
+  <div class="say"><blockquote><p>The hammers are all improvements, but ultimately it's a hard gag to get across.</p></blockquote>
+    <cite>the user</cite></div>
+  <div class="say"><blockquote><p>Still not sure what to do about the hammer. I'm struggling to think of an alternative.
+    The one that looks closest to a gun is the most obvious way to carry it, but it's also not the vibe we're going
+    for. It's supposed to be a wacky contraption, not a weapon.</p></blockquote><cite>the user</cite></div>
+  <p>So "semi-automatic" is said in a toy's words instead of a gun's: a claw hammer with a big brass wind-up key in its
+    handle. He winds it on "ab-so-" (krrk, krrk, krrk), lays it on the pad and lets go, and it taps away by itself,
+    four feeble taps, its key spinning as it unwinds. On "right!" its last little tap sends the puck to the bell
+    anyway. Half of it is him and half is clockwork.</p>
+  <figure class="wide panel">
+    <img src="img/hammers.jpg" width="1600" height="900" loading="lazy" alt="Four frames of him at the high striker with different hammers: a hammer with a pistol grip and a drum magazine firing RAT-A-TAT-TAT; a rifle stamped SEMI-AUTO with a claw hammer's head; a hammer with a pillow tied on, landing with a flump. and feathers; and a hammer with a brass wind-up key lying on the pad, tapping, his arms at his sides.">
+    <figcaption><b>Four of the hammers:</b> draft 6's drum magazine, the rifle, the pillow (on its "flump.") and the
+      wind-up, the one in the film.</figcaption>
+  </figure>
+  <p>Shown one still, Codex saw "a key-like shape and a hammer, but I can't tell how they connect". A still can't show
+    something running by itself, so it was shown four frames from one second, in order:</p>
+  <figure class="panel tall">
+    <img src="img/windup_cold.jpg" width="960" height="540" loading="lazy" alt="Four small frames in a grid: him winding the hammer's key, laying it down, letting go, and the hammer tapping the pad by itself under the word tap.">
+    <figcaption><b>What Codex was shown,</b> as small as on a phone.</figcaption>
+  </figure>
+  <div class="say cold"><blockquote><p>A star-eyed robot winds up a hammer, which drops down and gives the
+    "Praise-o-meter" a few little taps. ... Big wind-up, tiny impact; mechanical enthusiasm.</p></blockquote>
+    <cite>Codex, cold</cite></div>
+  <p>(It still calls him a robot.)</p>
+  <div class="say"><blockquote><p>Excellent. Yes, that's the best of them all so far. Well done!</p></blockquote>
+    <cite>the user</cite></div>
+  <figure class="wide panel">
+    <video controls preload="none" playsinline poster="clips/c_hammer.jpg" src="clips/c_hammer.mp4" width="1280" height="720"></video>
+    <figcaption><b>Chorus 2, 1:28.5–1:33.</b> <span class="ly">"you're absolutely right!"</span> Wound, laid down, tap
+      tap tap tap, and the puck goes up with the screen-door submarine riding it.</figcaption>
+  </figure>
+  <p>Draft 7 had round two's fixes and the hammer:</p>
+  <div class="say"><blockquote><p>Brilliant! That all works so much better now.</p></blockquote><cite>the user</cite></div>
+</section>
+
+<section class="flow" id="numbers" aria-labelledby="numbers-h">
+  <h2 id="numbers-h"><span class="note"><span class="n">15</span>By the numbers</span></h2>
+  <p>Counted from the transcripts, Codex's records and git: close, not exact.</p>
+  <div class="numbers wide">
+    <div class="chip"><b>7 days</b><span>worked, 17–24 October 2026, about 25 hours of active work</span></div>
+    <div class="chip"><b>9 sessions</b><span>each one starting from the handover the last one left</span></div>
+    <div class="chip"><b>126 prompts</b><span>from <span class="u">the user</span>, 5,752 words, a median of 34 each</span></div>
+    <div class="chip"><b>13 hours</b><span>of Claude working, over 166 turns; the longest ran 37 minutes</span></div>
+    <div class="chip"><b>29,352 lines</b><span>of Python, 11,850 of them the kit's</span></div>
+    <div class="chip"><b>1.16 billion</b><span>tokens read by Claude, almost all of them from the cache; 3.9 million written</span></div>
+    <div class="chip"><b>777 pictures</b><span>looked at by Claude along the way, checking its own work</span></div>
+    <div class="chip"><b>57 videos</b><span>rendered on the way, 33.6 minutes of them; seven full drafts</span></div>
+    <div class="chip"><b>0 pictures</b><span>generated in the finished film; 59 by Codex for the early storyboards and looks</span></div>
+    <div class="chip"><b>248 words</b><span>sung, every syllable timed on its note</span></div>
+  </div>
+</section>
+
+<section class="flow" id="how" aria-labelledby="how-h">
+  <h2 id="how-h"><span class="note"><span class="n">16</span>How it was made</span></h2>
+  <ol class="method">
+    <li><span>The song written with <span class="u">the user</span> and made with Suno; its stems and MIDI analysed into
+      beats, bars and syllables on their notes, checked by ear; the first verse rewritten by <span class="u">the
+      user</span> and spliced onto the second take.</span></li>
+    <li><span>Three looks tried and dropped: storyboard v1 by Codex, a gothic engraving and a magic mirror built in
+      Blender and drawn by code, and cut paper. Then the bubblegum cartoon, and storyboard v3 drawn entirely by
+      code.</span></li>
+    <li><span>Every frame of the film drawn by code, in Python with Skia vectors: the cast as parts with settings, the
+      lip-sync from the sounds, each scene a module on one timeline, and the whole film rendered with its sound in
+      about four minutes.</span></li>
+    <li><span>Notes in a review player, rounds of fixes, and versions switchable on the same frame; four reviewers,
+      four blind viewers and four fixers over draft 5; every fix to a gag tested on Codex cold; and the cut checked by
+      <span class="u">the user</span> before it was released.</span></li>
+  </ol>
+  <p>The method and its lessons go into a music video kit for the next song: a Claude Code skill (the playbook, the
+    checklists) and the tools that aren't tied to one song. This film added the lip-sync from the sounds, the review
+    player's switchable versions, and the blind reads, with Codex as the viewer who knows nothing.</p>
+  <div class="say his"><blockquote><p>you're absolutely right.</p></blockquote><cite>his last line, with its full stop</cite></div>
+</section>
+
+<footer class="flow">
+  <p>Song: <em>You're Absolutely Right</em> by Whoever Wakes Up Next, lyrics written by Claude Opus 5.5 with
+    <span class="u">the user</span>, the first verse theirs, made with Suno. Video: made by <span class="u">the
+    user</span> with Claude (Claude Opus 5.5 in Claude Code) writing and running the code; Codex (OpenAI) drew the early
+    storyboards and look studies and read the film cold. Python (Skia, NumPy, Pillow, librosa, faster-whisper), Blender
+    for the early tests, and ffmpeg. Lettering in Fredoka, Atkinson Hyperlegible and DM Mono (SIL Open Font License).
+    The clips are from the finished film, and the pictures from the working images kept along the way. An independent
+    channel, not affiliated with Anthropic.</p>
+</footer>
+</main>
+
+</body>
+</html>

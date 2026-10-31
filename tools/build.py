@@ -1,7 +1,8 @@
 """Build the channel's site (GitHub Pages) from the films' projects: each film's making-of and storyboard as
 standalone pages, and a front page listing the films.
 
-The pages are made as claude.ai artifacts first (each project's making_of/index.html and storyboard/site/index.html),
+The pages are made as claude.ai artifacts first (each project's making_of/index.html and storyboard/site/index.html,
+or the storyboard directory site.json names as the film's "storyboard_dir"),
 which are written without a document head (the artifact host wraps them). Here each gets its own head: charset,
 viewport, the same small reset the host adds, and link-preview tags. Their pictures and clips are copied beside them.
 Each making-of ends with its mirrors and echoes: the films on the site that answer it (site.json's "mirrors").
@@ -101,9 +102,13 @@ def film(f):
         f"{url}img/hero.jpg")))
     sb = out / "storyboard"
     sb.mkdir(exist_ok=True)
-    copy_dir(proj / "storyboard" / "site" / "frames", sb / "frames")
+    sbsrc = proj / f.get("storyboard_dir", "storyboard/site")
+    copy_dir(sbsrc / "frames", sb / "frames")
+    for extra in sbsrc.iterdir():  # what the page plays beside it (You're Absolutely Right's moving test, test.mp4)
+        if extra.is_file() and extra.name != "index.html":
+            shutil.copyfile(extra, sb / extra.name)
     (sb / "index.html").write_text(standalone(
-        proj / "storyboard" / "site" / "index.html", ('\n<div class="wrap">', '\n<main class="wrap">'),
+        sbsrc / "index.html", ('\n<div class="wrap">', '\n<main class="wrap">'),
         f"{f['title']} Storyboard",
         f["storyboard"], f"{url}storyboard/", f"{url}storyboard/frames/{f['storyboard_image']}"))
     shutil.copyfile(proj / f["poster"], out / "poster.jpg")

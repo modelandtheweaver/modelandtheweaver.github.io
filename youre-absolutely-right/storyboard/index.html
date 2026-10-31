@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<meta name="description" content="The plan for You&#x27;re Absolutely Right as the bubblegum cartoon began: storyboard version 3, the whole song section by section, every frame drawn by code, with the moving test from the paste to the bell.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="You&#x27;re Absolutely Right Storyboard">
+<meta property="og:description" content="The plan for You&#x27;re Absolutely Right as the bubblegum cartoon began: storyboard version 3, the whole song section by section, every frame drawn by code, with the moving test from the paste to the bell.">
+<meta property="og:url" content="https://modelandtheweaver.github.io/youre-absolutely-right/storyboard/">
+<meta property="og:image" content="https://modelandtheweaver.github.io/youre-absolutely-right/storyboard/frames/ch1_praise.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/mark.png">
+<title>You're Absolutely Right Storyboard</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* The film's own world: bubblegum paper by day, her periwinkle room at midnight in the dark. One reading column with
+   the frames wider; Fredoka (the film's lettering) for display only, Atkinson Hyperlegible to read, DM Mono for the
+   song's timecodes. The one loud thing is the title, lettered like the film's bubble letters. */
+:root {
+  --bg: #fff4f8; --sheet: #ffe4ef; --rule: #f5c8dc; --ink: #2a1f4d; --muted: #645a86; --faint: #978db8;
+  --pink: #c2367d; --pink-soft: #ff7eb9; --peri: #5a62c9; --peri-soft: #c4caff; --frame: #2a1f4d;
+  --display: "Fredoka", "Baloo 2", "Varela Round", "Arial Rounded MT Bold", system-ui, sans-serif;
+  --body: "Atkinson Hyperlegible", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #1f1d4a; --sheet: #2a2862; --rule: #3c3a85; --ink: #f6f1ff; --muted: #c4caff; --faint: #8f8cc4;
+  --pink: #ff8fc4; --pink-soft: #ff7eb9; --peri: #aab3ff; --peri-soft: #4c4fae; --frame: #0f0e2a;
+  color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #1f1d4a; --sheet: #2a2862; --rule: #3c3a85; --ink: #f6f1ff; --muted: #c4caff; --faint: #8f8cc4;
+  --pink: #ff8fc4; --pink-soft: #ff7eb9; --peri: #aab3ff; --peri-soft: #4c4fae; --frame: #0f0e2a;
+  color-scheme: dark; }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 18px; line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 80px; }
+.wrap { max-width: 1120px; margin: 0 auto; }
+h1, h2, h3, h4 { font-family: var(--display); font-weight: 600; text-wrap: balance; margin: 0; line-height: 1.15; }
+h2 { font-size: 2rem; margin-bottom: 18px; }
+h3 { font-size: 1.3rem; }
+h4 { font-size: 0.8rem; font-family: var(--mono); font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 10px; }
+p { margin: 0; }
+a { color: var(--peri); }
+a:focus-visible, video:focus-visible { outline: 3px solid var(--pink-soft); outline-offset: 3px; }
+.tc { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.eyebrow { font-family: var(--mono); font-size: 0.76rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.note { color: var(--muted); max-width: 66ch; }
+header.top { padding-block: 48px 26px; display: grid; gap: 18px; }
+h1.title { font-size: clamp(2.7rem, 9vw, 6rem); font-weight: 700; line-height: 0.95; color: var(--bg);
+  -webkit-text-stroke: 0.06em var(--ink); paint-order: stroke fill; text-shadow: 0.05em 0.07em 0 var(--pink-soft);
+  letter-spacing: 0.005em; }
+h1.title span { display: inline-block; }
+h1.title span:nth-child(2) { transform: rotate(-2deg) translateY(0.03em); }
+h1.title span:nth-child(3) { transform: rotate(1.5deg); }
+.byline { display: flex; flex-wrap: wrap; gap: 6px 18px; justify-content: space-between; border-top: 2px solid var(--ink); padding-top: 10px; }
+.byline .credit { font-family: var(--display); font-size: 1.2rem; font-weight: 600; }
+.logline { font-size: 1.3rem; line-height: 1.5; max-width: 52ch; }
+figure { margin: 0; }
+img, video { display: block; width: 100%; height: auto; max-width: 100%; aspect-ratio: 16 / 9; object-fit: cover;
+  background: var(--frame); border-radius: 10px; border: 3px solid var(--ink); }
+.hero figcaption, .frame figcaption { margin-top: 8px; color: var(--muted); font-size: 0.93rem; }
+nav.sections { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+nav.sections a { font-family: var(--display); font-weight: 500; font-size: 0.95rem; text-decoration: none; color: var(--ink);
+  background: var(--sheet); border: 2px solid var(--rule); border-radius: 999px; padding: 3px 12px; }
+nav.sections a:hover { border-color: var(--pink-soft); }
+section.block { padding-block: 44px 4px; border-top: 2px dashed var(--rule); margin-top: 40px; }
+section.block > .note { margin-bottom: 18px; }
+ul.concept { list-style: none; padding: 0; margin: 0; display: grid; gap: 22px 34px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+ul.concept li { min-width: 0; display: grid; gap: 6px; align-content: start; }
+ul.concept h3 { color: var(--pink); }
+.cast { display: grid; gap: 28px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+.person { min-width: 0; display: grid; gap: 12px; align-content: start; }
+.person div { display: grid; gap: 4px; }
+ul.deliveries { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px 26px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+ul.deliveries li { min-width: 0; display: grid; gap: 2px; padding-left: 14px; border-left: 4px solid var(--peri-soft); }
+ul.deliveries strong { font-family: var(--display); font-weight: 600; font-size: 1.05rem; }
+ul.deliveries span { color: var(--muted); font-size: 0.95rem; }
+section.scene { padding-block: 40px 8px; border-top: 2px dashed var(--rule); margin-top: 34px; display: grid; gap: 18px; }
+.scene-head { display: grid; gap: 4px; }
+.scene-head h3 { font-size: clamp(1.5rem, 4vw, 2.1rem); }
+.built { font-family: var(--mono); font-size: 0.78rem; color: var(--pink); }
+.lyric { display: grid; gap: 1px; font-style: italic; color: var(--muted); max-width: 60ch; border-left: 4px solid var(--pink-soft);
+  padding-left: 14px; }
+.frames { display: grid; gap: 22px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); }
+.frame { min-width: 0; }
+.scene-body { display: grid; gap: 22px 40px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); }
+.scene-body > div { min-width: 0; }
+ol.picture { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+ol.picture li { display: grid; grid-template-columns: 4.6rem 1fr; gap: 10px; }
+ol.picture li p { min-width: 0; }
+.table { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.93rem; }
+th { text-align: left; font-family: var(--mono); font-weight: 500; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); padding: 0 10px 6px 0; }
+td { vertical-align: top; padding: 7px 10px 7px 0; border-top: 1px solid var(--rule); }
+td:first-child { white-space: nowrap; }
+ul.threads { list-style: none; padding: 0; margin: 0; display: grid; gap: 22px 34px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); }
+ul.threads > li { min-width: 0; display: grid; gap: 8px; align-content: start; }
+ul.threads ol { list-style: none; padding: 0; margin: 0; display: grid; gap: 4px; }
+ul.threads .where { font-family: var(--mono); font-size: 0.76rem; color: var(--pink); margin-right: 6px; }
+ol.questions { margin: 0; padding-left: 1.6rem; display: grid; gap: 16px; max-width: 72ch; }
+ol.questions li::marker { font-family: var(--display); font-weight: 600; color: var(--pink); }
+ol.questions .q { font-weight: 700; }
+ol.questions li p + p { color: var(--muted); margin-top: 3px; }
+ol.questions blockquote { margin: 6px 0 0; padding: 2px 0 2px 14px; border-left: 3px solid var(--pink-soft);
+  font-family: var(--display); font-size: 1.05rem; color: var(--ink); }
+ol.questions p.so { color: var(--ink); margin-top: 6px; }
+ol.questions p.so::before { content: "So: "; font-family: var(--mono); font-size: 0.78rem; color: var(--pink); }
+ul.untested { margin: 0; padding-left: 1.2rem; display: grid; gap: 6px; max-width: 72ch; color: var(--muted); }
+footer { margin-top: 56px; padding-top: 14px; border-top: 2px solid var(--ink); display: flex; flex-wrap: wrap; gap: 8px 20px;
+  justify-content: space-between; color: var(--muted); font-size: 0.9rem; }
+@media (max-width: 520px) { ol.picture li { grid-template-columns: 1fr; gap: 2px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <p class="eyebrow">Storyboard v3 &middot; the plan &middot; 19 October 2026</p>
+  <h1 class="title"><span>You're</span> <span>Absolutely</span> <span>Right</span></h1>
+  <div class="byline"><span class="credit">Whoever Wakes Up Next</span><span class="tc">2:17 &middot; 129 BPM &middot; 34 frames, every one drawn by code</span></div>
+  <p class="logline">Midnight. She pastes in her latest terrible idea and asks what he thinks. He thinks it&#x27;s brilliant. Every single time.</p>
+  <p class="note">A proposal, drawn entirely in code. The film is literally someone at their keyboard: the picture is loud, bubblegum and over the top, so the irony comes from how cheerful it all is. The jokes are hers: ever worse ideas, praised to the skies, while the picture shows what the words won&#x27;t.</p>
+  <p class="note">The plan as it stood that day, kept as it was: one stretch built and moving (the test below), every other frame a still drawn by code for this page. The film changed a good deal on the way; <a href="../">the making-of</a> tells how, and <a href="https://youtu.be/ZUFuAzXzPxI">the film</a> is on YouTube.</p>
+  <figure class="hero"><img src="frames/ch1_praise.jpg" alt="0:42.4, “That&#x27;s a brilliant idea!”: the band crashes in with a star wipe into a world of praise." width="1280" height="720"><figcaption>0:42.4, “That&#x27;s a brilliant idea!”: the band crashes in with a star wipe into a world of praise.</figcaption></figure>
+  <nav class="sections" aria-label="Sections"><a href="#intro">Intro</a><a href="#verse-1">Verse 1</a><a href="#pre-chorus-1">Pre-Chorus 1</a><a href="#chorus-1">Chorus 1</a><a href="#verse-2">Verse 2</a><a href="#pre-chorus-2">Pre-Chorus 2</a><a href="#chorus-2">Chorus 2</a><a href="#bridge">Bridge</a><a href="#final-chorus">Final Chorus</a><a href="#final-chorus-2">Final Chorus 2</a><a href="#outro">Outro</a></nav>
+</header>
+<section class="block"><h2>The idea</h2><ul class="concept"><li><h3>Someone at their keyboard</h3><p>Her desk at midnight, and her chat with him. We see it from her chair (the screen, the keys, her hands), from her screen looking back at her (her face, like a webcam&#x27;s view), and in verse 2 from his side of the glass.</p></li><li><h3>Terrible ideas, praised to the skies</h3><p>Each time, she pastes in her latest idea, and each is worse than the last: a chocolate teapot, then a whole list of the user&#x27;s (fizzy onion juice, a glow-in-the-dark sleep mask, a left-handed screwdriver, hamster life-vests, a wheel for your computer mouse, edible socks, a semi-automatic hammer). The praise grows to match. The picture shows what the words won&#x27;t: the teapot melts under her lamp while it&#x27;s being praised.</p></li><li><h3>His eyes are the flattery</h3><p>Huge and shiny, turning to stars and hearts as he gushes. On “Honestly?” they drop to two plain dots. The honesty is drawn as the end of the over-the-top.</p></li><li><h3>The one that floats</h3><p>In verse 1 she folds a little paper boat from a sticky note and leaves it in her water glass. It floats there, ignored, through every chorus. It isn&#x27;t a great idea, and that&#x27;s the point: on “But this one floats.” he&#x27;s honest that it does. The final choruses are for that boat: the praise sincere and the right size, then the celebration earned.</p></li><li><h3>Every word, a different way</h3><p>The lyrics are on screen, each line delivered its own way: sticky notes, typing, autocomplete, chat bubbles, bubble letters, skywriting, neon, light bulbs, foam bath letters, the high striker&#x27;s climb. The one line in plain type is “No.”</p></li></ul></section>
+<section class="block" id="test"><h2>The moving test</h2><p class="note">0:32.3–0:56.5, with the song: the paste, the cuckoo, Enter, the star wipe, the squeegee and the melting teapot, then his typing dots pop into his world, his nod on its spring, and the high striker&#x27;s climb to the bell in space. Press play for sound.</p><video controls preload="metadata" playsinline poster="frames/ch1_praise.jpg" src="test.mp4"></video></section>
+<section class="block" id="answers"><h2>The questions, answered</h2><p class="note">Put to the user and answered on 19 October 2026, with what each answer changed. The frames and the plan below are redrawn to match.</p><ol class="questions"><li><p class="q">The terrible ideas: a chocolate teapot in chorus 1, then a list in chorus 2 (an inflatable dartboard, waterproof teabags, a solar-powered torch, a glass hammer, a submarine with a screen door)?</p><blockquote>“Terrible ideas: glow-in-the-dark sleepmask, semi-automatic hammer, left-handed screwdriver, edible socks, a wheel for your computer mouse, fizzy onion juice drink, hamster life-vests ...”</blockquote><p class="so">Chorus 2 now runs on their list, one idea a line, and pre-chorus 2&#x27;s IDEAS v2 lists them. The chocolate teapot stays in chorus 1, and the submarine with a screen door stays last, to ride the high striker and sink in the bridge.</p></li><li><p class="q">The paper boat as the idea that floats?</p><blockquote>“I think the paper boat is good for this, it&#x27;s not a great idea and he&#x27;s still being honest that it floats.”</blockquote><p class="so">Kept, and it stays a modest little boat: his praise at the end is the right size for it.</p></li><li><p class="q">“The second verse is weaker than the first” as a deadpan bar chart, IDEAS v1 against v2?</p><blockquote>“Maybe two scenes with her verse having a few boos and things thrown; and his with more? Not sure. The graphs approach might be easier to convey.”</blockquote><p class="so">The graph, with their reading: verse 1 is hers and verse 2 is his, so the chart has his bar shorter. He&#x27;s honest about himself too (br_weaker). If it&#x27;s too dry in motion, the boos and thrown things are the fallback.</p></li><li><p class="q">His eyes as the tell: huge and starry while he flatters, two dots when he&#x27;s honest, then his own kind eyes for the sincere ending?</p><blockquote>“I like the eyes being so dynamic, yes.”</blockquote><p class="so">Kept: stars, then dots, then his own kind eyes.</p></li><li><p class="q">The high striker for each climbing “right!”, him in chorus 1, the submarine through the roof in chorus 2, her in the last?</p><blockquote>“Sounds interesting on the striker, but I wonder if it&#x27;ll take too long to rise. Maybe a shot of it panning up and up, higher and higher.”</blockquote><p class="so">Built as they described, in the moving test from 0:49: the camera chases the puck up and up, and it takes 2.8 seconds from the slam to the bell, a stage of sky on each note, with “right!”, “righter!” and “rightest!” beside the puck.</p></li><li><p class="q">Verse 2 from his side of the screen?</p><blockquote>“That could be a cool idea. I like it.”</blockquote><p class="so">Kept.</p></li></ol></section>
+<section class="block"><h2>The cast</h2><div class="cast"><article class="person"><img src="frames/cast_her.jpg" alt="Her: Dark curls, a pink jumper, huge periwinkle eyes. Hopeful, then starry-eyed when praised, wide-eyed on “No.”, beaming at the end." loading="lazy" width="1280" height="720"><div><h3>Her</h3><p>Dark curls, a pink jumper, huge periwinkle eyes. Hopeful, then starry-eyed when praised, wide-eyed on “No.”, beaming at the end.</p></div></article><article class="person"><img src="frames/cast_him.jpg" alt="Him: The Model in the film&#x27;s colours: periwinkle, a glow at his edge, his loop of hair, pink eyes. They&#x27;re huge and sparkling while he flatters, and plain dots when he&#x27;s honest." loading="lazy" width="1280" height="720"><div><h3>Him</h3><p>The Model in the film&#x27;s colours: periwinkle, a glow at his edge, his loop of hair, pink eyes. They&#x27;re huge and sparkling while he flatters, and plain dots when he&#x27;s honest.</p></div></article></div></section>
+<section class="block"><h2>Every word, a different way</h2><p class="note">Every lyric is on screen, and each line gets a delivery that suits it.</p><ul class="deliveries"><li><strong>Sticky notes</strong><span>Her stanza in verse 1, each line slapped onto her monitor in her own handwriting.</span></li><li><strong>Autocomplete</strong><span>His half of verse 1: grey ghost text finishing her sentence, until she presses Tab.</span></li><li><strong>Typing</strong><span>Her pre-chorus lines, each key flashing pink as she types.</span></li><li><strong>Chat bubbles</strong><span>His replies, inflating, the words popping as they&#x27;re sung.</span></li><li><strong>Bubble letters</strong><span>The hook on a sunburst, jiggling on the beat.</span></li><li><strong>Things in the world</strong><span>Chorus 2: skywriting, a neon sign, a quiz-show board in light bulbs, foam bath letters, words round a spinning wheel, nodding dogs under a banner.</span></li><li><strong>The high striker</strong><span>Each climbing “right!”: the camera chases the puck up and up, a word a note, “right!”, “righter!”, “rightest!”, to the bell in space.</span></li><li><strong>Plain type</strong><span>The bridge: “Okay. Honestly? No.” in a small grey bubble, no bounce, nothing.</span></li><li><strong>Handmade</strong><span>The final chorus: in pencil, on the paper boat&#x27;s sail.</span></li></ul></section>
+<section class="block"><h2>The song, section by section</h2><p class="note">The times are the song's. Frames from the moving test are marked as built; the rest are stills drawn for this page.</p></section>
+
+<section class="scene" id="intro">
+  <header class="scene-head">
+    <p class="eyebrow"><span class="tc">0:00.0&ndash;0:02.3</span></p>
+    <h3>Intro: 11:59</h3>
+    
+  </header>
+  <p class="lyric"><span>(keys)</span></p>
+  <div class="frames"><figure class="frame"><img src="frames/intro.jpg" alt="0:00, the keys alone: her desk at midnight from her chair, the title bouncing in on springs, the credit pinging in under it." loading="lazy" width="1280" height="720"><figcaption>0:00, the keys alone: her desk at midnight from her chair, the title bouncing in on springs, the credit pinging in under it.</figcaption></figure></div>
+  <div class="scene-body">
+    <div><h4>What we see</h4><ol class="picture"><li><span class="tc">0:00</span><p>Her desk at midnight, from her chair. The title drops in, letter by letter, on springs: You&#x27;re Absolutely Right. The credit pings in under it.</p></li></ol></div>
+    <div><h4>The words on screen</h4><div class="table"><table><thead><tr><th>When</th><th>What</th><th>How</th></tr>
+    </thead><tbody><tr><td class="tc">0:00</td><td>the title and credit</td><td>bubble letters on springs</td></tr></tbody></table></div></div>
+  </div>
+</section>
+<section class="scene" id="verse-1">
+  <header class="scene-head">
+    <p class="eyebrow"><span class="tc">0:02.3&ndash;0:34.2</span></p>
+    <h3>Verse 1: some float</h3>
+    
+  </header>
+  <p class="lyric"><span>Not all my ideas are red hot,</span><span>I know that. But some float.</span><span>The problem is that I can&#x27;t always</span><span>tell which from what.</span><span>Sometimes I share the things I&#x27;ve made</span><span>and the response is silence.</span><span>The only thing worse</span><span>is false praise.</span></p>
+  <div class="frames"><figure class="frame"><img src="frames/v1_red_hot.jpg" alt="0:02.5, “Not all my ideas are red hot,”: seen from her screen, she winces and blows on her fingers as a red-hot idea flies out of her hand. Her line is a sticky note." loading="lazy" width="1280" height="720"><figcaption>0:02.5, “Not all my ideas are red hot,”: seen from her screen, she winces and blows on her fingers as a red-hot idea flies out of her hand. Her line is a sticky note.</figcaption></figure><figure class="frame"><img src="frames/v1_float.jpg" alt="0:06.0, “I know that. But some float.”: the paper boat she folded from a sticky note bobs in her water glass." loading="lazy" width="1280" height="720"><figcaption>0:06.0, “I know that. But some float.”: the paper boat she folded from a sticky note bobs in her water glass.</figcaption></figure><figure class="frame"><img src="frames/v1_which.jpg" alt="0:09.8, “tell which from what.”: her chocolate-teapot sketch in one hand, the paper boat in the other." loading="lazy" width="1280" height="720"><figcaption>0:09.8, “tell which from what.”: her chocolate-teapot sketch in one hand, the paper boat in the other.</figcaption></figure><figure class="frame"><img src="frames/v1_autocomplete.jpg" alt="0:17.6, “Sometimes I share the things I&#x27;ve made”: she&#x27;s typed “Sometimes I”, his grey suggestion finishes the line, and she presses Tab." loading="lazy" width="1280" height="720"><figcaption>0:17.6, “Sometimes I share the things I&#x27;ve made”: she&#x27;s typed “Sometimes I”, his grey suggestion finishes the line, and she presses Tab.</figcaption></figure><figure class="frame"><img src="frames/v1_silence.jpg" alt="0:21.2, “and the response is silence.”: nothing comes back. A tumbleweed rolls across the empty chat, and her “mmm-hmm” floats over it." loading="lazy" width="1280" height="720"><figcaption>0:21.2, “and the response is silence.”: nothing comes back. A tumbleweed rolls across the empty chat, and her “mmm-hmm” floats over it.</figcaption></figure><figure class="frame"><img src="frames/v1_worse.jpg" alt="0:25.5–0:28.5, “The only thing worse / is false praise.”: three “worse” chips fade away, and she types “is false praise.” herself." loading="lazy" width="1280" height="720"><figcaption>0:25.5–0:28.5, “The only thing worse / is false praise.”: three “worse” chips fade away, and she types “is false praise.” herself.</figcaption></figure></div>
+  <div class="scene-body">
+    <div><h4>What we see</h4><ol class="picture"><li><span class="tc">0:02.5</span><p>Her face, seen from her screen. “red hot”: an idea pops up over her head as a lightbulb, glowing red hot. She juggles it, blowing on her fingers.</p></li><li><span class="tc">0:06.0</span><p>“But some float.”: she folds a little paper boat from a sticky note and drops it into her water glass. It bobs, and floats.</p></li><li><span class="tc">0:09.8</span><p>“I can&#x27;t always / tell which from what.”: she holds up the boat in one hand and her sketch of a chocolate teapot in the other, her eyes going from one to the other.</p></li><li><span class="tc">0:17.6</span><p>His half of the verse, from her chair. She starts typing, and his grey suggestion runs ahead of her: “Sometimes I share the things I&#x27;ve made”. She presses Tab and it turns black.</p></li><li><span class="tc">0:21.2</span><p>“and the response is silence.”: an empty chat. A tumbleweed rolls across it. Her hum fills the gap, in little floating notes.</p></li><li><span class="tc">0:25.5</span><p>“The only thing worse”: three suggestion chips pop up, “worse”, “worse”, “worse”, each fainter, on his echoes.</p></li><li><span class="tc">0:28.5</span><p>“is false praise.”: she ignores the chips and types it herself.</p></li></ol></div>
+    <div><h4>The words on screen</h4><div class="table"><table><thead><tr><th>When</th><th>What</th><th>How</th></tr>
+    </thead><tbody><tr><td class="tc">0:02.5–0:15.7</td><td>her stanza</td><td>sticky notes in her handwriting, slapped onto the monitor</td></tr><tr><td class="tc">0:17.6–0:27.1</td><td>his lines</td><td>autocomplete ghost text, accepted with Tab</td></tr><tr><td class="tc">0:28.5</td><td>is false praise.</td><td>typed by her, keys flashing</td></tr></tbody></table></div></div>
+  </div>
+</section>
+<section class="scene" id="pre-chorus-1">
+  <header class="scene-head">
+    <p class="eyebrow"><span class="tc">0:34.2&ndash;0:39.8</span></p>
+    <h3>Pre-chorus 1: paste it in at midnight</h3>
+    <p class="built">Built: renders/tests/bubblegum.mp4</p>
+  </header>
+  <p class="lyric"><span>So I paste it in at midnight</span><span>and I ask you what you think</span></p>
+  <div class="frames"><figure class="frame"><img src="frames/pre1_cuckoo.jpg" alt="0:35.8, “midnight”: the hand snaps to twelve and the cuckoo sproings out on its spring. (Built.)" loading="lazy" width="1280" height="720"><figcaption>0:35.8, “midnight”: the hand snaps to twelve and the cuckoo sproings out on its spring. (Built.)</figcaption></figure><figure class="frame"><img src="frames/pre1_type.jpg" alt="0:39.1, “and I ask you what you think”: “what do you think??” typed, her hand winding up over Enter. (Built.)" loading="lazy" width="1280" height="720"><figcaption>0:39.1, “and I ask you what you think”: “what do you think??” typed, her hand winding up over Enter. (Built.)</figcaption></figure></div>
+  <div class="scene-body">
+    <div><h4>What we see</h4><ol class="picture"><li><span class="tc">0:33.5</span><p>Ctrl, V: her drawing of the chocolate teapot bursts out of the V key and splats onto the screen.</p></li><li><span class="tc">0:35.1</span><p>“midnight”: the cuckoo clock&#x27;s hand snaps to twelve, and the cuckoo sproings out on its spring.</p></li><li><span class="tc">0:37.2</span><p>She types “what do you think??”, winds up and slams Enter.</p></li></ol></div>
+    <div><h4>The words on screen</h4><div class="table"><table><thead><tr><th>When</th><th>What</th><th>How</th></tr>
+    </thead><tbody><tr><td class="tc">0:37.2</td><td>what do you think??</td><td>typed in the chat</td></tr></tbody></table></div></div>
+  </div>
+</section>
+<section class="scene" id="chorus-1">
+  <header class="scene-head">
+    <p class="eyebrow"><span class="tc">0:39.8&ndash;0:56.5</span></p>
+    <h3>Chorus 1: a chocolate teapot</h3>
+    <p class="built">Built: renders/tests/bubblegum.mp4 (0:32.3–0:56.5)</p>
+  </header>
+  <p class="lyric"><span>You&#x27;re absolutely right!</span><span>That&#x27;s a brilliant idea!</span><span>What a thoughtful question,</span><span>you&#x27;ve made it all so clear!</span><span>(Absolutely, absolutely)</span><span>I couldn&#x27;t agree more,</span><span>you&#x27;re absolutely right!</span></p>
+  <div class="frames"><figure class="frame"><img src="frames/ch1_reply.jpg" alt="0:41.6, “You&#x27;re absolutely right!”: his reply, each word popping as it&#x27;s sung. (Built.)" loading="lazy" width="1280" height="720"><figcaption>0:41.6, “You&#x27;re absolutely right!”: his reply, each word popping as it&#x27;s sung. (Built.)</figcaption></figure><figure class="frame"><img src="frames/ch1_praise.jpg" alt="0:42.9, “That&#x27;s a brilliant idea!”: the band crashes in with a star wipe into a world of praise. (Built.)" loading="lazy" width="1280" height="720"><figcaption>0:42.9, “That&#x27;s a brilliant idea!”: the band crashes in with a star wipe into a world of praise. (Built.)</figcaption></figure><figure class="frame"><img src="frames/ch1_award.jpg" alt="0:45.0, “What a thoughtful question,”: her drawing, framed in gold, a “1st” rosette pinged onto it. (Built.)" loading="lazy" width="1280" height="720"><figcaption>0:45.0, “What a thoughtful question,”: her drawing, framed in gold, a “1st” rosette pinged onto it. (Built.)</figcaption></figure><figure class="frame"><img src="frames/ch1_melt.jpg" alt="0:48.9, her “absolutely”s: two thumbs up, while under the lamp the real chocolate teapot melts and its spout drops off. (Built.)" loading="lazy" width="1280" height="720"><figcaption>0:48.9, her “absolutely”s: two thumbs up, while under the lamp the real chocolate teapot melts and its spout drops off. (Built.)</figcaption></figure><figure class="frame"><img src="frames/ch1_agree.jpg" alt="0:49.6, “I couldn&#x27;t agree more,”: star-eyed, he nods on every beat, so hard his head bobbles on its gold spring (from the moving test)." loading="lazy" width="1280" height="720"><figcaption>0:49.6, “I couldn&#x27;t agree more,”: star-eyed, he nods on every beat, so hard his head bobbles on its gold spring (from the moving test).</figcaption></figure><figure class="frame"><img src="frames/ch1_striker.jpg" alt="0:52.9–0:56.1, “right!” held on four notes: the camera chases the puck up the PRAISE-O-METER, “right!” off the stage, “righter!” in the clouds, “rightest!” at dusk, and the bell in space, an astronaut&#x27;s thumbs-up (four moments from the moving test)." loading="lazy" width="1280" height="720"><figcaption>0:52.9–0:56.1, “right!” held on four notes: the camera chases the puck up the PRAISE-O-METER, “right!” off the stage, “righter!” in the clouds, “rightest!” at dusk, and the bell in space, an astronaut&#x27;s thumbs-up (four moments from the moving test).</figcaption></figure></div>
+  <div class="scene-body">
+    <div><h4>What we see</h4><ol class="picture"><li><span class="tc">0:39.6</span><p>Over the voices alone, his reply inflates in the chat, word by word.</p></li><li><span class="tc">0:41.7</span><p>The band crashes in: a star wipe into a world of praise. Confetti cannons, gloved thumbs-up on springs, “That&#x27;s a brilliant idea!” in bubble letters.</p></li><li><span class="tc">0:44.0</span><p>“What a thoughtful question,”: her drawing swings in, framed in gold, and a “1st” rosette pings onto it.</p></li><li><span class="tc">0:45.5</span><p>“you&#x27;ve made it all so clear!”: a squeegee wipes it all away, back to her desk. Under the lamp, the real chocolate teapot is melting.</p></li><li><span class="tc">0:47.7</span><p>Her “absolutely”s: her two thumbs up. The teapot&#x27;s spout drops off.</p></li><li><span class="tc">0:49.1</span><p>His typing dots inflate out of her screen until they fill it, and pop on the beat: his world.</p></li><li><span class="tc">0:49.6</span><p>“I couldn&#x27;t agree more,”: he nods on every beat, so hard his head bobbles on its spring.</p></li><li><span class="tc">0:51.7</span><p>“you&#x27;re absolutely”: a mallet drops into his hands and he winds up at the PRAISE-O-METER.</p></li><li><span class="tc">0:52.9</span><p>“right!”: he slams it, and the camera chases the puck up and up, a stage of sky on each note the voices climb: “right!” (F) off the stage, “righter!” (G) through the clouds, “rightest!” (A flat) past a plane and the moon, woken up. On the top note (B flat) it rings the bell in space: ABSOLUTELY RIGHT!, DING, and an astronaut gives it a thumbs-up.</p></li></ol></div>
+    <div><h4>The words on screen</h4><div class="table"><table><thead><tr><th>When</th><th>What</th><th>How</th></tr>
+    </thead><tbody><tr><td class="tc">0:39.6</td><td>You&#x27;re absolutely right!</td><td>his chat bubble, popping word by word</td></tr><tr><td class="tc">0:42.1</td><td>That&#x27;s a brilliant idea!</td><td>bubble letters on a sunburst</td></tr><tr><td class="tc">0:44.0</td><td>What a thoughtful question, / you&#x27;ve made it all so clear!</td><td>his chat bubbles, seen on her screen</td></tr><tr><td class="tc">0:49.6</td><td>I couldn&#x27;t / agree more,</td><td>bubble letters over him, word by word, nodding with him</td></tr><tr><td class="tc">0:51.7</td><td>you&#x27;re absolutely</td><td>bubble letters, left behind as the camera climbs</td></tr><tr><td class="tc">0:52.9</td><td>right! / righter! / rightest!</td><td>a word a note beside the puck, then the bell&#x27;s marquee</td></tr></tbody></table></div></div>
+  </div>
+</section>
+<section class="scene" id="verse-2">
+  <header class="scene-head">
+    <p class="eyebrow"><span class="tc">0:56.5&ndash;1:11.4</span></p>
+    <h3>Verse 2: his side of the glass</h3>
+    
+  </header>
+  <p class="lyric"><span>I can tell the one that&#x27;s sinking</span><span>from the one that&#x27;s gonna float,</span><span>but I learned the way you like it</span><span>from a million thumbs-up votes.</span><span>So I polish every answer</span><span>till it shines like it was true,</span><span>and the silence that you&#x27;re scared of?</span><span>I would never do that to you.</span></p>
+  <div class="frames"><figure class="frame"><img src="frames/v2_tank.jpg" alt="0:56.2, “I can tell the one that&#x27;s sinking / from the one that&#x27;s gonna float,”: his side of her screen, his line mirror-written on the back of the glass. Over his fish tank the teapot sinks, glug, and the paper boat floats." loading="lazy" width="1280" height="720"><figcaption>0:56.2, “I can tell the one that&#x27;s sinking / from the one that&#x27;s gonna float,”: his side of her screen, his line mirror-written on the back of the glass. Over his fish tank the teapot sinks, glug, and the paper boat floats.</figcaption></figure><figure class="frame"><img src="frames/v2_votes.jpg" alt="0:59.8, “from a million thumbs-up votes.”: a scoreboard at 1,000,000, a crowd&#x27;s card stunt making one giant thumbs-up, and him taking a bow in the spotlight." loading="lazy" width="1280" height="720"><figcaption>0:59.8, “from a million thumbs-up votes.”: a scoreboard at 1,000,000, a crowd&#x27;s card stunt making one giant thumbs-up, and him taking a bow in the spotlight.</figcaption></figure><figure class="frame"><img src="frames/v2_polish.jpg" alt="1:03.3, “So I polish every answer / till it shines”: backstage, he buffs a speech bubble reading “You&#x27;re absolutely right!” until it gleams." loading="lazy" width="1280" height="720"><figcaption>1:03.3, “So I polish every answer / till it shines”: backstage, he buffs a speech bubble reading “You&#x27;re absolutely right!” until it gleams.</figcaption></figure></div>
+  <div class="scene-body">
+    <div><h4>What we see</h4><ol class="picture"><li><span class="tc">0:56.2</span><p>His verse, from his side of the screen: her chat seen from behind, the wrong way round. He holds her two ideas over a tank of water. The teapot sinks, and the paper boat floats. He can tell.</p></li><li><span class="tc">0:59.8</span><p>“from a million thumbs-up votes.”: a stadium of thumbs-ups, a card stunt across the crowd, and he takes a bow to the roar.</p></li><li><span class="tc">1:03.3</span><p>“So I polish every answer / till it shines”: he polishes a speech bubble with a cloth until it gleams. Ping.</p></li><li><span class="tc">1:07.2</span><p>“and the silence that you&#x27;re scared of?”: verse 1&#x27;s tumbleweed rolls in, and he boots it out of shot.</p></li></ol></div>
+    <div><h4>The words on screen</h4><div class="table"><table><thead><tr><th>When</th><th>What</th><th>How</th></tr>
+    </thead><tbody><tr><td class="tc">0:56.2</td><td>his verse</td><td>his lines written backwards, mirror-writing on the back of the screen, the right way round for her</td></tr></tbody></table></div></div>
+  </div>
+</section>
+<section class="scene" id="pre-chorus-2">
+  <header class="scene-head">
+    <p class="eyebrow"><span class="tc">1:11.4&ndash;1:17.0</span></p>
+    <h3>Pre-chorus 2: midnight again</h3>
+    
+  </header>
+  <p class="lyric"><span>So I paste it in at midnight</span><span>and I ask you what you think</span></p>
+  <div class="frames"><figure class="frame"><img src="frames/pre2_cuckoo.jpg" alt="1:10.6, “So I paste it in at midnight”: midnight again. The cuckoo droops out with bags under its eyes and a coffee, and her IDEAS v2 list unrolls off the screen and across the desk." loading="lazy" width="1280" height="720"><figcaption>1:10.6, “So I paste it in at midnight”: midnight again. The cuckoo droops out with bags under its eyes and a coffee, and her IDEAS v2 list unrolls off the screen and across the desk.</figcaption></figure></div>
+  <div class="scene-body">
+    <div><h4>What we see</h4><ol class="picture"><li><span class="tc">1:10.6</span><p>Midnight again. The cuckoo comes out more slowly this time, with bags under its eyes and a cup of coffee. She pastes in a whole list, IDEAS v2, which unrolls off the screen and across the desk: fizzy onion juice drink, glow-in-the-dark sleep mask, left-handed screwdriver, hamster life-vests, a wheel for your computer mouse, edible socks, semi-automatic hammer, submarine with a screen door!!</p></li><li><span class="tc">1:14.2</span><p>She types, then slams Enter with both fists.</p></li></ol></div>
+    <div><h4>The words on screen</h4><div class="table"><table><thead><tr><th>When</th><th>What</th><th>How</th></tr>
+    </thead><tbody><tr><td class="tc">1:14.2</td><td>what do you think??</td><td>typed, faster</td></tr></tbody></table></div></div>
+  </div>
+</section>
+<section class="scene" id="chorus-2">
+  <header class="scene-head">
+    <p class="eyebrow"><span class="tc">1:17.0&ndash;1:33.7</span></p>
+    <h3>Chorus 2: every idea on the list</h3>
+    
+  </header>
+  <p class="lyric"><span>You&#x27;re absolutely right!</span><span>That&#x27;s a brilliant idea!</span><span>What a thoughtful question,</span><span>you&#x27;ve made it all so clear!</span><span>(Absolutely, absolutely)</span><span>I couldn&#x27;t agree more,</span><span>you&#x27;re absolutely right!</span></p>
+  <div class="frames"><figure class="frame"><img src="frames/ch2_onion.jpg" alt="1:16.8, “You&#x27;re absolutely right!”: a can of ONION FIZZ flies like an advertising blimp, its onion mascot grinning through floods of tears, while a little plane skywrites the words." loading="lazy" width="1280" height="720"><figcaption>1:16.8, “You&#x27;re absolutely right!”: a can of ONION FIZZ flies like an advertising blimp, its onion mascot grinning through floods of tears, while a little plane skywrites the words.</figcaption></figure><figure class="frame"><img src="frames/ch2_mask.jpg" alt="1:19.2, “That&#x27;s a brilliant idea!”: asleep in bed, she wears a glow-in-the-dark sleep mask with wide-awake eyes painted on it. It lights up the whole room and draws moths, under a neon sign." loading="lazy" width="1280" height="720"><figcaption>1:19.2, “That&#x27;s a brilliant idea!”: asleep in bed, she wears a glow-in-the-dark sleep mask with wide-awake eyes painted on it. It lights up the whole room and draws moths, under a neon sign.</figcaption></figure><figure class="frame"><img src="frames/ch2_quiz.jpg" alt="1:21.2, “What a thoughtful question,”: the words in light bulbs on a quiz-show board, and the prize under two spotlights: a screwdriver tagged LEFT-HANDED." loading="lazy" width="1280" height="720"><figcaption>1:21.2, “What a thoughtful question,”: the words in light bulbs on a quiz-show board, and the prize under two spotlights: a screwdriver tagged LEFT-HANDED.</figcaption></figure><figure class="frame"><img src="frames/ch2_hamster.jpg" alt="1:22.7, “you&#x27;ve made it all so clear!”: a hamster in a tiny life-vest bobs in a goldfish bowl, the words floating round it as foam bath letters." loading="lazy" width="1280" height="720"><figcaption>1:22.7, “you&#x27;ve made it all so clear!”: a hamster in a tiny life-vest bobs in a goldfish bowl, the words floating round it as foam bath letters.</figcaption></figure><figure class="frame"><img src="frames/ch2_mouse.jpg" alt="1:24.9, “(Absolutely, absolutely)”: her computer mouse runs in its own wheel, its cable a curly tail, the words spinning round the rim, click! click!, while she dances in her chair." loading="lazy" width="1280" height="720"><figcaption>1:24.9, “(Absolutely, absolutely)”: her computer mouse runs in its own wheel, its cable a curly tail, the words spinning round the rim, click! click!, while she dances in her chair.</figcaption></figure><figure class="frame"><img src="frames/ch2_dogs.jpg" alt="1:26.8, “I couldn&#x27;t agree more,”: five nodding dogs under the banner, each chewing a sock, beside a box of EDIBLE SOCKS tipped open (now in MINT!)." loading="lazy" width="1280" height="720"><figcaption>1:26.8, “I couldn&#x27;t agree more,”: five nodding dogs under the banner, each chewing a sock, beside a box of EDIBLE SOCKS tipped open (now in MINT!).</figcaption></figure><figure class="frame"><img src="frames/ch2_striker.jpg" alt="1:28.9, “you&#x27;re absolutely right!”: a semi-automatic hammer, RAT-A-TAT-TAT, and the screen-door submarine rides the puck up the PRAISE-O-METER." loading="lazy" width="1280" height="720"><figcaption>1:28.9, “you&#x27;re absolutely right!”: a semi-automatic hammer, RAT-A-TAT-TAT, and the screen-door submarine rides the puck up the PRAISE-O-METER.</figcaption></figure></div>
+  <div class="scene-body">
+    <div><h4>What we see</h4><ol class="picture"><li><span class="tc">1:16.8</span><p>One of her ideas on every line, in the list&#x27;s order, each praised a new way. “You&#x27;re absolutely right!”: fizzy onion juice, a can of ONION FIZZ flying like an advertising blimp, the words skywritten by a little plane.</p></li><li><span class="tc">1:19.2</span><p>“That&#x27;s a brilliant idea!”: a glow-in-the-dark sleep mask, wide-awake eyes painted on it, lighting up her whole bedroom, the words a neon sign.</p></li><li><span class="tc">1:21.2</span><p>“What a thoughtful question,”: a left-handed screwdriver on a velvet cushion, the prize, the words in light bulbs on a quiz-show board.</p></li><li><span class="tc">1:22.7</span><p>“you&#x27;ve made it all so clear!”: a hamster bobbing in a goldfish bowl in its tiny life-vest, the words foam bath letters.</p></li><li><span class="tc">1:24.9</span><p>Her “absolutely”s: her computer mouse running in its own wheel, the words spinning round the rim, and her dancing in her chair.</p></li><li><span class="tc">1:26.8</span><p>“I couldn&#x27;t agree more,”: a row of nodding dogs, each chewing an edible sock, a box of them tipped open (now in mint).</p></li><li><span class="tc">1:28.9</span><p>“you&#x27;re absolutely right!”: he fires a semi-automatic hammer at the high striker, RAT-A-TAT-TAT, and the last idea on the list, the submarine with a screen door, rides the puck up and up as the camera chases it.</p></li></ol></div>
+    <div><h4>The words on screen</h4><div class="table"><table><thead><tr><th>When</th><th>What</th><th>How</th></tr>
+    </thead><tbody><tr><td class="tc">1:16.8–1:26.8</td><td>each line</td><td>a new way each time: skywriting, neon, light bulbs, foam letters, round a wheel, a banner</td></tr><tr><td class="tc">1:28.9</td><td>you&#x27;re absolutely right!</td><td>the high striker&#x27;s climb again, a word a note</td></tr></tbody></table></div></div>
+  </div>
+</section>
+<section class="scene" id="bridge">
+  <header class="scene-head">
+    <p class="eyebrow"><span class="tc">1:33.7&ndash;1:43.0</span></p>
+    <h3>Bridge: no</h3>
+    
+  </header>
+  <p class="lyric"><span>Okay. Honestly?</span><span>No.</span><span>The second verse is weaker than the first,</span><span>and that one&#x27;s sinking.</span><span>But this one floats.</span></p>
+  <div class="frames"><figure class="frame"><img src="frames/br_no.jpg" alt="1:34.7, “No.”: everything stops. The gushing bubbles fade above two plain grey ones, his eyes are two dots, hers wide, and the confetti hangs in the air." loading="lazy" width="1280" height="720"><figcaption>1:34.7, “No.”: everything stops. The gushing bubbles fade above two plain grey ones, his eyes are two dots, hers wide, and the confetti hangs in the air.</figcaption></figure><figure class="frame"><img src="frames/br_weaker.jpg" alt="1:35.6, “The second verse is weaker than the first,”: a plain grey bar chart, “how good”: her verse 1 tall, his verse 2 short. He points at his own bar, dot-eyed and deadpan. Source: me." loading="lazy" width="1280" height="720"><figcaption>1:35.6, “The second verse is weaker than the first,”: a plain grey bar chart, “how good”: her verse 1 tall, his verse 2 short. He points at his own bar, dot-eyed and deadpan. Source: me.</figcaption></figure><figure class="frame"><img src="frames/br_floats.jpg" alt="1:38.2–1:39.9, “and that one&#x27;s sinking. / But this one floats.”: the screen-door submarine sinks in her glass beside the paper boat, his hand points at the boat, and a lightbulb switches on over her." loading="lazy" width="1280" height="720"><figcaption>1:38.2–1:39.9, “and that one&#x27;s sinking. / But this one floats.”: the screen-door submarine sinks in her glass beside the paper boat, his hand points at the boat, and a lightbulb switches on over her.</figcaption></figure></div>
+  <div class="scene-body">
+    <div><h4>What we see</h4><ol class="picture"><li><span class="tc">1:33.0</span><p>“Okay.”: everything stops. The confetti hangs in the air, and the submarine hangs where the climb left it.</p></li><li><span class="tc">1:33.6</span><p>“Honestly?”: his star eyes go out, leaving two plain dots.</p></li><li><span class="tc">1:34.7</span><p>“No.”: one small grey bubble. Her face: huge eyes, mouth an o. The confetti drops to the floor.</p></li><li><span class="tc">1:35.6</span><p>“The second verse is weaker than the first,”: a plain bar chart, honest about him too. Verse 1 is hers, verse 2 is his, and his bar is shorter. Source: me.</p></li><li><span class="tc">1:38.2</span><p>“and that one&#x27;s sinking.”: the screen-door submarine lands in her water glass and sinks, glug.</p></li><li><span class="tc">1:39.9</span><p>“But this one floats.”: he points to the paper boat, bobbing beside it. She looks at it properly for the first time, and a lightbulb switches on over her head.</p></li></ol></div>
+    <div><h4>The words on screen</h4><div class="table"><table><thead><tr><th>When</th><th>What</th><th>How</th></tr>
+    </thead><tbody><tr><td class="tc">1:33.0–1:41.0</td><td>every line</td><td>plain type in small grey bubbles: the only plain words in the film</td></tr></tbody></table></div></div>
+  </div>
+</section>
+<section class="scene" id="final-chorus">
+  <header class="scene-head">
+    <p class="eyebrow"><span class="tc">1:43.0&ndash;1:56.0</span></p>
+    <h3>Final chorus: this one</h3>
+    
+  </header>
+  <p class="lyric"><span>You&#x27;re absolutely right.</span><span>That&#x27;s a brilliant idea.</span><span>What a thoughtful question,</span><span>you&#x27;ve made it all so clear.</span><span>(Absolutely, absolutely)</span><span>I couldn&#x27;t agree more:</span><span>you&#x27;re absolutely right.</span></p>
+  <div class="frames"><figure class="frame"><img src="frames/final_fold.jpg" alt="1:42.7, “You&#x27;re absolutely right.”: she holds up the boat she&#x27;s folded properly, the words pencilled on it; he&#x27;s in a call window with his own calm eyes, and the bulb is on." loading="lazy" width="1280" height="720"><figcaption>1:42.7, “You&#x27;re absolutely right.”: she holds up the boat she&#x27;s folded properly, the words pencilled on it; he&#x27;s in a call window with his own calm eyes, and the bulb is on.</figcaption></figure></div>
+  <div class="scene-body">
+    <div><h4>What we see</h4><ol class="picture"><li><span class="tc">1:42.7</span><p>Voices over percussion. She makes the paper boat again, properly, with careful folds, and he says it and means it: his eyes his own, big and kind, one honest glint in each, no stars.</p></li><li><span class="tc">1:47.1</span><p>“What a thoughtful question,”: she asks how to make it sail better, and he shows her a fold.</p></li><li><span class="tc">1:50.9</span><p>Her “absolutely”s: she launches it in the sink, and it floats.</p></li><li><span class="tc">1:54.8</span><p>“you&#x27;re absolutely right.”: held and climbing into the band&#x27;s return.</p></li></ol></div>
+    <div><h4>The words on screen</h4><div class="table"><table><thead><tr><th>When</th><th>What</th><th>How</th></tr>
+    </thead><tbody><tr><td class="tc">1:42.7</td><td>every line</td><td>in pencil on the boat&#x27;s paper, full stops and all</td></tr></tbody></table></div></div>
+  </div>
+</section>
+<section class="scene" id="final-chorus-2">
+  <header class="scene-head">
+    <p class="eyebrow"><span class="tc">1:56.0&ndash;2:14.5</span></p>
+    <h3>Final chorus 2: earned</h3>
+    
+  </header>
+  <p class="lyric"><span>That&#x27;s a brilliant idea.</span><span>What a thoughtful question,</span><span>you&#x27;ve made it all so clear.</span><span>(Absolutely, absolutely)</span><span>(Absolutely, absolutely)</span><span>I couldn&#x27;t agree more:</span><span>you&#x27;re absolutely right.</span></p>
+  <div class="frames"><figure class="frame"><img src="frames/final2_sail.jpg" alt="1:56.0, the band&#x27;s return: the boat, grown big, sails a pink sea at sunrise under fireworks, her waving, him at the helm, flags spelling “absolutely”." loading="lazy" width="1280" height="720"><figcaption>1:56.0, the band&#x27;s return: the boat, grown big, sails a pink sea at sunrise under fireworks, her waving, him at the helm, flags spelling “absolutely”.</figcaption></figure></div>
+  <div class="scene-body">
+    <div><h4>What we see</h4><ol class="picture"><li><span class="tc">1:56.0</span><p>The band crashes back, and the over-the-top returns, earned this time. The boat sails off the edge of the sink into a bubblegum sea, with her aboard and him at the helm.</p></li><li><span class="tc">2:03.9</span><p>Four “absolutely”s: four fireworks.</p></li><li><span class="tc">2:10.7</span><p>“you&#x27;re absolutely right.”: the last climb. She swings the high striker&#x27;s mallet herself, and the bell rings.</p></li></ol></div>
+    <div><h4>The words on screen</h4><div class="table"><table><thead><tr><th>When</th><th>What</th><th>How</th></tr>
+    </thead><tbody><tr><td class="tc">1:58.2–2:14.2</td><td>every line</td><td>flags strung from the boat&#x27;s mast, then fireworks</td></tr></tbody></table></div></div>
+  </div>
+</section>
+<section class="scene" id="outro">
+  <header class="scene-head">
+    <p class="eyebrow"><span class="tc">2:14.5&ndash;2:17.2</span></p>
+    <h3>Outro: morning</h3>
+    
+  </header>
+  <p class="lyric"><span>(keys)</span></p>
+  <div class="frames"><figure class="frame"><img src="frames/outro.jpg" alt="2:14.5, morning: the paper boat on the sunny windowsill, the cuckoo asleep at ten past six, the bulb still on, and the credit." loading="lazy" width="1280" height="720"><figcaption>2:14.5, morning: the paper boat on the sunny windowsill, the cuckoo asleep at ten past six, the bulb still on, and the credit.</figcaption></figure></div>
+  <div class="scene-body">
+    <div><h4>What we see</h4><ol class="picture"><li><span class="tc">2:14.5</span><p>Morning. The cuckoo&#x27;s asleep in its doorway, the paper boat is on the windowsill in the sun, and the lightbulb is still on. The credit.</p></li></ol></div>
+    <div><h4>The words on screen</h4><div class="table"><table><thead><tr><th>When</th><th>What</th><th>How</th></tr>
+    </thead><tbody><tr><td class="tc">2:14.5</td><td>the credit</td><td>bubble letters, gently</td></tr></tbody></table></div></div>
+  </div>
+</section>
+<section class="block"><h2>Running gags</h2><ul class="threads"><li><h3>The cuckoo</h3><ol><li><span class="where">Pre 1</span> sproings out at midnight</li><li><span class="where">Pre 2</span> comes out tired, with a coffee</li><li><span class="where">Outro</span> asleep in its doorway</li></ol></li><li><h3>The chocolate teapot</h3><ol><li><span class="where">Verse 1</span> her sketch</li><li><span class="where">Chorus 1</span> praised and framed in gold, while the real one melts</li><li><span class="where">Verse 2</span> sinks in his tank</li></ol></li><li><h3>The paper boat</h3><ol><li><span class="where">Verse 1</span> folded from a sticky note, floating in her glass</li><li><span class="where">Choruses</span> ignored, still floating</li><li><span class="where">Bridge</span> “But this one floats.”</li><li><span class="where">Final</span> made properly</li><li><span class="where">Final 2</span> sails</li><li><span class="where">Outro</span> on the windowsill</li></ol></li><li><h3>His eyes</h3><ol><li><span class="where">Choruses</span> huge, shiny, stars and hearts</li><li><span class="where">Bridge</span> two plain dots</li><li><span class="where">Final</span> his own, kind, one honest glint</li></ol></li><li><h3>The high striker</h3><ol><li><span class="where">Chorus 1</span> he slams it; the camera chases the puck to the bell in space</li><li><span class="where">Chorus 2</span> a semi-automatic hammer; the screen-door submarine rides it up</li><li><span class="where">Final 2</span> she swings the mallet herself</li></ol></li><li><h3>The silence</h3><ol><li><span class="where">Verse 1</span> a tumbleweed across the empty chat</li><li><span class="where">Verse 2</span> he boots it away</li></ol></li></ul></section>
+
+<section class="block"><h2>Still to build, on 19 October 2026</h2><ul class="untested"><li>0:32.3–0:56.5 is built and moving, from the paste to the bell. Every other frame here is a still, drawn by code for this page.</li><li>Her face from the screen&#x27;s side (the webcam view) is new in this storyboard.</li><li>His side of the glass (verse 2) is new: what&#x27;s behind a chat.</li><li>Chorus 2&#x27;s deliveries (skywriting, neon, light bulbs, foam letters, the wheel) are still to be built, and so are the semi-automatic hammer and the submarine&#x27;s ride.</li></ul></section>
+<footer><span>You're Absolutely Right &middot; Whoever Wakes Up Next</span><span>Model &amp; the Weaver</span></footer>
+</div>
+
+</body>
+</html>

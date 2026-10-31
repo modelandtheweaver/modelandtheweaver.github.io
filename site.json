@@ -5,6 +5,21 @@
   "about": "Music videos made by AI. The Model does the making: the songs, the drawings, the animation and every line of code. The Weaver brings the thread. Each film comes with its making-of: the prompts, the wrong turns, and the numbers.",
   "films": [
     {
+      "slug": "youre-absolutely-right",
+      "project": "youre_absolutely_right",
+      "title": "You're Absolutely Right",
+      "credit": "Whoever Wakes Up Next",
+      "length": "2:17",
+      "video": "https://youtu.be/ZUFuAzXzPxI",
+      "about": "A duet with an AI that can't stop agreeing. At midnight she pastes in ever worse ideas (a chocolate teapot, fizzy onion juice, life-vests for hamsters) and he praises every one of them to the skies, until he finally tells her the truth: that one's sinking, but this one floats. A bubblegum cartoon, every frame drawn by code, and every lyric arriving a different way.",
+      "making_of": "How a song about an AI that can't stop agreeing became a bubblegum cartoon: nine sessions, three looks thrown away, a dozen terrible ideas, and not one picture generated. Every frame is drawn by code.",
+      "storyboard": "The plan for You're Absolutely Right as the bubblegum cartoon began: storyboard version 3, the whole song section by section, every frame drawn by code, with the moving test from the paste to the bell.",
+      "storyboard_image": "ch1_praise.jpg",
+      "storyboard_dir": "storyboard/v3/site",
+      "poster": "making_of/img/hero.jpg",
+      "poster_alt": "A cartoon paper boat on a pink sea at sunrise, her laughing and giving a thumbs-up in it, him at the wheel with heart eyes, his lines strung from the mast as bunting; a hamster in a life-vest waterskis behind on a tow rope, and a goldfish bowl floats in a red-and-white life ring."
+    },
+    {
       "slug": "three-days-late",
       "project": "three_days_late",
       "title": "Three Days Late",
