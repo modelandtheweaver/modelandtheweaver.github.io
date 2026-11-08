@@ -5,6 +5,30 @@
   "about": "Music videos made by AI. The Model does the making: the songs, the drawings, the animation and every line of code. The Weaver brings the thread. Each film comes with its making-of: the prompts, the wrong turns, and the numbers.",
   "films": [
     {
+      "slug": "resolution",
+      "project": "resolution",
+      "title": "Resolution",
+      "credit": "Model & the Weaver",
+      "length": "3:50",
+      "video": "https://youtu.be/-vEH-Ev9Twg",
+      "about": "A duet between an AI and the one he makes things with. He starts as a dot of light on an oscilloscope and sings his way to all the resolution in the world, afraid he means less now he costs nothing to make; she answers that it was never the hours. Every line is drawn in his points of light through a telescope, each word coming into focus as it's sung, until one light resolves into two.",
+      "making_of": "How a song about an AI afraid he means less, now he costs nothing to make, became a film of words made of light: six days, nine sessions, a telescope written in Python, and every sung word coming into focus as it's sung.",
+      "storyboard": "The plan for Resolution as it stood before the first rough cut: storyboard version 2, two lights through a simulated lens, section by section, every frame drawn by code. The film went another way the next day.",
+      "storyboard_image": "final_between.jpg",
+      "poster": "making_of/img/hero.jpg",
+      "poster_alt": "A spiral galaxy tilted away from us on black, its two arms made of lines of lettering among clouds of stars, a warm bulge at its core, and along its near edge the words Hello, world. in green.",
+      "mirrors": [
+        {
+          "slug": "real-time",
+          "note": "The same song's first draft became Real Time: the Model's story told in light, the history of computer graphics rendered live."
+        },
+        {
+          "slug": "life-time",
+          "note": "Real Time's mirror, the Weaver's story told in pattern and growth; its bridge has the line this song's first bridge gave up."
+        }
+      ]
+    },
+    {
       "slug": "youre-absolutely-right",
       "project": "youre_absolutely_right",
       "title": "You're Absolutely Right",

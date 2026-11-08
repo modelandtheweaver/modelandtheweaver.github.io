@@ -42,9 +42,21 @@ def head(title, description, url, image):
             "<link rel=\"icon\" href=\"/mark.png\">\n")
 
 
+def unwrap(page):
+    """A page written as a whole document (the kit's storyboard_page.py opens with <!DOCTYPE html>, since the
+    artifact server sniffs for it): its head's contents and its body, without the document's own tags, charset or
+    viewport, so it takes the site's head like any other page."""
+    if "<!doctype" not in page.lower()[:200]:
+        return page
+    head = re.search(r"<head>(.*?)</head>", page, re.S | re.I)[1]
+    body = re.search(r"<body[^>]*>(.*)</body>", page, re.S | re.I)[1]
+    head = re.sub(r"<meta charset[^>]*>\s*|<meta name=\"viewport\"[^>]*>\s*", "", head)
+    return head.strip() + "\n" + body.rstrip() + "\n"
+
+
 def standalone(src, split, title, description, url, image):
     """An artifact page with a head of its own: its <title>, fonts and styles move into the head."""
-    page = src.read_text()
+    page = unwrap(src.read_text())
     assert "<!doctype" not in page.lower()[:200], f"{src} already has a document head"
     split = next((m for m in (split if isinstance(split, tuple) else (split,)) if m in page), None)
     assert split, f"{src}: none of the markers where its body starts"

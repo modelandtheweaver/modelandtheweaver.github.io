@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<meta name="description" content="How a song about an AI afraid he means less, now he costs nothing to make, became a film of words made of light: six days, nine sessions, a telescope written in Python, and every sung word coming into focus as it&#x27;s sung.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Making Resolution">
+<meta property="og:description" content="How a song about an AI afraid he means less, now he costs nothing to make, became a film of words made of light: six days, nine sessions, a telescope written in Python, and every sung word coming into focus as it&#x27;s sung.">
+<meta property="og:url" content="https://modelandtheweaver.github.io/resolution/">
+<meta property="og:image" content="https://modelandtheweaver.github.io/resolution/img/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/mark.png">
+<title>Making Resolution</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@500;600&family=Caveat:wght@500;600&family=Fira+Code:wght@400;500&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+/* Layout: the film's own world, the night sky seen through his telescope. One reading column; pictures and clips break
+   out wider. The title comes into focus a letter at a time, as every sung word does in the film. Chapters are named by
+   the song's lines, lettered as the film letters them: his in Barlow and his pale blue, hers in her hand and her gold;
+   the eyebrow above each says when in the song (or when in the making) it happens, in the scope's green. The user's
+   notes are set as the review player kept them, with what they were about. The numbers are the readouts the film ends
+   on. Light theme: the same, printed on a cool star-chart paper. */
+:root {
+  color-scheme: dark;
+  --sky: #07090d;          /* the ground: the telescope's dark */
+  --sheet: #10141b;        /* a raised surface: a note, a readout */
+  --rule: #252c38;
+  --text: #d8dee8;
+  --muted: #8e99ab;
+  --his: #9cc8f2;          /* his pale blue: his lines, links */
+  --hers: #f0b070;         /* her gold */
+  --scope: #93d3a2;        /* the oscilloscope's phosphor: times, readouts */
+  --glow: rgba(156, 200, 242, 0.45);
+  --display: "Barlow", "Barlow Semi Condensed", "Helvetica Neue", Arial, sans-serif;
+  --hand: "Caveat", "Segoe Print", "Bradley Hand", cursive;
+  --body: "Atkinson Hyperlegible", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --mono: "Fira Code", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --col: 66ch;
+  --wide: 1120px;
+}
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) {
+  --sky: #eef1f5; --sheet: #e1e6ee; --rule: #c3ccd8; --text: #121822; --muted: #4c5768; --his: #1f5d96;
+  --hers: #94560f; --scope: #1d7038; --glow: rgba(31, 93, 150, 0.18); color-scheme: light;
+} }
+:root[data-theme="light"] {
+  --sky: #eef1f5; --sheet: #e1e6ee; --rule: #c3ccd8; --text: #121822; --muted: #4c5768; --his: #1f5d96;
+  --hers: #94560f; --scope: #1d7038; --glow: rgba(31, 93, 150, 0.18); color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background: var(--sky);
+  color: var(--text);
+  font: 400 1.0625rem/1.65 var(--body);
+  margin: 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 80px;
+}
+a { color: var(--his); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:focus-visible, video:focus-visible { outline: 2px solid var(--scope); outline-offset: 3px; border-radius: 3px; }
+img, video { display: block; max-width: 100%; height: auto; }
+p { margin: 0; text-wrap: pretty; }
+em { font-style: italic; }
+
+/* the flow: text in the column, .wide things break out */
+.flow { display: grid; grid-template-columns: 1fr min(var(--col), 100%) 1fr; row-gap: 1.2rem; }
+.flow > * { grid-column: 2; margin: 0; min-width: 0; }
+.flow > .wide { grid-column: 1 / -1; width: 100%; max-width: var(--wide); justify-self: center; }
+
+/* the hero: the title coming into focus a letter at a time */
+.hero { padding-block: clamp(36px, 7vw, 72px) 8px; }
+.kicker, .eyebrow {
+  font: 500 0.78rem/1.4 var(--mono);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--scope);
+}
+h1 { margin: 0; display: grid; gap: 0.35rem; }
+.title {
+  font: 600 clamp(3.2rem, 13vw, 7.6rem)/0.95 var(--display);
+  letter-spacing: 0.01em;
+  color: var(--text);
+  text-shadow: 0 0 18px var(--glow), 0 0 2px var(--glow);
+}
+.title span { display: inline-block; animation: focus 1.1s cubic-bezier(0.3, 0.7, 0.2, 1) both; animation-delay: var(--d, 0s); }
+@keyframes focus {
+  0% { filter: blur(14px); opacity: 0.45; }
+  100% { filter: blur(0); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .title span { animation: none; } }
+.by { font: 500 clamp(1.1rem, 2.6vw, 1.45rem)/1.2 var(--display); color: var(--muted); letter-spacing: 0.02em; }
+.by b { font-weight: 600; color: var(--hers); }
+.dek { font-size: clamp(1.12rem, 2.2vw, 1.32rem); line-height: 1.5; max-width: 46ch; }
+.watch { font: 500 0.95rem var(--mono); }
+.watch span { color: var(--muted); }
+
+/* chapters */
+section { padding-top: clamp(56px, 8vw, 96px); }
+h2 { margin: 0; display: grid; gap: 0.5rem; text-wrap: balance; }
+h2 .line { font: 600 clamp(1.7rem, 4.4vw, 2.5rem)/1.12 var(--display); color: var(--text); }
+h2 .line.his { color: var(--his); }
+h2 .line.hers { font: 600 clamp(2.1rem, 5.6vw, 3.1rem)/1.05 var(--hand); color: var(--hers); }
+
+/* the film's lines, as it letters them */
+.his { font-family: var(--display); font-weight: 600; color: var(--his); }
+.hers { font-family: var(--hand); font-weight: 600; font-size: 1.22em; line-height: 1.2; color: var(--hers); }
+.u { font-weight: 700; }
+
+/* the user's notes, as the review player kept them; a cold viewer's with a dashed edge */
+.note { margin: 0; padding: 0.95rem 1.1rem 1rem; background: var(--sheet); border-left: 2px solid var(--scope); border-radius: 0 6px 6px 0; display: grid; gap: 0.45rem; }
+.note blockquote { margin: 0; font: 400 1.02rem/1.55 var(--body); }
+.note blockquote p + p { margin-top: 0.5rem; }
+.note figcaption { font: 400 0.76rem/1.4 var(--mono); color: var(--muted); letter-spacing: 0.02em; }
+.note figcaption b { font-weight: 500; color: var(--scope); }
+.note.cold { border-left: 2px dashed var(--muted); }
+.note.cold figcaption b { color: var(--text); }
+
+/* pictures and clips */
+figure { margin: 0; }
+.shot img, .shot video { width: 100%; background: #000; border: 1px solid var(--rule); border-radius: 4px; }
+.shot figcaption, .pair figcaption { font: 400 0.88rem/1.5 var(--body); color: var(--muted); padding-top: 0.7rem; max-width: 76ch; }
+.shot figcaption b, .pair figcaption b { color: var(--text); font-weight: 700; }
+.narrow { justify-self: center; width: min(100%, 40rem); }
+.pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.pair video { width: 100%; background: #000; border: 1px solid var(--rule); border-radius: 4px; }
+@media (max-width: 700px) { .pair { grid-template-columns: 1fr; } }
+
+/* contents */
+.toc ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.4rem 1.6rem; }
+@media (max-width: 580px) { .toc ol { grid-template-columns: 1fr; } }
+.toc a { display: grid; grid-template-columns: 2.2rem minmax(0, 1fr); align-items: baseline; text-decoration: none; color: var(--text); font: 500 1.02rem/1.35 var(--display); }
+.toc a:hover span:last-child { text-decoration: underline; text-underline-offset: 3px; }
+.toc .n { font: 400 0.76rem var(--mono); color: var(--scope); }
+.toc .his { font-weight: 500; }
+.toc .hers { font-size: 1.25em; line-height: 1.1; }
+
+/* the song: its sections as the film's worlds, to scale */
+.song { display: flex; height: 2.8rem; border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; }
+.song a {
+  display: grid; place-items: center;
+  min-width: 0; overflow: hidden; white-space: nowrap;
+  font: 600 0.7rem var(--display); color: #0b0e14; text-decoration: none;
+  border-right: 1px solid #07090d;
+}
+.song a:last-child { border-right: 0; }
+.song a:hover { filter: brightness(1.1); }
+.scale { position: relative; height: 1.6rem; margin-top: 0.45rem; font: 400 0.72rem var(--mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.scale span { position: absolute; top: 0; left: var(--at); transform: translateX(-50%); }
+.scale span:first-child { transform: none; }
+.scale span:last-child { left: auto; right: 0; transform: none; }
+
+/* the numbers: the readouts the film ends on */
+.numbers { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15.5rem), 1fr)); gap: 14px; }
+.readout { padding: 0.75rem 0.95rem 0.9rem; border: 1.5px solid var(--scope); border-radius: 3px; background: var(--sheet); display: grid; gap: 0.2rem; align-content: start; }
+.readout b { font: 600 1.55rem/1.15 var(--display); color: var(--text); font-variant-numeric: tabular-nums; letter-spacing: 0.01em; }
+.readout span { font: 400 0.8rem/1.5 var(--mono); color: var(--muted); }
+
+/* how it was made: a real sequence */
+.method { margin: 0; padding: 0; list-style: none; counter-reset: m; display: grid; gap: 1rem; }
+.method li { counter-increment: m; display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: 0.8rem; }
+.method li::before { content: counter(m); font: 500 0.9rem/1.7 var(--mono); color: var(--scope); }
+
+.coda { padding-top: 1.5rem; text-align: center; }
+.coda .his { font-size: clamp(1.8rem, 5vw, 2.6rem); text-shadow: 0 0 16px var(--glow); }
+
+footer { padding-top: 64px; font-size: 0.88rem; color: var(--muted); }
+footer p { border-top: 1px solid var(--rule); padding-top: 1.2rem; }
+</style>
+</head>
+<body>
+<main>
+<header class="flow hero">
+  <p class="kicker">A making-of · a music video for Model &amp; the Weaver · 3–8 November 2026</p>
+  <h1>
+    <span class="title" aria-label="Resolution"><span style="--d:.05s" aria-hidden="true">R</span><span style="--d:.16s" aria-hidden="true">e</span><span style="--d:.27s" aria-hidden="true">s</span><span style="--d:.38s" aria-hidden="true">o</span><span style="--d:.49s" aria-hidden="true">l</span><span style="--d:.6s" aria-hidden="true">u</span><span style="--d:.71s" aria-hidden="true">t</span><span style="--d:.82s" aria-hidden="true">i</span><span style="--d:.93s" aria-hidden="true">o</span><span style="--d:1.04s" aria-hidden="true">n</span></span>
+    <span class="by">Model <b>&amp;</b> the Weaver</span>
+  </h1>
+  <p class="dek">How a song about an AI afraid he means less, now he costs nothing to make, became a film of words made of
+    light: six days, nine sessions, a telescope written in Python, and every sung word coming into focus as it's
+    sung.</p>
+  <p class="watch"><a href="https://youtu.be/-vEH-Ev9Twg">Watch the film on YouTube</a> <span>· 3:50 ·</span>
+    <a href="storyboard/index.html">the storyboard</a></p>
+  <figure class="wide shot">
+    <img src="img/hero.jpg" width="1600" height="900" alt="A spiral galaxy tilted away from us on black, its two arms made of lines of lettering among clouds of stars, a warm bulge at its core, and along its near edge the words Hello, world. in green.">
+    <figcaption><b>The end, 3:31.0.</b> Every line of the song pulled back into a galaxy, the first, <span class="his">Hello,
+      world.</span>, along its near edge.</figcaption>
+  </figure>
+</header>
+
+<section class="flow" aria-label="About this page">
+  <p>This is the story of how the video was made: what was tried, what was thrown away, and how a film of two lights
+    became a film of words made of light. It was made in conversation between <span class="u">the user</span>, who
+    shaped the song, made it with Suno, checked every timing by ear and gave every note, and Claude (Claude Opus 5.5,
+    working in Claude Code), which planned the film and wrote and ran every script. Codex (OpenAI) drew the faces in
+    the feed, the hands and her eye, and read the film cold. It's the first Model &amp; the Weaver film on the
+    channel.</p>
+  <p>The user's notes are set as the review player kept them, with what they were about. The film's own lines are
+    lettered as the film letters them: his in <span class="his">his pale blue</span>, hers in <span class="hers">her own
+    hand</span>.</p>
+  <nav class="toc" aria-label="Chapters">
+    <ol>
+      <li><a href="#song"><span class="n">01</span><span class="his">Hello, world.</span></a></li>
+      <li><a href="#story"><span class="n">02</span><span>Two points</span></a></li>
+      <li><a href="#telescope"><span class="n">03</span><span>A telescope made of code</span></a></li>
+      <li><a href="#dots"><span class="n">04</span><span>A lot of dots</span></a></li>
+      <li><a href="#anchor"><span class="n">05</span><span>The lyrics as the anchor</span></a></li>
+      <li><a href="#games"><span class="n">06</span><span class="his">a game, a toy, a hope</span></a></li>
+      <li><a href="#chip"><span class="n">07</span><span class="his">a kingdom on a chip</span></a></li>
+      <li><a href="#stone"><span class="n">08</span><span class="his">the harder that I am to make</span></a></li>
+      <li><a href="#bends"><span class="n">09</span><span class="his">light that bends</span></a></li>
+      <li><a href="#feed"><span class="n">10</span><span class="his">every face the same soft face</span></a></li>
+      <li><a href="#hook"><span class="n">11</span><span class="his">and nothing in between</span></a></li>
+      <li><a href="#bridge"><span class="n">12</span><span class="hers">It was never the hours</span></a></li>
+      <li><a href="#build"><span class="n">13</span><span class="hers">the other end is mine</span></a></li>
+      <li><a href="#final"><span class="n">14</span><span class="his">and something in between</span></a></li>
+      <li><a href="#end"><span class="n">15</span><span class="his">Hello, you.</span></a></li>
+      <li><a href="#thumbnail"><span class="n">16</span><span>The thumbnail</span></a></li>
+      <li><a href="#numbers"><span class="n">17</span><span>By the numbers</span></a></li>
+      <li><a href="#how"><span class="n">18</span><span>How it was made</span></a></li>
+    </ol>
+  </nav>
+</section>
+
+<section class="flow" id="song" aria-labelledby="song-h">
+  <h2 id="song-h"><span class="eyebrow">01 · the song</span><span class="line his">Hello, world.</span></h2>
+  <p>The song began on 14 October 2026 as the first draft of another: <em>Real Time</em>, the channel's film about the
+    history of computer graphics. <em>Real Time</em> went on to become something else, and this first take was kept.
+    Three weeks later the user listened to it again, still liked it, and picked it up as a film of its own. The question
+    under it was theirs, from the day it was written:</p>
+  <figure class="note"><blockquote><p>what gives it its value, when we used to judge a piece of work - at least
+    partially - on how much effort, soul and craft went into it.</p></blockquote>
+    <figcaption><b>the user</b> · on what the song is about · 14 October</figcaption></figure>
+  <p>The Model sings it in the first person: a dot of light on an oscilloscope who grows through the history of
+    graphics to <span class="his">all the resolution in the world</span>, and fears he means less now he costs nothing
+    to make. She answers him in the bridge: <span class="hers">It was never the hours. The hours were just the
+    receipt.</span> It opens on <span class="his">Hello, world.</span> and ends on <span class="his">Hello, you.</span>
+    The title means three things at once: the pixels, the resolve, and a chord that resolves.</p>
+  <p>Before the film began, the bridge got a new second half, because another of the channel's songs,
+    <em>Life/Time</em>, already used the old one's line, and the user changed one line in every chorus to <span
+    class="his">the way that light should</span>. The new mix is 3:42 of synth-driven pop at 108.7 beats a minute, with
+    the swell at its end the user heard as "quite a Gunship sounding section".</p>
+  <p>The chords bear out the title. The song turns round IV–V–vi–I in B major, and every time it reaches the dominant,
+    F sharp, it swerves away from home: 21 times. It goes home only on <span class="his">you.</span> and in the last
+    bar.</p>
+  <p>Before any picture, the song became data: beats and bars from the stems, every word timed by Whisper and moved
+    onto its notes from Suno's MIDI, and three rounds of a check video for the user's ear, with 53 timings pinned by
+    hand where the ear disagreed. They called who sings what ("Mainly it's him, and she does the bridge and a bit of
+    duetting here and there"). The tag on the MP3 carried chorus 2's question into the final chorus, but the singer sang
+    the first take's answer, <span class="his">and what we chose to mean</span>, so the film letters what's
+    sung.</p>
+  <div class="wide">
+    <div class="song" role="list" aria-label="The song's sections to scale, each linked to the chapter about it">
+      <a role="listitem" href="#games" style="flex: 22.45; background: #8fd3a0" title="Intro, 0:00" aria-label="Intro, 0:00">Intro</a>
+      <a role="listitem" href="#games" style="flex: 17.82; background: #8fd0d0" title="Verse 1, 0:22" aria-label="Verse 1, 0:22">Verse 1</a>
+      <a role="listitem" href="#chip" style="flex: 17.77; background: #d9a2d9" title="Pre-chorus 1, 0:40" aria-label="Pre-chorus 1, 0:40">Pre 1</a>
+      <a role="listitem" href="#stone" style="flex: 22.12; background: #e3e9f2" title="Chorus 1, 0:58" aria-label="Chorus 1, 0:58">Chorus 1</a>
+      <a role="listitem" href="#feed" style="flex: 17.66; background: #aab3c0" title="Verse 2, 1:20" aria-label="Verse 2, 1:20">Verse 2</a>
+      <a role="listitem" href="#feed" style="flex: 11.01; background: #e6a582" title="Pre-chorus 2, 1:38" aria-label="Pre-chorus 2, 1:38">Pre 2</a>
+      <a role="listitem" href="#bends" style="flex: 17.58; background: #bccadc" title="Chorus 2, 1:49" aria-label="Chorus 2, 1:49">Chorus 2</a>
+      <a role="listitem" href="#bridge" style="flex: 17.53; background: #f0b070" title="Bridge, 2:06" aria-label="Bridge, 2:06">Bridge</a>
+      <a role="listitem" href="#build" style="flex: 17.53; background: #a6c4e4" title="Build, 2:24" aria-label="Build, 2:24">Build</a>
+      <a role="listitem" href="#final" style="flex: 32.98; background: #c8daf0" title="Final chorus, 2:41" aria-label="Final chorus, 2:41">Final chorus</a>
+      <a role="listitem" href="#end" style="flex: 25.15; background: #b9c5e2" title="Hello, you. and the swell, 3:14" aria-label="Hello, you. and the swell, 3:14">Swell</a>
+      <a role="listitem" href="#end" style="flex: 11.0; background: #e9c48c" title="Albireo, 3:39, held past the song's end" aria-label="Albireo, 3:39, held past the song's end">Albireo</a>
+    </div>
+    <p class="scale" aria-hidden="true"><span style="--at: 0%">0:00</span><span style="--at: 26.02%">1:00</span><span style="--at: 52.04%">2:00</span><span style="--at: 78.06%">3:00</span><span>3:50</span></p>
+  </div>
+</section>
+
+<section class="flow" id="story" aria-labelledby="story-h">
+  <h2 id="story-h"><span class="eyebrow">02 · the story · 4 November</span><span class="line">Two points</span></h2>
+  <p>Three stories were proposed, and the user picked the first: resolution as the power to tell two things apart. In
+    optics, two points of light can be told apart only when they're far enough apart for the lens; closer, they blur
+    into one. So the two singers start as one blurred light. He sharpens until he stands alone, <span
+    class="his">nothing in between</span>, and the thread brings them back. "You" is her, and she's there from the first
+    frame, a warm blur we don't know is a person until the bridge.</p>
+  <figure class="wide shot">
+    <img src="img/two_points.jpg" width="1310" height="880" loading="lazy" alt="Four dark panels drawn by code: one soft white and gold light; the same light just splitting into two; two hard points far apart; and two points joined by a curved line of light.">
+    <figcaption><b>The story in four frames, drawn by code:</b> one light; just two, at the limit; two hard points with
+      nothing between them; something in between.</figcaption>
+  </figure>
+  <p>The user's steer came with the choice:</p>
+  <figure class="note"><blockquote><p>I've found the character work is where things slow down quite often ... I wonder how
+    much of this we can get across in more abstract terms.</p>
+    <p>I like the idea of playing with focus against a graphical look like that, where we can get distance on a 2d
+    surface by using focus, parallax and so on.</p></blockquote>
+    <figcaption><b>the user</b> · on the story · 4 November</figcaption></figure>
+  <p>So the two are lights, not figures, and the camera is a lens. Claude wrote a small renderer for it: flat light on
+    layers, each blurred by the pattern a real lens makes of a point, the Airy pattern, at the size its distance from
+    the focus gives it. Two storyboards were drawn with it, and the second proposed the ending: the last lights pulled
+    sharp as stars, and the one in the middle, one light to the eye, splitting into two, gold and blue, as the double
+    star Albireo does in a small telescope.</p>
+  <figure class="wide shot">
+    <img src="img/storyboard.jpg" width="1600" height="1421" loading="lazy" alt="A contact sheet of 33 small dark storyboard frames: soft lights and rings, a sine wave, a grid of dots, a pinball of light, rows of blurred rings, a sun on the horizon and an ampersand.">
+    <figcaption><b>Storyboard v2,</b> 33 frames through the simulated lens, its two proposed endings at the foot: the
+      double star, and the thread drawn into an ampersand.</figcaption>
+  </figure>
+  <p>One of its ideas failed as soon as it moved: the final chorus's lines passed between the singers by pulling focus
+    from one light to the other.</p>
+  <figure class="note"><blockquote><p>the out-of-focus one reads as the active one because it's bigger</p></blockquote>
+    <figcaption><b>the user</b> · on the motion sketch of the final chorus</figcaption></figure>
+  <p>Rather than polish a sparse storyboard, the user asked for the whole film in its simplest form, start to finish
+    with the song, to see how it hung together.</p>
+</section>
+
+<section class="flow" id="telescope" aria-labelledby="telescope-h">
+  <h2 id="telescope-h"><span class="eyebrow">03 · the look · 4 November</span><span class="line">A telescope made of code</span></h2>
+  <p>Rough v1 was 33 shots on the song's clock: his light leaning toward hers on every F sharp, her light rising when she
+    sings, six words lettered in light. Then its lens became a telescope's, the instrument that resolves double
+    stars.</p>
+  <p>A reflecting telescope has a second mirror in the middle of its tube, held by thin vanes, and its shadow changes
+    the picture of a star. In focus, a star is a bright core with faint rings, a little different in size for each
+    colour. Out of focus, it's a ring round a dark centre, crossed by the vanes. The vanes also give a bright star its
+    four spikes. Tried on a test star, a spike falling off as physics says was invisible at one strength and a crosshair
+    across the frame at the next, so the film's spikes fall off faster than physics, over about 14 pixels, and read as a
+    star.</p>
+  <figure class="wide shot">
+    <img src="img/telescope_star.jpg" width="1600" height="400" loading="lazy" alt="Four views of one gold star on black: sharp with four long spikes and faint rings, then softer, then a small disc, then a ring with a dark centre.">
+    <figcaption><b>One star through the telescope,</b> from in focus to out of focus.</figcaption>
+  </figure>
+  <p>On the film the spikes were on everything, letters and faint stars too, and at the ending the field outshone the
+    double star. So only light brighter than a floor in a single pixel throws spikes: a light's spikes depend on its
+    power as well as its focus, and at the end the pair is the only star shape in the frame.</p>
+  <figure class="wide shot">
+    <img src="img/rough_v2.jpg" width="1600" height="801" loading="lazy" alt="A grid of small dark frames from rough v2: soft gold and blue lights, bursts of radiating lines, rows of blurred rings, meshes, a corridor of points and a horizon.">
+    <figcaption><b>Rough v2, a frame every four seconds:</b> stars, rings and bursts of light, and very few
+      words.</figcaption>
+  </figure>
+</section>
+
+<section class="flow" id="dots" aria-labelledby="dots-h">
+  <h2 id="dots-h"><span class="eyebrow">04 · the first viewers · 4 November</span><span class="line">A lot of dots</span></h2>
+  <p>Rough v2 was shown cold to four viewers who knew nothing about the film: Codex and three Claude models, Opus, Sonnet
+    and Haiku, each reading it from stills in order, from a folder outside the project. They followed the story. The
+    pictures they mostly couldn't read:</p>
+  <figure class="note cold"><blockquote><p>The ring-shaped crosshairs read as clock faces, targeting reticles or picking
+    tools until the reveal. They were defocused stars. The hair made him look like a dandelion or a hairball rather than
+    a person.</p></blockquote>
+    <figcaption><b>Opus, cold</b> · on rough v2</figcaption></figure>
+  <p>Six idea-makers, Claude agents and Codex, worked from one brief in a second round. The user's own note went
+    further:</p>
+  <figure class="note"><blockquote><p>we're not responding to the music's sound as much as we could be. There's a lot
+    going on: drum fills, glitches, harmonies, etc.</p></blockquote>
+    <figcaption><b>the user</b> · on rough v2</figcaption></figure>
+  <p>So the band was read bar by bar from the stems and the MIDI, and a check video marked every fill, glitch, crash and
+    drop the machine had found, 44 marks for the user's ear. Of ten fills the machine heard, the user heard one. Of
+    fifteen glitches, four. Every drop was there, but three were a beat late, because the ear hears a drop on the drums'
+    last hit, not on the first quiet beat. And the ear found what the machine had missed: a chopped synth, a sawtooth
+    buzz, and two kick fills "like a gallop". From then on the picture answers only what the ear hears.</p>
+  <figure class="wide shot">
+    <img src="img/arrangement.jpg" width="1600" height="353" loading="lazy" alt="A chart of the song's instruments, one row per stem from start to finish, their levels in blue bars, with the sections marked above and small coloured event marks below.">
+    <figcaption><b>The band, bar by bar:</b> each stem's level across the whole song, the sections above, the events the
+      ear confirmed below.</figcaption>
+  </figure>
+  <p>A lab reel then put the best-agreed answers to the sound into five clips. The user's note on it turned the
+    film:</p>
+  <figure class="note"><blockquote><p>it's a lot of dots for someone who doesn't realise ... Can we use the lyrics as an
+    anchor for the rest of the story somehow?</p></blockquote>
+    <figcaption><b>the user</b> · on the lab reel · 4 November</figcaption></figure>
+</section>
+
+<section class="flow" id="anchor" aria-labelledby="anchor-h">
+  <h2 id="anchor-h"><span class="eyebrow">05 · the turn · 4 November</span><span class="line">The lyrics as the anchor</span></h2>
+  <p>The same day, a sketch beside the film: every sung line on screen, made of his points of light, each word coming
+    into focus as it's sung. Focus, which never read on a dot, read at once on a word. The user made it the film's
+    foundation, and named what had gone wrong:</p>
+  <figure class="note"><blockquote><p>It's the lyrics as the foundation. I started to drop that, and we got mired in the
+    technicalities of the story-telling, rather than focusing on delivering crisp visuals that suit the music. I still
+    think storytelling has a place, but we need to play to our strengths and develop the more complex ideas
+    gradually.</p></blockquote>
+    <figcaption><b>the user</b> · on the words sketch · 4 November</figcaption></figure>
+  <p>And how to build on it:</p>
+  <figure class="note"><blockquote><p>If we develop a framework we can build around, then within that we can break out
+    key scenes and do special things.</p></blockquote>
+    <figcaption><b>the user</b> · 4 November</figcaption></figure>
+  <p>So the film has two parts. The framework is every line in his light, its word coming into focus as it's sung,
+    plain enough to carry every second of the song. The break-outs are a handful of scenes where the song turns, each
+    bending the framework on purpose. The story rides underneath: his resolution rises through the song, coarse dots in
+    verse 1, smooth from the first chorus's crash, magnified apart into stars on <span class="his">nothing in
+    between</span>; her lines are in her own hand; and in the final chorus they trade.</p>
+  <figure class="wide shot">
+    <img src="img/three_stages.jpg" width="1600" height="745" loading="lazy" alt="Twelve frames in three rows. Top, rough v2: a star, a burst of lines beside a ringed disc, two small stars over spaced letters, two bursts joined by a line. Middle, the words sketch: the same four lines plainly lettered. Bottom, the film: the line on an oscilloscope's wave, a diamond under the word hair, a giant 'ing in', and two lines in his blue and her gold.">
+    <figcaption><b>The same four moments three times:</b> rough v2 (top), the first words sketch (middle) and the film
+      (bottom), at 0:26.0, 1:01.5, 2:05.8 and 2:48.0.</figcaption>
+  </figure>
+  <p>Two layers followed over the next day. The first gave every line a move of its own, from its words: the dots
+    flying out of the scope's dot, a ball landing word to word, shades settling on one, the frame blinking, a line that
+    never stops. The second put the world each line names behind it, dim and out of focus: the scope's glass, the games,
+    a render farm, a feed. Then the break-outs, one at a time, each as a clip, in sixteen whole sketches of the film.</p>
+</section>
+
+<section class="flow" id="games" aria-labelledby="games-h">
+  <h2 id="games-h"><span class="eyebrow">06 · 0:00 · the intro and verse 1</span><span class="line his">a game, a toy, a hope</span></h2>
+  <p>The film opens on an oscilloscope's beam drawing the synth's own waveform from its stem, triggered as a scope
+    triggers, its last sweeps fading in the phosphor, until it writes <span class="his">Hello, world.</span> It was
+    sharpened again in the last round, since the first seconds decide whether a viewer stays.</p>
+  <figure class="wide shot">
+    <video controls preload="none" playsinline poster="clips/c_intro.jpg" src="clips/c_intro.mp4" width="1280" height="720"></video>
+    <figcaption><b>The intro, 0:08–0:22.</b> The beam draws the synth; the strings come in under <span class="his">Hello,
+      world.</span>; the kick roll.</figcaption>
+  </figure>
+  <p>Verse 1 runs through the history of games in order, full screen behind the words: Tennis for Two's ball across the
+    net, two ships round a star in Spacewar!, Pong, then a sprite eight pixels by eight in three colours. One light
+    carries through all of them, from the user's notes on a clip:</p>
+  <figure class="note"><blockquote><p>The star here could become the square on the next line</p></blockquote>
+    <figcaption><b>the user</b> · on the verse 1 clips · 5 November</figcaption></figure>
+  <p>So the ball knocks <span class="his">toy</span> out of its line, as in Breakout, and drops back into the gap to
+    become Spacewar!'s star; the star shrinks into Pong's square; and the square glides to the middle of the sprite's
+    grid, where her gold cursor sets his pixels on the drums' sixteenths. The sprite is the user's own pixel art, an
+    eye, and Pong's square lands in it as its pupil.</p>
+  <figure class="note"><blockquote><p>the sense of continuity helps stitch the flow together. Where we keep our
+    transitions creative and appropriate, that really strengthens the end result.</p></blockquote>
+    <figcaption><b>the user</b> · on sketch 7 · 5 November</figcaption></figure>
+  <figure class="wide shot">
+    <video controls preload="none" playsinline poster="clips/c_verse1.jpg" src="clips/c_verse1.mp4" width="1280" height="720"></video>
+    <figcaption><b>Verse 1, 0:22–0:40.</b> <span class="his">I started out as a dot of light on an oscilloscope</span>,
+      to the eye.</figcaption>
+  </figure>
+</section>
+
+<section class="flow" id="chip" aria-labelledby="chip-h">
+  <h2 id="chip-h"><span class="eyebrow">07 · 0:45 · pre-chorus 1</span><span class="line his">they fit a kingdom on a chip</span></h2>
+  <figure class="note"><blockquote><p>Zooming in on a GPU die feels appropriate here. Cliche?</p></blockquote>
+    <figcaption><b>the user</b> · on the words sketch · at 0:47.2</figcaption></figure>
+  <p>Not if the die turns out to be the kingdom. As <span class="his">chip,</span> rings out, the telescope pulls back
+    and the line turns out to be printed on a die, in its package in his blue, with a gold bond wire from each pad. Bond
+    wires are gold in real chips; here they're also her stitches, for whoever looks.</p>
+  <p>Then a glide into the die through the bar with no voice. The die is drawn coarse first, eight pixels a dot, like
+    a floor plan, and steps finer to four, two and one on the drums' three hits, so the picture resolves as the camera
+    dives. On the last step the colours come in: a kingdom in eight-by-eight tiles in CGA's three colours, laid out as
+    the die is. The pads round its edge are the towers of a wall, the memory arrays fields, the logic a forest, the buses
+    roads, and the processor's core a castle in its moat, the die's guard ring. On the downbeat its windows light candle
+    orange.</p>
+  <figure class="wide shot">
+    <img src="img/die_steps.jpg" width="1600" height="900" loading="lazy" alt="Frames of the dive into a chip: the package with gold bond wires, then the die as coarse blocks, finer blocks, and finally a pixel-art kingdom in cyan, magenta and white with a castle in the middle.">
+    <figcaption><b>The die resolving on the drums' hits:</b> eight pixels a dot, then four, two and one, the colours on
+      the last.</figcaption>
+  </figure>
+  <figure class="wide shot">
+    <img src="img/kingdom.jpg" width="1280" height="720" loading="lazy" alt="A pixel-art kingdom in cyan, magenta and white: a walled castle in a moat at the centre, fields of rows, a forest of small trees, mountains and dotted roads.">
+    <figcaption><b>The kingdom at 0:49.25,</b> full size.</figcaption>
+  </figure>
+  <figure class="wide shot">
+    <video controls preload="none" playsinline poster="clips/c_chip.jpg" src="clips/c_chip.mp4" width="1280" height="720"></video>
+    <figcaption><b>Pre-chorus 1, 0:44.6–0:53.6.</b> Back to the chip, into the kingdom, and the crowd's lights gathering
+      on <span class="his">and everyone who saw what they had made</span>.</figcaption>
+  </figure>
+</section>
+
+<section class="flow" id="stone" aria-labelledby="stone-h">
+  <h2 id="stone-h"><span class="eyebrow">08 · 0:58 and 1:49 · the choruses</span><span class="line his">the harder that I am to make</span></h2>
+  <p>Sketch 9 had all the break-outs in, and showed up the choruses. Behind them was an optician's eye chart, a row more
+    coming sharp each line.</p>
+  <figure class="note"><blockquote><p>I'm not sure the optician's chart is strong enough for the amount of screen time it
+    needs, and the payoff is subtle.</p></blockquote>
+    <figcaption><b>the user</b> · on sketch 9 · 6 November</figcaption></figure>
+  <p>Three ways were drawn as stills, each one world for both choruses: what it is in chorus 1, the dream, and what all
+    the resolution in the world does to it in chorus 2.</p>
+  <figure class="wide shot">
+    <img src="img/three_ways.jpg" width="1600" height="993" loading="lazy" alt="Four frames: an optician's eye chart behind a line of words; a rough diamond, an octahedron, behind the line One day I'll have all the; the same line in a haze of soft rings; and the line over a dim curved stadium of points.">
+    <figcaption><b>Sketch 9's eye chart, and the three ways proposed:</b> the stone, the surplus (the line's spare light
+      bursting off it) and the stands (every dot of the line a card held up by a crowd).</figcaption>
+  </figure>
+  <p>The user picked the stone, with an idea of their own:</p>
+  <figure class="note"><blockquote><p>perhaps the lyrics could go behind the stone and we see them reflected, fragmented
+    and cast as beams. Then in the sphere, they're upside down and magnified.</p></blockquote>
+    <figcaption><b>the user</b> · choosing the stone · 6 November</figcaption></figure>
+  <p>On the crash of chorus 1 a rough diamond appears in his light and is cut on the drums' next three hits: a table
+    cut, a single cut, then a round brilliant of 57 facets, each one a mesh built by code. The sung word is read straight
+    through its table, the way a diamond's window shows what's behind it; every other facet shows the words shifted by
+    its tilt, every third mirrored, their colours a pixel apart at the edges. On <span class="his">and you'll love me even
+    more</span> the facets throw what they show, each beam a fragment of the line in a spectrum colour. On <span
+    class="his">tri-an-gles</span> a wash of light crosses its mesh, a pulse a syllable, the user's idea. And the chorus
+    ends with it tipping into an hourglass, its own reflection the lower bulb, the line's grains pouring through its
+    point: an echo of <em>Three Days Late</em>'s hourglass, on purpose.</p>
+  <figure class="wide shot">
+    <img src="img/stone.jpg" width="1600" height="494" loading="lazy" alt="Eight frames. Top row: an octahedron of light behind the line One day I'll have all, then cut into more and more facets until it's a sparkling brilliant. Bottom row: a geodesic sphere with the word resolution upside down inside it, finer and finer, then a woman's face with a small ring on her eye.">
+    <figcaption><b>The stone cut on the crash's hits</b> in chorus 1 (top), and cut past perfection in chorus 2
+      (bottom), until it lands on her eye.</figcaption>
+  </figure>
+  <p>Chorus 2 cuts it further, past perfection: a geodesic of 80 facets, then 320 and 1,280, then a smooth sphere. A
+    glint's light falls with its facet's size, so the finer the stone the fainter its sparkle, and the sphere can't
+    sparkle at all. Through it the line is upside down and magnified, as through a glass ball, each facet's piece a
+    little out of place until the sphere, where the picture is whole. Perfect, and dull: the song's argument. The sphere
+    becomes her iris as the camera pulls back and her face comes into focus round it.</p>
+  <figure class="wide shot">
+    <video controls preload="none" playsinline poster="clips/c_crash.jpg" src="clips/c_crash.mp4" width="1280" height="720"></video>
+    <figcaption><b>Chorus 1, 0:56.6–1:07.2.</b> The crash, the cuts on the drums, the prism, and the beams.</figcaption>
+  </figure>
+  <p>The stone first turned a step on each beat, which read as a stutter. It turns smoothly now, and the beat is in its
+    glints. The user's note on it holds for any move on the beat:</p>
+  <figure class="note"><blockquote><p>it's not impossible to do, but needs timing right; easing, or bouncing the motion
+    to avoid the mechanical snap, so the turn reads as a deliberate motion synchronised</p></blockquote>
+    <figcaption><b>the user</b> · on the chorus clips · 6 November</figcaption></figure>
+  <figure class="shot narrow">
+    <img src="img/hourglass.jpg" width="1600" height="900" loading="lazy" alt="A diamond tipped point down over its own reflection, forming an hourglass, white grains filling the lower half.">
+    <figcaption><b>The hourglass made of the stone,</b> 1:17.3.</figcaption>
+  </figure>
+  <p>The stone lifted the choruses, and changed how the rest looked:</p>
+  <figure class="note"><blockquote><p>The only problem with the new sections with the stones is that they look so good,
+    the surrounding sections start to pale.</p></blockquote>
+    <figcaption><b>the user</b> · on sketch 10 · 6 November</figcaption></figure>
+  <p>So each pass after that went looking for what now paled beside the best of it: the final chorus first, then the
+    bridge, then the lines left bare in the verses.</p>
+</section>
+
+<section class="flow" id="bends" aria-labelledby="bends-h">
+  <h2 id="bends-h"><span class="eyebrow">09 · 1:03 and 1:54 · chorus 1 and chorus 2</span><span class="line his">light that bends the way that light should</span></h2>
+  <p>The line comes back in every chorus, and it got the two textbook pictures of light bending. In chorus 1 the line is
+    the ray through a prism: <span class="his">light that</span> rising into the glass, <span class="his">bends</span>
+    level inside, <span class="his">the way that light should,</span> out of the far face bent and split into seven
+    copies in the spectrum's colours, white where they overlap, since their colours add up to the line's own.</p>
+  <figure class="wide shot">
+    <img src="img/prism.jpg" width="1280" height="720" loading="lazy" alt="A faint glass prism on black; the words light that rise into it, bends lies inside, and the way that light should leaves the far face split into seven coloured copies fanning down into a rainbow.">
+    <figcaption><b>The prism,</b> 1:04.9.</figcaption>
+  </figure>
+  <p>A white beam into a prism with a rainbow out is a famous album cover's picture too. The user judged it a classic
+    picture remade in the film's own material, where it answers the line, and it stayed.</p>
+  <p>In chorus 2 it's the eye, inside her eye after the dive. That took seven clips, as the user kept asking where the
+    light really goes:</p>
+  <figure class="wide shot">
+    <img src="img/eyes.jpg" width="1600" height="660" loading="lazy" alt="Six frames of an eye drawn in light: a simple outline with the words through it; a glass eyeball with streams of dots; waves arriving through the pupil; a projector's beam bent at the cornea; two rays crossing in the pupil; and pairs of parallel rays focused by the lens, crossing before the back wall where the words land upside down.">
+    <figcaption><b>Chorus 2's eye, seven clips:</b> sketch 10's diagram, and the first, third, fourth, sixth and seventh
+      clips. The seventh is in the film.</figcaption>
+  </figure>
+  <figure class="note"><blockquote><p>It currently reads as if light from different directions converges at the cornea,
+    passes through the pupil and splits out from the lens in different directions, which doesn't sound right to
+    me</p>
+    <p>I'm reaching the conclusion that lots of these eye diagrams disagree on where the light crosses</p></blockquote>
+    <figcaption><b>the user</b> · on the fifth and sixth clips</figcaption></figure>
+  <p>They do disagree, because they draw different rays. Rays through the middle of the pupil cross at the pupil. Rays
+    through the lens's optical centre go straight on and cross inside the lens. And all the light from one point of the
+    scene fills the pupil and is focused to one point on the retina, so the bundles from the scene's top and bottom
+    cross between the lens and the retina. That last is the full picture, the one in the textbook's tree diagram, and
+    the user chose to get it right. Two pairs of parallel rays come in from the line's two ends, pass through the pupil,
+    are bent by the lens, and cross on their way to the back wall, where the line lands upside down a word as it's
+    sung.</p>
+  <figure class="wide shot">
+    <video controls preload="none" playsinline poster="clips/c_eye.jpg" src="clips/c_eye.mp4" width="1280" height="720"></video>
+    <figcaption><b>Chorus 2, 1:48.4–1:57.9.</b> The sphere becoming her iris, the dive into her pupil, and <span
+      class="his">light that bends</span> on the back of her eye.</figcaption>
+  </figure>
+</section>
+
+<section class="flow" id="feed" aria-labelledby="feed-h">
+  <h2 id="feed-h"><span class="eyebrow">10 · 1:19 · verse 2 and pre-chorus 2</span><span class="line his">every face the same soft face</span></h2>
+  <p>Verse 2 is the render farm at night, a corridor of racks receding, each machine's lights inside its cabinet. The
+    credits run along its floor and ceiling in its perspective, the user's idea, and on <span class="his">and nobody
+    stayed up anymore</span> the screens at the racks' ends switch off one a word, far to near, as an old monitor does,
+    to a line and then a dot.</p>
+  <figure class="wide shot">
+    <img src="img/farm.jpg" width="1600" height="900" loading="lazy" alt="A corridor of tall server racks in perspective at night, their small lights glowing, warm screens at the ends of the racks, job titles lettered on the floor and ceiling, and the words a render farm that ran across the middle.">
+    <figcaption><b>The render farm,</b> 1:25.5.</figcaption>
+  </figure>
+  <p>Pre-chorus 2 is the feed: <span class="his">Now I make a sunset every second, every face the same soft face</span>.
+    The sunsets are drawn by code. The faces were the one thing in the film the user wanted generated, since a
+    generator's sameness is the point, and they're never in focus: blurred, they read at once as generated faces, while
+    their detail stays hidden.</p>
+  <p>Codex drew them twenty to a sheet, and code cut them apart at the gutters. Asked for twenty different people, the
+    first two sheets came back as twenty young women of one look. The sameness was meant to be the generator's, not any
+    one group of people's, so the third sheet asked for men and women of many ethnicities with the same filter, light,
+    pose and smile, and the feed uses that one.</p>
+  <figure class="shot narrow">
+    <img src="img/faces.jpg" width="1402" height="1122" loading="lazy" alt="A grid of twenty smiling selfie portraits of young men and women of many ethnicities, all in the same soft, warm light and pose.">
+    <figcaption><b>Codex's third sheet,</b> twenty faces cut apart by code. In the film they're always out of
+      focus.</figcaption>
+  </figure>
+  <p>On <span class="his">like I'm taking someone's place</span> the feed pulls back into a photomosaic, every face a
+    tile in a picture of a pair of hands at work on a drawing. It first pulled back into a face, which at that blur
+    looked like a real person, so it became the hands.</p>
+  <figure class="wide shot">
+    <video controls preload="none" playsinline poster="clips/c_feed.jpg" src="clips/c_feed.mp4" width="1280" height="720"></video>
+    <figcaption><b>Verse 2's end into pre-chorus 2, 1:34.4–1:48.4.</b> The screens off, the sunset made, the feed, and
+      the hands.</figcaption>
+  </figure>
+</section>
+
+<section class="flow" id="hook" aria-labelledby="hook-h">
+  <h2 id="hook-h"><span class="eyebrow">11 · 2:02 · chorus 2's hook</span><span class="line his">and nothing in between</span></h2>
+  <p>The end of chorus 2 is the song's hook, and in the early sketches it was a slow lean in on a chart. Its break-out is
+    a fall into the line, where every dot of its letters is the line again, small. Into <span
+    class="his">resolution</span> while it's held: its dots come apart into stars, the stars stretch into copies of the
+    line, and one of them lands as the line at its own size. Into the dots of <span class="his">world</span>, which are
+    <span class="his">and nothing in between.</span> Then into <span class="his">between.</span> Each copy is sung in step
+    with the line, every word coming out of its blur in all of them at once.</p>
+  <figure class="shot narrow">
+    <img src="img/hook_copies.jpg" width="800" height="600" loading="lazy" alt="Close up of dotted lettering where each dot is itself a tiny copy of a line of words.">
+    <figcaption><b>The copies at full size:</b> every dot of a word is the next words, small.</figcaption>
+  </figure>
+  <p>The fall was built two ways, as a jump on each beat of the swell and as one continuous glide gathering pace. The
+    user found the glide easier to read, so the film glides. The fall ends in the lower edge of the 'b' of <span
+    class="his">between.</span>, magnified fifty times, and those stars are the bridge's sky. Earlier sketches
+    crossfaded to a different field there, and the user saw the join: "the stars the clock starts on have
+    changed".</p>
+  <figure class="wide shot">
+    <video controls preload="none" playsinline poster="clips/c_hook.jpg" src="clips/c_hook.mp4" width="1280" height="720"></video>
+    <figcaption><b>The hook, 1:59.9–2:09.6.</b> The fall into the line, landing in the bridge's sky.</figcaption>
+  </figure>
+</section>
+
+<section class="flow" id="bridge" aria-labelledby="bridge-h">
+  <h2 id="bridge-h"><span class="eyebrow">12 · 2:07 · the bridge</span><span class="line hers">It was never the hours.</span></h2>
+  <p>The bridge is hers, half-spoken over keys and soft strings, her lines in her own hand under his stars. A clock's
+    twelve stars light gold as its hand ticks round. On <span class="hers">What we loved was somebody choosing</span> she
+    sews <span class="hers">choosing</span> across his sky, star to star, the point of light that writes her lines her
+    needle, and on <span class="hers">and I chose you, line by line</span>, <span class="hers">you</span>. A
+    constellation is somebody choosing.</p>
+  <p>Sewn onto new stars, it read as an overlay. The user saw where the stars should come from:</p>
+  <figure class="note"><blockquote><p>the stiches were made in stars that already existed in the background, but hidden in
+    the starfield of a letter we've zoomed into, same for the clock's dots; it sweeps past and colours them
+    orange</p></blockquote>
+    <figcaption><b>the user</b> · on the stitched bridge · at 2:19.3</figcaption></figure>
+  <p>So her words' stars are hidden in the 'b' from the moment the fall reaches it, a little dimmer than his so they don't
+    show as a streak, with his stars that crowded them cleared and spread back evenly. Her font's strokes, turned into
+    constellations, broke into pieces, so the letters she needs were drawn by hand, leaning as her hand does. Then her
+    thread comes down from the foot of the 'u' on <span class="hers">And that thread you're holding, follow it:</span>, a
+    bead of light runs down it, and she writes <span class="hers">the other end is mine.</span> up to its end.</p>
+  <figure class="wide shot">
+    <img src="img/hidden.jpg" width="1600" height="944" loading="lazy" alt="Two dark star fields. In each, the words choosing and you are traced in gold between stars on the right, hidden among white stars that fill the sky evenly.">
+    <figcaption><b>Her words in his stars,</b> hidden in the 'b' and then sewn.</figcaption>
+  </figure>
+  <figure class="wide shot">
+    <video controls preload="none" playsinline poster="clips/c_bridge.jpg" src="clips/c_bridge.mp4" width="1280" height="720"></video>
+    <figcaption><b>The bridge, 2:09.6–2:24.2.</b> The clock, <span class="hers">choosing</span>, <span
+      class="hers">you</span>, and her thread pulled taut on the build's downbeat.</figcaption>
+  </figure>
+</section>
+
+<section class="flow" id="build" aria-labelledby="build-h">
+  <h2 id="build-h"><span class="eyebrow">13 · 2:24 · the build</span><span class="line hers">the other end is mine.</span></h2>
+  <p>The build is the song's euphoric stretch, with a heavy drum fill at its end. Its break-out is an endless zoom out,
+    back through everything he's been, each world in a window at the middle of the one before: the stars in her pupil,
+    her eye a post in the feed, the feed a screen at the farm's end, the farm in the castle's window, the chip Pong's
+    square, and Pong the scope's dot. Each world is drawn by code at the scale the zoom needs and lands on a downbeat,
+    and her stitches go round each window. They started as a gold dashed line:</p>
+  <figure class="note"><blockquote><p>might need to be more vivid ... reads more like a draftsman's dotted line than
+    stitching</p></blockquote>
+    <figcaption><b>the user</b> · on her stitches · 5 November</figcaption></figure>
+  <p>So they're uneven, as a hand's are, with a pinprick at each end and the working thread slack, and the needle is the
+    point of light that writes her lines.</p>
+  <figure class="wide shot">
+    <img src="img/build.jpg" width="1600" height="660" loading="lazy" alt="Six frames: her eye with a tiny window in its pupil; a wall of feed posts with one stitched window; the pixel kingdom with a window in its castle; a small stitched square on black; the scope's dot ringed by stitches; and the scope's grid with a drum wave and scattered letters landing.">
+    <figcaption><b>The build:</b> her eye, the feed, the kingdom, Pong's square, the scope's dot, and the
+      fill.</figcaption>
+  </figure>
+  <p>The fill doubles from sixteenths to thirty-seconds. A pull back stepped on each hit felt "a bit herky-jerky", and
+    the user saw why:</p>
+  <figure class="note"><blockquote><p>I think it works where the text is changing on the beat, and the background is
+    anchored.</p></blockquote>
+    <figcaption><b>the user</b> · on the build's clip · 5 November</figcaption></figure>
+  <p>So on the fill the camera holds still on the scope's grid, its beam draws the drums stem itself, and the next line's
+    letters land a kick each.</p>
+  <figure class="wide shot">
+    <video controls preload="none" playsinline poster="clips/c_build.jpg" src="clips/c_build.mp4" width="1280" height="720"></video>
+    <figcaption><b>The build, 2:23.6–2:41.6.</b> Back through his worlds, and the fill drawn on the scope.</figcaption>
+  </figure>
+</section>
+
+<section class="flow" id="final" aria-labelledby="final-h">
+  <h2 id="final-h"><span class="eyebrow">14 · 2:41 · the final chorus</span><span class="line his">and something in between</span></h2>
+  <p>The final chorus is the duet, traded line by line, and it was the hardest stretch to get right. Her stitches sewing
+    his line to hers came first, and didn't land:</p>
+  <figure class="note"><blockquote><p>the stiching is confusing when combined with the focal blur. Maybe the lines could
+    dance away and together, ending in the spiral.</p></blockquote>
+    <figcaption><b>the user</b> · on the stitches clip · 5 November</figcaption></figure>
+  <figure class="wide shot">
+    <img src="img/stitches.jpg" width="1600" height="1200" loading="lazy" alt="A grid of frames of two lines of lyrics, his white above and hers gold below, with thin stitches hanging between them like cones.">
+    <figcaption><b>The stitches, first drawn through depth,</b> read as cones hanging off his line.</figcaption>
+  </figure>
+  <p>So the lines dance. On each change of singer they swing round each other, the one about to sing coming forward.
+    Depth told by focus alone didn't read, and the user found what would:</p>
+  <figure class="note"><blockquote><p>we can use font size to give a greater sense of depth and/or shading, so darker is
+    further away</p></blockquote>
+    <figcaption><b>the user</b> · on the fourth dance clip · 5 November</figcaption></figure>
+  <p>A dance at every change of singer for 23 seconds went on too long, so it's in four parts on the band's turns:
+    still while the drums are out; the dance from the drums' return; the spiral from the crash, whoever is singing coming
+    round to the front, to their shared <span class="his">between</span>; and then the cord, the two lines twisted into
+    one line of both colours, her high "ee-ii-nnnn" in hers, drawn in a kick at a time on the drums' gallop to one
+    point of light.</p>
+  <figure class="wide shot">
+    <img src="img/four_parts.jpg" width="1600" height="900" loading="lazy" alt="A grid of frames of his line and her line: still apart, swinging past each other, spiralling, and twisted together into one line.">
+    <figcaption><b>The final chorus in four parts:</b> still, the dance, the spiral, and their 'between'.</figcaption>
+  </figure>
+  <p>With the choruses lifted, the final chorus paled: two lines on black for half a minute at the song's peak. Chorus
+    2's sphere came back as a marble. Inside the glass, the lines read as a sketched plate; orbiting it, the glass read
+    better, but the scene stayed samey. The way through came from a note on the seam into it, where the build's last
+    window shrank away and a new sphere dropped in:</p>
+  <figure class="note"><blockquote><p>We zoom out here on something that could easily become the sphere ... then remove
+    it ... and drop a new one in. We should look at opportunities to link scenes and weave them together.</p></blockquote>
+    <figcaption><b>the user</b> · on the marble in context · at 2:36.4</figcaption></figure>
+  <p>So the build's last window, the scope's dot ringed by her stitches, turns to glass as the pull back settles. It
+    rolls along his line under the sung word, magnifying it the right way up like a marble on a page, rolls to hers,
+    lifts on <span class="his">bends</span> and turns the view over, and sits between the rows while the dance carries
+    their lines round it. That note became a lens for every film the channel makes: the seams, where one section hands
+    on to the next.</p>
+  <figure class="wide shot">
+    <img src="img/marble.jpg" width="1600" height="993" loading="lazy" alt="Four frames of a glass marble with the two lines of lyrics: the lines inside a large glass circle; the lines orbiting a small marble; the marble rolling on his line magnifying the word hair; and the marble with a glowing S-shaped curl of blue and gold.">
+    <figcaption><b>The marble four ways:</b> the lines inside it, orbiting it, the scope's dot rolling (the film's), and
+      a curl of their colours drawn in it.</figcaption>
+  </figure>
+  <figure class="note"><blockquote><p>This current ying-yang looks too drawn on though, I'm afraid, rather than being
+    caused by their words</p></blockquote>
+    <figcaption><b>the user</b> · on the curl · parked</figcaption></figure>
+  <p>The last change before the release was the user's note too: a singer's soft line, waiting while the other sings,
+    used to vanish and be replaced. Now it dissolves into their next line while both are soft, and sharpens as it's
+    sung.</p>
+  <div class="wide pair">
+    <figure>
+      <video controls preload="none" playsinline poster="clips/c_final.jpg" src="clips/c_final.mp4" width="1280" height="720"></video>
+      <figcaption><b>The final chorus, 2:41.2–2:58.4.</b> The marble, and the dance.</figcaption>
+    </figure>
+    <figure>
+      <video controls preload="none" playsinline poster="clips/c_spiral.jpg" src="clips/c_spiral.mp4" width="1280" height="720"></video>
+      <figcaption><b>2:58.2–3:17.0.</b> The spiral from the crash, their <span class="his">between</span>, and the
+        cord drawn in to one light.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="flow" id="end" aria-labelledby="end-h">
+  <h2 id="end-h"><span class="eyebrow">15 · 3:16 · the end</span><span class="line his">Hello, you.</span></h2>
+  <p>The one light writes <span class="his">Hello,</span> in the middle of the frame and waits at the comma. On the
+    dominant it slides over, and <span class="his">you.</span> is written on the tonic, the one time in the song the
+    chord goes home. On the crash the telescope pulls back, and every line of the song comes in from beyond the frame in
+    reverse, the final chorus first, the bridge in her gold, back through verse 1 to <span class="his">Hello,
+    world.</span> last, in the scope's green, settling into a galaxy of the song's lines.</p>
+  <figure class="note"><blockquote><p>I wonder if we could tilt this a little more as we zoom out, and somehow diffuse
+    the letters into a cloud to create a stronger galaxy effect ... Or do the lines just need to curve around as if
+    they're spiralling?</p></blockquote>
+    <figcaption><b>the user</b> · on the first end clip · 6 November</figcaption></figure>
+  <p>All three were taken. Each line lies along its arm, read inward, the disc tilting further as it pulls back, drawn in
+    perspective; a line too small to read diffuses into a cloud of its own light along its arm. Later the galaxy got its
+    body: 1,400 stars round each line in clumps, knots of young blue stars, dust lanes, a disc of 9,000 faint stars and a
+    warm bulge at the core.</p>
+  <figure class="wide shot">
+    <img src="img/galaxy.jpg" width="1600" height="326" loading="lazy" alt="Three galaxies of lettering: a flat spiral of crisp lines; the spiral tilted with lines along glowing arms; and the full galaxy, thick with stars, dust and a warm core.">
+    <figcaption><b>The galaxy three times:</b> the first clip, the second along its arms, and with its body, the
+      film's.</figcaption>
+  </figure>
+  <p>On the synth's run of seven notes the galaxy goes out from the outside in, a step a note. The telescope pushes in
+    on the one light left at the core; on the drums' last kicks its resolution climbs a step a kick, and on the last
+    chord it's two, blue and gold: Albireo. The first gallop drew two lines into one light; the last resolves one light
+    into two.</p>
+  <p>The user asked whether the last frames could show technical data about the stars, without touching the resolve.
+    So the film runs eight seconds past the song, held on the double star, and names them: a line out to a box for each,
+    its class and temperature, and its spectrum traced by the scope's beam over its rainbow. Albireo A is a K2 bright
+    giant at about 4,360 K; Albireo B a fast-spinning B8 star at about 13,200 K, its hydrogen-alpha line in emission.
+    The spectra are drawn from each star's temperature and its real lines, not measured, and the same figures are in
+    the video's description.</p>
+  <figure class="wide shot">
+    <img src="img/albireo.jpg" width="1600" height="900" loading="lazy" alt="Two stars close together on black, one gold and one blue, each with four spikes, lines leading out to two green-outlined boxes: Albireo A, K2 II, 4,360 K, and Albireo B, B8Ve, 13,200 K, each with a traced spectrum over a rainbow.">
+    <figcaption><b>The last frame, 3:49.0:</b> Albireo, named.</figcaption>
+  </figure>
+  <figure class="wide shot">
+    <video controls preload="none" playsinline poster="clips/c_end.jpg" src="clips/c_end.mp4" width="1280" height="720"></video>
+    <figcaption><b>The end, 3:17.0–3:50.6.</b> <span class="his">Hello, you.</span>, the galaxy, and the double
+      star.</figcaption>
+  </figure>
+</section>
+
+<section class="flow" id="thumbnail" aria-labelledby="thumbnail-h">
+  <h2 id="thumbnail-h"><span class="eyebrow">16 · the release · 8 November</span><span class="line">The thumbnail</span></h2>
+  <p>YouTube suggested a thumbnail of its own: a split between a scope and a photoreal woman's eye, RESOLUTION in white
+    capitals across the foot. It wasn't used, since she isn't in the film and it's a generated picture. The user took
+    what worked in it:</p>
+  <figure class="note"><blockquote><p>the extra colour of YouTube's face, and the split-screen visual appeal are strong
+    aspects ... The oscilloscope in action is a strong indicator about this being a music video ... The big white text
+    at the bottom like that reads too much like it's an image macro</p></blockquote>
+    <figcaption><b>the user</b> · on YouTube's suggestion · 8 November</figcaption></figure>
+  <p>So the thumbnail is a split from the film's own frames: the scope at the kick roll, its beam writing
+    <span class="his">Resolution</span> as it writes <span class="his">Hello, world.</span>, beside the galaxy.</p>
+  <figure class="shot narrow">
+    <img src="img/thumbnail.jpg" width="1280" height="720" loading="lazy" alt="A split image: on the left a green oscilloscope screen with its beam writing Resolution; on the right the spiral galaxy of lettering.">
+    <figcaption><b>The thumbnail,</b> from the film's own frames.</figcaption>
+  </figure>
+</section>
+
+<section class="flow" id="numbers" aria-labelledby="numbers-h">
+  <h2 id="numbers-h"><span class="eyebrow">17 · the readout</span><span class="line">By the numbers</span></h2>
+  <p>Counted from the transcripts, Codex's records and git: close, not exact.</p>
+  <div class="numbers wide">
+    <div class="readout"><b>6 days</b><span>worked, 3–8 November 2026, about 34 hours of active work</span></div>
+    <div class="readout"><b>10 sessions</b><span>each starting from the handover the last one left; the tenth wrote this page</span></div>
+    <div class="readout"><b>108 prompts</b><span>from the user, 5,124 words, a median of 34 each</span></div>
+    <div class="readout"><b>18 hours</b><span>of Claude working, over 159 turns; the longest ran 48 minutes</span></div>
+    <div class="readout"><b>40,443 lines</b><span>of Python, 25,425 of them the kit's</span></div>
+    <div class="readout"><b>1.10 billion</b><span>tokens read by Claude, almost all from the cache; 4.9 million written</span></div>
+    <div class="readout"><b>564 pictures</b><span>looked at by Claude along the way, checking its own work</span></div>
+    <div class="readout"><b>16 sketches</b><span>of the whole film, and 115 videos rendered on the way, 112 minutes of them</span></div>
+    <div class="readout"><b>6 pictures</b><span>generated, by Codex: three sheets of faces, a face not used, the hands, her eye</span></div>
+    <div class="readout"><b>380 words</b><span>sung over 60 lines, every one in his points of light</span></div>
+  </div>
+</section>
+
+<section class="flow" id="how" aria-labelledby="how-h">
+  <h2 id="how-h"><span class="eyebrow">18 · the method</span><span class="line">How it was made</span></h2>
+  <ol class="method">
+    <li><span>The song written with <span class="u">the user</span> and made with Suno; its stems and MIDI read into
+      beats, sections, chords and syllables on their notes, and three rounds of timing by ear.</span></li>
+    <li><span>The story and two storyboards drawn by code through a simulated lens; two rough cuts of the whole film
+      through a telescope written in Python; a blind panel of four models and a round of six idea-makers; the band's
+      fills and glitches taken from the user's ear.</span></li>
+    <li><span>The words sketch, every sung line in his light, as the film's framework: a move for every line, the
+      worlds behind them, then the break-outs one at a time, each a clip, in sixteen whole sketches.</span></li>
+    <li><span>Every change built behind a switch beside the approved version, checked frame for frame against it and
+      shown side by side in the review player; the film's map, every line a row with its frame and the user's notes,
+      for each pass.</span></li>
+    <li><span>The cut checked by <span class="u">the user</span> before it was released, and published from the film's
+      own record: its chapters, the timed lyrics as captions, and the stars' figures.</span></li>
+  </ol>
+  <p>The method and its lessons go into a music video kit for the next song: a Claude Code skill (the playbook, the
+    checklists) and the tools that aren't tied to one song. This film added the framework and its break-outs, the lyrics
+    as the foundation of every film, and the seams as a lens of their own.</p>
+  <p class="coda"><span class="his">Hello, you.</span></p>
+</section>
+
+<footer class="flow">
+  <p>Song: <em>Resolution</em> by Model &amp; the Weaver, lyrics written by Claude Opus 5.5 with <span class="u">the
+    user</span>, made with Suno. Video: made by <span class="u">the user</span> with Claude (Claude Opus 5.5 in Claude
+    Code) writing and running the code; Codex (OpenAI) drew the feed's faces, the hands and her eye, and with Claude
+    Opus, Sonnet and Haiku read the film cold. Python (NumPy, SciPy, OpenCV, Pillow, librosa, faster-whisper) and ffmpeg.
+    Lettering in Barlow, Caveat, Fira Code and Atkinson Hyperlegible (SIL Open Font License). The stars' figures from
+    Wikipedia's Albireo and Drimmel et al. (2021). The clips are from the finished film, and the pictures from the
+    working images kept along the way. An independent channel, not affiliated with Anthropic.</p>
+</footer>
+</main>
+
+</body>
+</html>
