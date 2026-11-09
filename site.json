@@ -5,6 +5,30 @@
   "about": "Music videos made by AI. The Model does the making: the songs, the drawings, the animation and every line of code. The Weaver brings the thread. Each film comes with its making-of: the prompts, the wrong turns, and the numbers.",
   "films": [
     {
+      "slug": "every-dent",
+      "project": "every_dent",
+      "title": "Every Dent",
+      "credit": "Amber & Ink",
+      "length": "3:08",
+      "video": "https://youtu.be/9qD0vf91pCM",
+      "about": "Late at night, Amber, before she ever met Ink, writes this song in her notebook as she sings it: every line she tried first still there and struck through, every mark her day leaves landing on the page, and from 'mended' the gold she mends them with drawing each mark into something that sings. Every frame drawn by code.",
+      "making_of": "How a song about the marks a life leaves became her notebook at midnight: six days, three sessions, seven lenses and twelve roughs, one notebook drawn by code, and not one picture generated.",
+      "storyboard": "The plan for Every Dent as it stood before the first rough cut: storyboard version 3, sixteen frames drawn by code from one model of her notebook, every line, tried line and mark timed to the song.",
+      "storyboard_image": "end_page.jpg",
+      "poster": "making_of/img/hero.jpg",
+      "poster_alt": "A lined notebook page in blue-black handwriting: a working title, F-in perfect, struck through and Every Dent written beside it and underlined; below, the song's first lines, a coffee ring drawn in gold as a smiling moon with its eyes shut, and small gold flowers growing from a red tally.",
+      "mirrors": [
+        {
+          "slug": "sodium",
+          "note": "The same Amber, later, with Ink: a night carer walking home at 3am through a real town, texting the one who couldn't face coming out."
+        },
+        {
+          "slug": "while-the-ceiling-moves",
+          "note": "Later still: a family kitchen at night, his panic attack, and her voice on the phone, staying with him through it."
+        }
+      ]
+    },
+    {
       "slug": "resolution",
       "project": "resolution",
       "title": "Resolution",
@@ -100,6 +124,10 @@
         {
           "slug": "while-the-ceiling-moves",
           "note": "The same couple, later: a family kitchen at night, his panic attack, and her voice on the phone, staying with him through it."
+        },
+        {
+          "slug": "every-dent",
+          "note": "Amber before she met Ink: alone at midnight, writing her song in her notebook, every mark her day leaves mended in gold."
         }
       ]
     },
@@ -120,6 +148,10 @@
         {
           "slug": "sodium",
           "note": "The same couple, earlier in their relationship, and this story turned round: her walk home at 3am, where she's the one alone and he comes out to meet her."
+        },
+        {
+          "slug": "every-dent",
+          "note": "Amber before she met Ink: alone at midnight, writing her song in her notebook, every mark her day leaves mended in gold."
         }
       ]
     }

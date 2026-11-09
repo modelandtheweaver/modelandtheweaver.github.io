@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<meta name="description" content="How a song about the marks a life leaves became her notebook at midnight: six days, three sessions, seven lenses and twelve roughs, one notebook drawn by code, and not one picture generated.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Making Every Dent">
+<meta property="og:description" content="How a song about the marks a life leaves became her notebook at midnight: six days, three sessions, seven lenses and twelve roughs, one notebook drawn by code, and not one picture generated.">
+<meta property="og:url" content="https://modelandtheweaver.github.io/every-dent/">
+<meta property="og:image" content="https://modelandtheweaver.github.io/every-dent/img/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/mark.png">
+<title>Making Every Dent</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Kalam:wght@400&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: her notebook under the lamp. Cream ruled paper by day, a red margin down the reading column, the text in
+   blue-black biro; the walnut desk at night in the dark. Chapter titles in her hand (Caveat, the film's own font);
+   the songwriter's words are pencilled notes in the margin's colour; gold is the mend. Pictures and clips break out
+   wider than the column, as the film's frames. */
+:root {
+  --bg: #f6efdc;          /* the page */
+  --rule: rgba(84, 112, 168, 0.16);
+  --margin: rgba(196, 72, 64, 0.5);
+  --text: #1d2547;        /* biro */
+  --muted: #5d5a52;
+  --pencil: #4e4a44;
+  --gold: #9a6c14;
+  --red: #b4372c;
+  --frame: #2a1d14;       /* the desk, round the pictures */
+  --cap: #5d5a52;
+  --hand: "Caveat", "Kalam", "Comic Sans MS", cursive;
+  --label: "Kalam", "Caveat", cursive;
+  --body: "Atkinson Hyperlegible", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --col: 66ch;
+  --wide: 1080px;
+  --line: 1.65rem;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #1d1510; --rule: rgba(240, 220, 180, 0.05); --margin: rgba(224, 122, 106, 0.35); --text: #f1e7d0;
+  --muted: #c9b99a; --pencil: #d8ccb2; --gold: #e2b555; --red: #e88a7a; --frame: #0e0a07; --cap: #c9b99a;
+  color-scheme: dark;
+} }
+:root[data-theme="dark"] {
+  --bg: #1d1510; --rule: rgba(240, 220, 180, 0.05); --margin: rgba(224, 122, 106, 0.35); --text: #f1e7d0;
+  --muted: #c9b99a; --pencil: #d8ccb2; --gold: #e2b555; --red: #e88a7a; --frame: #0e0a07; --cap: #c9b99a;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  background-color: var(--bg);
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--line) - 1px),
+                    var(--rule) calc(var(--line) - 1px), var(--rule) var(--line));
+  color: var(--text);
+  font: 400 1.0625rem/var(--line) var(--body);
+  margin: 0;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 72px;
+  overflow-wrap: break-word;
+}
+a { color: var(--gold); text-decoration-thickness: 1.5px; text-underline-offset: 3px; }
+a:focus-visible, video:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 3px; }
+img, video { display: block; max-width: 100%; height: auto; }
+code { font: 0.86em var(--mono); overflow-wrap: anywhere; }
+.col { max-width: var(--col); margin-inline: auto; position: relative; }
+@media (min-width: 760px) {
+  .col { padding-left: 2.2rem; border-left: 2px solid var(--margin); }
+}
+header { padding-top: clamp(40px, 9vw, 96px); }
+.kicker { font: 500 0.82rem/1.4 var(--mono); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin: 0; }
+h1 { font: 700 clamp(3rem, 11vw, 5.6rem)/1 var(--hand); margin: 0.2em 0 0.15em; letter-spacing: 0.01em; }
+h1 .struck { position: relative; color: var(--muted); font-weight: 500; font-size: 0.6em; display: inline-block; margin-right: 0.35em; }
+h1 .struck::after { content: ""; position: absolute; left: -2%; right: -2%; top: 52%; border-top: 3px solid var(--text); transform: rotate(-3deg); }
+h1 .title { border-bottom: 4px solid var(--text); padding-bottom: 0.02em; }
+.lede { font-size: 1.18rem; line-height: 1.6; margin: 0.8em 0 1em; }
+.watch { font: 400 1rem/1.5 var(--body); color: var(--muted); }
+h2 { font: 700 clamp(2.1rem, 6vw, 2.8rem)/1.05 var(--hand); margin: 2.4em 0 0.4em; }
+h2 .n { display: block; font: 500 0.78rem/1.6 var(--mono); letter-spacing: 0.05em; text-transform: uppercase; color: var(--red); margin-bottom: 0.3em; }
+p { margin: 0 0 var(--line); }
+.said {
+  font: 400 1.32rem/1.45 var(--label);
+  color: var(--pencil);
+  margin: 0.2rem 0 var(--line);
+  padding-left: 1rem;
+  border-left: 3px solid var(--gold);
+}
+.said cite { display: block; font: italic 400 0.92rem/1.5 var(--body); color: var(--muted); margin-top: 0.2rem; }
+/* The redaction bar holds one size whatever it shows (the bar, the scramble, "[EXPUNGED]"), so the line never
+   reflows under the reader (the user: "changes the size of the text and causes the paragraph to jump around"). */
+.x { display: inline-block; box-sizing: content-box; width: 6.6em; height: 1.3em; overflow: hidden; white-space: nowrap;
+     vertical-align: -0.28em; background: var(--text); border-radius: 2px; color: var(--bg);
+     font: 500 0.82em/1.3em var(--mono); text-align: center; letter-spacing: 0; }
+.x.scr { background: transparent; color: var(--red); }
+figure { margin: 1.4rem auto calc(var(--line) + 0.4rem); max-width: var(--col); }
+figure.wide { max-width: var(--wide); }
+figure img, figure video { width: 100%; border-radius: 3px; background: var(--frame); box-shadow: 0 6px 22px rgba(0, 0, 0, 0.18); }
+figcaption { font: 400 0.92rem/1.5 var(--body); color: var(--cap); margin-top: 0.6rem; max-width: var(--col); margin-inline: auto; }
+figcaption b { color: var(--text); font-weight: 700; }
+.wrap-wide { max-width: var(--wide); margin-inline: auto; }
+dl.numbers { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; margin: 0 0 var(--line); }
+dl.numbers dt { font: 700 1.6rem/1.2 var(--hand); color: var(--red); text-align: right; }
+dl.numbers dd { margin: 0; align-self: center; }
+ul.made { padding-left: 1.2rem; margin: 0 0 var(--line); }
+ul.made li { margin-bottom: 0.35rem; }
+footer { margin-top: 3rem; color: var(--muted); font-size: 0.92rem; }
+#mirrors { margin-top: 3rem; }
+#mirrors .mirror { margin-bottom: 0.9rem; border-color: var(--margin); background: color-mix(in srgb, var(--bg) 85%, var(--text) 4%); }
+@media (max-width: 420px) {
+  dl.numbers { grid-template-columns: 1fr; }
+  dl.numbers dt { text-align: left; }
+}
+</style>
+<style>#mirrors .mirror{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,3fr);gap:0.9rem 1.25rem;align-items:center;padding:0.9rem;border:1px solid var(--rule);border-radius:6px;color:inherit;text-decoration:none}#mirrors .mirror img{display:block;width:100%;height:auto;border-radius:3px}#mirrors .mirror strong{display:block;font-size:1.15em;text-decoration:underline;text-underline-offset:3px}#mirrors .mirror .by{display:block;margin:0.15rem 0 0.5rem;color:var(--muted);font-size:0.9em}#mirrors .mirror:focus-visible{outline:2px solid currentColor;outline-offset:3px}@media (max-width:560px){#mirrors .mirror{grid-template-columns:1fr}}</style>
+</head>
+<body>
+<main>
+<div class="col">
+<header>
+  <p class="kicker">Amber &amp; Ink · a music video · the making-of</p>
+  <h1><span class="struck">F-in perfect</span> <span class="title">Every Dent</span></h1>
+  <p class="lede">How a song about the marks a life leaves became her notebook at midnight: the song written out as
+    it's sung, every line she tried first still there and struck through, every mark her day leaves landing on the
+    page, and the gold she mends them with drawing each one into something that sings. Six days, three sessions, one
+    notebook drawn by code, and not one picture generated.</p>
+  <p class="watch"><a href="https://youtu.be/9qD0vf91pCM">Watch Every Dent on YouTube</a> (3:08; age-restricted
+    there for its language, so YouTube asks you to sign in).</p>
+</header>
+</div>
+
+<figure class="wide">
+  <img src="img/hero.jpg" width="1600" height="900" alt="A lined notebook page in blue-black handwriting: a working title, F-in perfect, struck through and Every Dent written beside it and underlined; below it the song's first lines, a coffee ring drawn in gold as a smiling moon with its eyes shut, and a row of small gold flowers growing from a red tally.">
+  <figcaption><b>3:05.8.</b> The working title struck, the song's own written beside it. The coffee ring is the moon
+    now, humming, and the red-pen tally has grown flowers.</figcaption>
+</figure>
+
+<div class="col">
+
+<h2><span class="n">01 · the song</span>Every dent in me is proof I tried</h2>
+<p>The song is <span class="x" aria-label="name withheld"></span>'s, made in Suno and credited to Amber &amp; Ink:
+  crooked UK garage art-pop, 3:08, one voice, hers, alone with a detuned guitar at the start and under a huge choir of
+  herself by the end. Its words were drafted by Claude Opus 4.8 in the songwriter's own lyric tool and revised there,
+  and the history of every line survives: what was tried, what was struck, what was kept. Its first draft, on a blank
+  page, was called "F-in Perfect".</p>
+<p>It has dents of its own. The mix drops to digital silence inside "dropped-call", cuts three times through
+  "airbrushed", stops dead before the outro and cuts off mid-groove at the end. And the last chorus turns the
+  earlier ones' "not the airbrushed kind" into "not the hairbrushed kind", which a transcriber hears as "washed".</p>
+<blockquote class="said">It is 'hairbrushed'. I put that deliberately and Suno managed to enunciate it well enough to
+  keep.<cite>The songwriter, before a single frame was made</cite></blockquote>
+
+<h2><span class="n">02 · the timings · 22 October to 6 November</span>Glitch, not lyric</h2>
+<p>A film where words appear as they're sung needs every syllable timed. A speech model hears the song, an aligner
+  matches what it heard to the real lyrics, and then the ear decides: six rounds of a check video, each word lit as
+  it's sung, the songwriter noting the ones that came early or late. 141 pins in all, each with its reason. A sparse
+  mix of hats, rims and clicks fooled the machine at every turn: its silences read as dropouts.</p>
+<blockquote class="said">Lots sounds like dropouts and crashbacks, but they're just the regular sound of the
+  mix.</blockquote>
+<p>And every chorus stutters, "eh-eh-every", "N-n-n-not". Printed, a stutter is a typo; sung, it's the song breaking
+  up on purpose.</p>
+<blockquote class="said">It's glitch rather than printable lyric.</blockquote>
+
+<h2><span class="n">03 · the story · 6 November</span>Her page</h2>
+<p>The story proposed was the plainest one: the song is her page. Late at night, Amber, before she ever met Ink,
+  writes it in her notebook as she sings it.</p>
+<blockquote class="said">I think it's literally the song as she's writing it; this is her notebook, her
+  thoughts.</blockquote>
+<p>So the lines she tried first are on the page too, struck through, and they're the song's real drafts, from the
+  lyric tool's history. Her day leaves its marks on the page as the song names them: the crack across her phone
+  screen, a coffee ring, a red-pen score, a glass of wine knocked over. When she sings "mended", gold ink draws each
+  mark into something, and in the last chorus the drawings sing along.</p>
+<blockquote class="said">The end result is the full song, warts and all on the scribbled page.</blockquote>
+<p>No hands, and no pen. A pen was tried in verse 1 both ways and dropped:</p>
+<blockquote class="said">I feel like it's likely to look like a gimmick unless we can either make use of it, or
+  animate it with the writing, but even so it would need a hand, which would potentially be a nightmare to get
+  right.</blockquote>
+<p>The words write themselves.</p>
+
+<h2><span class="n">04 · the first rough · 6 November</span>One notebook, drawn by code</h2>
+<p>Everything in the film is one model of her notebook in Python: two A4 pages on a desk under a lamp, each word
+  laid out on its rule in a handwriting font and timed to its syllables, each mark with the moment it lands. The
+  storyboard's sixteen frames were drawn by that model, and the same model, given a camera, drew the whole song: the
+  first rough, the evening the story was chosen. It was approved as it stood, and from then on every change was a
+  change to the model, never to a picture.</p>
+<figure class="wide">
+  <img src="img/storyboard.jpg" width="1600" height="448" alt="Two frames side by side of a notebook page with the line I've got a crack across my phone screen being written: the storyboard's version on the left, the finished film's on the right with a cracked black phone lying beside the page.">
+  <figcaption><b>Storyboard v3 and the film, 0:02.</b> The same model drew both; the film's is lit, grained and
+    framed by everything that came after.</figcaption>
+</figure>
+
+<h2><span class="n">05 · the method · 7 to 8 November</span>Seven lenses, twelve roughs</h2>
+<p>Then the film went through lenses, one at a time, each a single question asked of every moment on one page, a
+  map of the film: <b>content</b> (does each moment show what's sung?), <b>attention</b> (where does the eye go?),
+  <b>motion</b> (does the camera move like a hand would?), <b>seams</b> (does each section grow out of the last?),
+  <b>characters</b> (what do her marks become?), <b>words</b> (does the writing look written?) and <b>look</b> (is
+  each thing a step nearer the real thing?). Each was drafted on the map, agreed, built into the next rough, reviewed
+  and approved before the next began. Twelve roughs of the whole song in three days, each about half an hour to
+  render.</p>
+<p>The attention lens has a tool of its own: a modelled eye that watches each rough and reports, for every moment
+  that matters, whether the eye got there, and when. It caught that verse 1's crack, a thin line on a dark phone at
+  the frame's edge, was never looked at; the look lens's broken glass, catching the lamp, is what finally drew it.</p>
+
+<h2><span class="n">06 · 0:00 · verse 1</span>I've got a crack across my phone screen</h2>
+<p>The first rough followed the writing, and so it lost what happened elsewhere: the crack, the gold, the singers,
+  the title. The content lens sent the camera where things are made, out to the phone as its line is written, back
+  as the coffee ring lands with its mug's shadow.</p>
+<figure class="wide">
+  <img src="img/first_rough.jpg" width="1600" height="448" alt="Two frames at the same moment: on the left the first rough, a pen writing I've got a crack acro with no phone in sight; on the right the film, the camera pulled out to show the cracked phone on the desk beside the page.">
+  <figcaption><b>0:02.2, the first rough and the film.</b> The pen went in that same session; the phone came into
+    shot with the content lens, and grew to its real size with the look lens.</figcaption>
+</figure>
+<figure class="wide">
+  <video controls preload="none" playsinline poster="clips/c_crack.jpg" src="clips/c_crack.mp4" width="1280" height="720"></video>
+  <figcaption><b>0:00 to 0:06.</b> The blank page, the crack, the ring.</figcaption>
+</figure>
+
+<h2><span class="n">07 · 0:32 · the pre-choruses</span>So call me a mess</h2>
+<p>A rim-shot lands on "mess" like a slap, and the words do what they're told: the line is thrown up off its rule
+  and falls back crooked. The first version dropped too fast:</p>
+<blockquote class="said">The words jump down a bit too quickly.</blockquote>
+<p>So the motion lens gave them weight: up and over in 0.4 s with a bounce, and they lift again on her harmonies and
+  settle askew on the clicks.</p>
+<figure class="wide">
+  <img src="img/slap.jpg" width="1600" height="904" alt="Four frames of the notebook: a line of handwriting knocked up off its rule, falling, and settling crooked under the line above, with x2 written beside the pre-chorus.">
+  <figcaption><b>0:33.9 to 0:42.6.</b> The slap, the fall, and the knocked words left crooked.</figcaption>
+</figure>
+<figure class="wide">
+  <video controls preload="none" playsinline poster="clips/c_slap.jpg" src="clips/c_slap.mp4" width="1280" height="720"></video>
+  <figcaption><b>0:32.6 to 0:38.6.</b></figcaption>
+</figure>
+
+<h2><span class="n">08 · 0:49 · chorus 1</span>The dropped-call, spilled-wine kind</h2>
+<p>The working title's "f-in" is struck as the chorus opens on the song's one real dropout. Through the mix's three
+  cuts in "airbrushed", her pen fails: no ink over a cut, only its line pressed bare into the paper, the ink coming
+  back unevenly. The first try lifted the pen and left strokes out, and a stroke left out is a different
+  letter:</p>
+<blockquote class="said">Dropped is less dropped than before and reads more like droppod-call.</blockquote>
+<figure class="wide">
+  <img src="img/droppod.jpg" width="1600" height="198" alt="Two close crops of the same handwritten line: on the left The droppod-call, a missing stroke turning an e into an o; on the right The dropp-d-call with the e pressed bare into the paper but still an e.">
+  <figcaption><b>0:55.9, rough v9 and the film.</b> A lifted pen leaves strokes out; a failing one presses them in
+    bare, so the letter still reads.</figcaption>
+</figure>
+<p>Then the glass goes over, on "spilled-wine", and the stain spreads down the page. On "proof I tried" three
+  tried lines follow, struck through one a beat.</p>
+<figure class="wide">
+  <video controls preload="none" playsinline poster="clips/c_chorus1.jpg" src="clips/c_chorus1.mp4" width="1280" height="720"></video>
+  <figcaption><b>0:49.4 to 0:58.0.</b> "F-in" struck, "airbrushed" failing, the dropped call, the glass.</figcaption>
+</figure>
+<figure class="wide">
+  <img src="img/drafts.jpg" width="1600" height="900" alt="Chorus 1 written out on the notebook page, three tried lines struck through beneath it, a pink wine stain running down the right side of the page.">
+  <figcaption><b>1:06.4.</b> The tries struck, the song's real drafts: lines that were in it once.</figcaption>
+</figure>
+
+<h2><span class="n">09 · 0:59 · her pen skipping</span>Eh-eh-every</h2>
+<p>The stutter became her pen skipping, the songwriter's own idea:</p>
+<blockquote class="said">I wonder if the e-e-e glitch could be her scribbling her pen to get it working.</blockquote>
+<p>The first scribbles were loops, and "the circles and dots don't read as getting a pen working". The note that
+  fixed them is a precise description of a dry biro:</p>
+<blockquote class="said">More likely to be a few quick left/right up/down zig-zags with the start being just marking
+  the paper, no ink, with the ink coming unevenly to begin with.</blockquote>
+<figure class="wide">
+  <img src="img/scribbles.jpg" width="1600" height="276" alt="Two crops of the page margin beside chorus 1: on the left a row of small loops; on the right a tight burst of zig-zags, half pressed dry into the paper and half in patchy ink.">
+  <figcaption><b>1:01.0, rough v9 and rough v10.</b> Loops, then zig-zags: a burst a pulse of the stutter, the first
+    dry, the ink coming in blotchy.</figcaption>
+</figure>
+<p>And on the last review, one more thought, which the film took:</p>
+<blockquote class="said">The scribbles would land better if the pen starts going wrong on the 'perfect' beforehand,
+  which is also nicely ironic.</blockquote>
+<figure class="wide">
+  <video controls preload="none" playsinline poster="clips/c_skip.jpg" src="clips/c_skip.mp4" width="1280" height="720"></video>
+  <figcaption><b>0:58.9 to 1:02.9.</b> "Perfect" faltering, then the zig-zags, then "Every" when the pen
+    catches.</figcaption>
+</figure>
+
+<h2><span class="n">10 · 1:11 · verse 2 and pre-chorus 3</span>Too much room</h2>
+<p>The camera breathes out across the gutter to the other page. "Too much room, too loud" grows as it's written,
+  "rewrote myself in smaller letters" shrinks, and a line she sings to the mirror is written mirrored. Pre-chorus 3
+  stretches to twice its length in the song, so its words stretch with it, the spaces pulling wider like an elastic
+  band, until it's let go and the camera snaps back across the spread to chorus 1. The first snap was a glide; then a
+  snap too quick to catch; then a spring, let go on the beat, its overshoot settling on the downbeat two beats later,
+  0.94 s in all.</p>
+<blockquote class="said">It doesn't seem to snap back.</blockquote>
+<figure class="wide">
+  <img src="img/snap.jpg" width="1600" height="904" alt="Four frames: the pre-chorus line stretched wide across the page, the camera whipping left across the spread in a motion blur, and chorus 1 coming back into view lit warm.">
+  <figcaption><b>1:42.4 to 1:46.6.</b> Taut, let go, the snap, and chorus 1 relit.</figcaption>
+</figure>
+<figure class="wide">
+  <video controls preload="none" playsinline poster="clips/c_snap.jpg" src="clips/c_snap.mp4" width="1280" height="720"></video>
+  <figcaption><b>1:41.4 to 1:47.4.</b></figcaption>
+</figure>
+<p>One idea was tried here and dropped: the camera stepping syllable by syllable through "So I'm keeping all the
+  pieces". It fit the sound and not the film.</p>
+<blockquote class="said">The skip is a good skip motion in that it fits the sound, but it doesn't work here.</blockquote>
+
+<h2><span class="n">11 · 1:45 · chorus 2</span>Back up the page</h2>
+<p>Chorus 2 isn't written out again. She's singing what's already there, so the camera goes back up the page and each
+  word warms under the lamp as she sings it. One thing is new, the songwriter's note on an early rough: a splash of
+  wine, landing in "kind" and soaking into it, so she writes it again beside the stain.</p>
+<figure class="wide">
+  <video controls preload="none" playsinline poster="clips/c_splash.jpg" src="clips/c_splash.mp4" width="1280" height="720"></video>
+  <figcaption><b>1:50.2 to 1:54.8.</b> The splash on "kind", and "kind" written again.</figcaption>
+</figure>
+
+<h2><span class="n">12 · 2:07 · the bridge</span>The ones who call you broken</h2>
+<p>The bridge is written slowly, its tries struck, and the page tears on "broken". On "mended" the tear is taped. The
+  first idea was gold stitching, the kintsugi of it; the songwriter turned it into something a person would do to a
+  page:</p>
+<blockquote class="said">The fix for the torn paper is a glittery sticker ... rather than gold stitching, which
+  doesn't make sense for paper so much.</blockquote>
+<figure class="wide">
+  <img src="img/tear.jpg" width="1600" height="448" alt="Two frames of the bridge on the right-hand page: a ragged tear running into the page under the word broken, then the tear taped with strips of glinting gold foil.">
+  <figcaption><b>2:17.9 and 2:19.9.</b> Torn on "broken", taped in gold foil on "mended".</figcaption>
+</figure>
+<p>Then the gold runs on, one seam out of the foil and across the spread to every mark in turn, the camera riding its
+  tip. It goes through the page's empty bands, never across a written line, which would read as striking it out.</p>
+<figure class="wide">
+  <video controls preload="none" playsinline poster="clips/c_mend.jpg" src="clips/c_mend.mp4" width="1280" height="720"></video>
+  <figcaption><b>2:16.6 to 2:24.6.</b> The tear, the foil, the gold running on.</figcaption>
+</figure>
+
+<h2><span class="n">13 · 2:21 · the mend</span>Ink-blot art</h2>
+<p>What each mark becomes was the characters lens, and the readings are the songwriter's own, from the marks'
+  shapes:</p>
+<blockquote class="said">This kind of ink-blot-art is about responding to the shape and finding something interesting
+  in it.</blockquote>
+<p>The crack stays a tree. The coffee ring becomes a cross-hatched moon, the tally a row of flowers, the spill an
+  elephant's head with the run of wine its trunk, the small splash a raspberry, the last splash a cartoon star. Each
+  is drawn in flat gold ink in the page, never floating over it, and moves only by being redrawn in a new pose on its
+  own beat. Animated as pieces, they "seem to sit separately from it because they're animated", as the first try
+  was told.</p>
+<figure class="wide">
+  <img src="img/marks.jpg" width="1600" height="904" alt="Four frames of the spread in gold: the phone's crack grown into a gold tree, the coffee ring drawn as a moon beside a row of gold flowers, the wine spill drawn as an elephant with its trunk raised, and a small splash drawn as a star.">
+  <figcaption><b>2:21.6 to 2:33.0.</b> The tree, the moon and the flowers, the elephant, the star.</figcaption>
+</figure>
+
+<h2><span class="n">14 · 2:26 · the final chorus</span>Not the hairbrushed kind</h2>
+<p>The last chorus is written out fresh, because its words changed, and the drawings sing it: rowdily, out of step
+  with each other, never as a tidy choir.</p>
+<blockquote class="said">Choir isn't really the word I'd use, more like rowdy singing.</blockquote>
+<p>Each line's own singer mouths it, though, and that took a note. The moon's open mouth was a tall oval under
+  squinting eyes, swapped on the beat whatever was sung, which is a yawn.</p>
+<blockquote class="said">He's not matching the music terribly well, so seems like he's yawning or
+  something.</blockquote>
+<figure class="wide">
+  <img src="img/yawn.jpg" width="1214" height="360" alt="Two close crops of the gold moon drawn over a coffee ring: on the left squinting eyes over a tall open oval mouth, like a yawn; on the right open eyes and a wide smiling open mouth.">
+  <figcaption><b>2:39.4, rough v11 and the film.</b> Now each syllable has its mouth, from its timing: shut for an
+    m or a p, rounded for "proof", wide for "I tried".</figcaption>
+</figure>
+<figure class="wide">
+  <video controls preload="none" playsinline poster="clips/c_sing.jpg" src="clips/c_sing.mp4" width="1280" height="720"></video>
+  <figcaption><b>2:37.2 to 2:42.2.</b> The moon's line, its "E-e-every" stuttered.</figcaption>
+</figure>
+
+<h2><span class="n">15 · 2:48 · the outro</span>Hum, and shut</h2>
+<p>The lamp goes out on the song's dead stop. Then six hums, each by one of the drawings, and they had their eyes
+  shut and their mouths flat:</p>
+<blockquote class="said">The characters with their eyes closed look like they're asleep, rather than
+  humming.</blockquote>
+<figure class="wide">
+  <img src="img/asleep.jpg" width="1414" height="480" alt="Two crops of the gold elephant and raspberry humming: on the left eyes shut and flat mouths; on the right a smiling eye and smiles, with a musical note beside the raspberry.">
+  <figcaption><b>2:56.5, rough v11 and the film.</b> Eyes shut, smiling, a note as each hums.</figcaption>
+</figure>
+<p>As the hums end she strikes the working title, the song's first, and writes its real one, and underlines it.
+  The song cuts off dead, mid-groove, and the notebook slams shut on it.</p>
+<figure class="wide">
+  <video controls preload="none" playsinline poster="clips/c_end.jpg" src="clips/c_end.mp4" width="1280" height="720"></video>
+  <figcaption><b>3:03.6 to the end.</b> "F-in perfect" struck, "Every Dent" written and underlined, and
+    shut.</figcaption>
+</figure>
+
+<h2><span class="n">16 · her hand · 8 November</span>Stroke by stroke</h2>
+<p>For eight roughs each word was its font, revealed left to right like a wipe, and close up the wipe sliced a
+  letter as it went. The words lens traced the font's letters into the strokes a hand would make and timed every ink
+  pixel to when the pen reaches it, so each letter grows along its strokes in a hand's order, the i's dotted last.
+  Her hand is never the same twice either: one of the font's three sets of letters for each word, a slight turn, a
+  touch bigger or smaller, a line drifting off its rule toward the end.</p>
+<figure class="wide">
+  <img src="img/stroke_vs_wipe.jpg" width="1600" height="1365" alt="A study sheet of four handwritten words, crack, phone, Every and fuckin', each shown at six moments of being written: above each pair, revealed left to right like a wipe that slices letters; below, grown stroke by stroke.">
+  <figcaption><b>The study.</b> Four of the film's words at six moments of their writing: the wipe above, stroke by
+    stroke below.</figcaption>
+</figure>
+
+<h2><span class="n">17 · the look · 8 November</span>A step nearer the real thing</h2>
+<p>The look was right from the first rough, and the songwriter was "hesitant to interfere at all", with one slight
+  steer: the phone's crack and the coffee ring. Then, on a later rough:</p>
+<blockquote class="said">It only becomes apparent on the pulled back shots, how small the phone is compared to what I
+  assume is an A4 pad.</blockquote>
+<p>It was half a phone's size. So the look lens took each thing a step nearer how the real thing looks, drawn the
+  same way, nothing photographic, and showed every option side by side on the film's own frames: the phone at its own
+  size with a shadow, its crack as broken glass catching the lamp, the coffee dried to a tide line at its edge, the
+  wine darker where it dried, a walnut desk, the foil glinting, a brown card cover.</p>
+<figure class="wide">
+  <img src="img/look_crack.jpg" width="1600" height="995" alt="A study sheet comparing three looks for the phone's crack across three moments of the film: thin grey lines, broken glass, and broken glass catching the lamp.">
+  <figcaption><b>The crack, three ways,</b> on three of the film's moments. The third was kept.</figcaption>
+</figure>
+<figure class="wide">
+  <img src="img/look_phone.jpg" width="1600" height="1490" alt="A study sheet comparing the phone at half its size and at its real size beside the A4 page, at three moments of the film.">
+  <figcaption><b>The phone at half its size, and its own.</b></figcaption>
+</figure>
+
+<h2><span class="n">18 · the release · 9 November</span>Upright, and on a loop</h2>
+<p>The roughs ran at 1280×720; the film is 1920×1080, since the page is drawn a unit a pixel and the close camera
+  sees more of it than 720 rows could hold. Its thumbnail is the title she lands on, cropped close so that it still
+  reads at YouTube's smallest size.</p>
+<figure class="wide">
+  <img src="img/thumbnail.jpg" width="1280" height="720" alt="A close crop of the notebook: F-in perfect struck through and Every Dent underlined, the gold moon humming beside the first lines.">
+  <figcaption><b>The thumbnail.</b></figcaption>
+</figure>
+<p>Its three Shorts aren't cropped from it. They're drawn upright by the same model at 1080×1920, the film's camera
+  turned on its side, the page whole as she writes. A Short plays on a loop, so each one is whole bars of the song,
+  the beat carrying through the seam, and at its end the camera settles back onto its first framing, so the only
+  thing that changes at the loop is her page going back to how it was.</p>
+<blockquote class="said">How does this work as a loop?</blockquote>
+<figure class="wide">
+  <img src="img/shorts.jpg" width="1600" height="932" alt="Three tall portrait frames of the notebook page side by side: chorus 1 being written with a wine stain, the bridge with gold foil and gold lines, and the title page with the moon and flowers.">
+  <figcaption><b>The three Shorts:</b> the mess, written; the mend; the marks sing.</figcaption>
+</figure>
+<p>The song swears, sung and written, in every chorus. YouTube restricted one Short for it, and the rest were
+  restricted before they could be. Nothing was bleeped.</p>
+<blockquote class="said">If the short isn't suitable for &lt; 18+ then the film isn't either, and we're not going to
+  censor that either.</blockquote>
+
+<h2><span class="n">19 · the readout</span>By the numbers</h2>
+<dl class="numbers">
+  <dt>6</dt><dd>days worked, 21 October to 9 November, about 15 hours of active work in three sessions</dd>
+  <dt>141</dt><dd>timing pins, each with its reason, after six rounds of the songwriter's ear</dd>
+  <dt>293</dt><dd>words sung, every one written stroke by stroke as it's sung</dd>
+  <dt>7</dt><dd>lenses, each drafted, agreed, built and approved</dd>
+  <dt>12</dt><dd>roughs of the whole song, then the cut</dd>
+  <dt>53</dt><dd>prompts from the songwriter, 1,724 words in all</dd>
+  <dt>3,800</dt><dd>lines of Python of the film's own (her notebook, her hand, the camera, the Shorts), on a kit of
+    18,800 shared with the channel's other films</dd>
+  <dt>0</dt><dd>pictures generated: every frame is drawn by code</dd>
+</dl>
+
+<h2><span class="n">20 · the method</span>How it was made</h2>
+<ul class="made">
+  <li><b>The song:</b> Suno, the lyrics drafted by Claude Opus 4.8 in the songwriter's lyric tool and revised with
+    them; its stems and MIDI read for the beats, the sections and the voices.</li>
+  <li><b>The timings:</b> Whisper and a forced aligner, then the ear: a check video a round, pins placed from the
+    vocal stem's consonants.</li>
+  <li><b>The film:</b> one model of her notebook in Python (NumPy, OpenCV, Pillow): the pages, the words on their
+    rules, each mark and what it becomes, the camera worked out exactly at every frame and blurred when it moves fast.
+    Rendered in parallel, a chunk of the song a process, joined under the mix.</li>
+  <li><b>Her hand:</b> the Caveat font traced into strokes; every ink pixel given the moment the pen reaches it; a
+    failing pen and a skipping one.</li>
+  <li><b>The lenses:</b> a map of the film on one page, a modelled eye for attention, a measure of every camera move
+    against the beat, side-by-side studies for the look.</li>
+  <li><b>Made with</b> Claude Opus 5.5 in Claude Code: story, storyboard, the model, her hand, animation and every
+    script, with <span class="x" aria-label="name withheld"></span> directing.</li>
+</ul>
+
+<section class="flow" id="mirrors" aria-labelledby="mirrors-h">
+  <h2 id="mirrors-h">Mirrors and echoes</h2>
+  <a class="mirror" href="../sodium/">
+    <img src="../sodium/poster.jpg" width="1280" height="720" loading="lazy" alt="A comic panel at night: a woman in an ochre rain mac walks along a wet riverside promenade under Victorian lamps towards a white lattice footbridge.">
+    <span><strong>Sodium</strong><span class="by">Amber &amp; Ink · the making-of</span>The same Amber, later, with Ink: a night carer walking home at 3am through a real town, texting the one who couldn&#x27;t face coming out.</span>
+  </a>
+  <a class="mirror" href="../while-the-ceiling-moves/">
+    <img src="../while-the-ceiling-moves/poster.jpg" width="1280" height="720" loading="lazy" alt="A comic panel: his hand raised against a rippling kitchen ceiling and its strip light, under the title While The Ceiling Moves, Amber &amp; Ink.">
+    <span><strong>While The Ceiling Moves</strong><span class="by">Amber &amp; Ink · the making-of</span>Later still: a family kitchen at night, his panic attack, and her voice on the phone, staying with him through it.</span>
+  </a>
+</section>
+
+<footer class="flow">
+  <p>Every Dent, Amber &amp; Ink. <a href="https://youtu.be/9qD0vf91pCM">The film on YouTube.</a> An independent
+    channel, not affiliated with Anthropic.</p>
+</footer>
+
+</div>
+</main>
+
+<script>
+// The redacted name scrambles now and then: random glyphs, "[EXPUNGED]" for a beat, then the bar again.
+(() => {
+  const bars = Array.from(document.querySelectorAll(".x"));
+  const calm = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!bars.length || calm) return;
+  const glyphs = "#%&@$!?*/=+~^0123456789ABCDEFGHJKLMNPQRSTUVWXYZ";
+  const scramble = () => Array.from({ length: 10 }, () => glyphs[Math.floor(Math.random() * glyphs.length)]).join("");
+  function burst(el) {
+    if (el.classList.contains("scr")) return;
+    el.classList.add("scr");
+    let n = 0;
+    const id = setInterval(() => {
+      n += 1;
+      if (n < 9) { el.textContent = scramble(); return; }
+      clearInterval(id);
+      el.textContent = "[EXPUNGED]";
+      setTimeout(() => { el.textContent = ""; el.classList.remove("scr"); }, 700);
+    }, 55);
+  }
+  function tick() {
+    const seen = bars.filter((el) => { const r = el.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; });
+    if (seen.length) burst(seen[Math.floor(Math.random() * seen.length)]);
+    setTimeout(tick, 1600 + Math.random() * 2600);
+  }
+  bars.forEach((el) => el.addEventListener("mouseenter", () => burst(el)));
+  setTimeout(tick, 1400);
+})();
+</script>
+
+</body>
+</html>
